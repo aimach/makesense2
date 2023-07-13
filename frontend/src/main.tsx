@@ -4,18 +4,19 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import "./index.css";
+import LoginPage from "./pages/LoginPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
-    // children: [
-    //   {
-    //     path: "events/:id",
-    //     element: <Event />,
-    //   },
-    // ],
+    children: [
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+    ],
   },
 ]);
 
