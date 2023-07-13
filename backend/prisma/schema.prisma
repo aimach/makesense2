@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  firstname String
+  lastname String
+  email String  @unique
+  password String
+  avatar String?
+  admin Boolean @default(false)
+  position String
+  service Service @relation(fields: [serviceId], references: [id])
+  serviceId Int
+  comments Comment[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  categories UsersOnDecisions[]
+  groups Group[]
+}
+
+model Service {
+  id Int @id @default(autoincrement())
+  name String @unique
+  users User[]
+}
+
+model Decision {
+  id Int @id @default(autoincrement())
+  title String
+  firstContent String
+  secondContent String
+  utility String
+  context String
+  pros String
+  cons String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  status Status @relation(fields: [statusId], references: [id])
+  statusId Int
+  comments Comment[]
+  categories Category[]
+  users UsersOnDecisions[]
+}
+
+model Status {
+  id Int @id @default(autoincrement())
+  name String
+  decisions Decision[]
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  decision Decision @relation(fields: [decisionId], references: [id])
+  decisionId Int
+  date DateTime @default(now())
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  color String
+  decisions Decision[]
+}
+
+model UsersOnDecisions {
+  decision Decision @relation(fields: [decisionId], references: [id])
+  decisionId Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  type String
+  @@id([decisionId, userId])
+}
+
+model Group {
+  id Int @id @default(autoincrement())
+  name String
+  users User[]
+}
