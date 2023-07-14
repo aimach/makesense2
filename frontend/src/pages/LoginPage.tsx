@@ -9,11 +9,11 @@ export default function LoginPage() {
       <p>Vous n'avez pas de compte ? Créer un compte</p>
       <form>
         <label>
-          Adresse email*
+          Adresse email *
           <input type="email" />
         </label>
         <label>
-          Mot de passe*
+          Mot de passe *
           <input type="password" />
         </label>
       </form>
