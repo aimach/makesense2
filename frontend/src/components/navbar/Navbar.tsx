@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.svg";
 import style from "./Navbar.module.scss";
 import { Home, Calendar, Smile, Menu, User } from "react-feather";
@@ -9,7 +10,9 @@ export default function Navbar() {
 
   return (
     <header className={style.header}>
-      <img src={logo} alt="logo" width={"100px"} />
+      <Link to="/home">
+        <img src={logo} alt="logo" width={"100px"} />
+      </Link>
       <nav>
         <ul>
           <li>
@@ -26,9 +29,12 @@ export default function Navbar() {
           </li>
         </ul>
       </nav>
-      <button onClick={() => setOpenModale(!openModale)}>
+      <button
+        className={style.userMenuButton}
+        onClick={() => setOpenModale(!openModale)}
+      >
         <Menu />
-        <User />
+        <User className={style.userMenuButtonUserIcon} />
       </button>
       {openModale && <UserMenuModale />}
     </header>
