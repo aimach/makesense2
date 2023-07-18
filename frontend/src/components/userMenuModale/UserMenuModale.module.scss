@@ -1,0 +1,11 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.userMenuButtonModale {
+  background-color: v.$color-neutral-100;
+  border-radius: v.$border-radius-rounded;
+  box-shadow: v.$box-shadow-l;
+  a {
+    text-decoration: none;
+  }
+}

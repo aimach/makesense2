@@ -1,3 +1,5 @@
+@use "./variable" as v;
+
 // SOURCES
 // https://dev.to/alemesa/10-awesome-sass-scss-mixins-5ci2
 // https://www.barrage.net/blog/technology/top-8-sass-mixins
@@ -98,5 +100,42 @@ $desktop: 1280;
     visibility: visible;
     opacity: 1;
     transition: visibility 1s, opacity 1s;
+  }
+}
+
+// ELEMENTS
+
+@mixin inputStyle {
+  background-color: v.$background-color-base;
+  border: v.$border-width-m solid v.$border-color-base;
+  border-radius: v.$border-radius-rounded;
+  padding: v.$space-xs;
+}
+
+@mixin buttonStyle($backgroundColor, $fontColor) {
+  background-color: $backgroundColor;
+  color: $fontColor;
+  border: none;
+  border-radius: v.$border-radius-rounded;
+  padding: v.$space-xs;
+  &:hover {
+    opacity: v.$opacity-hover;
+  }
+}
+
+@mixin textSizeS($color) {
+  font-size: v.$font-size-s;
+  color: $color;
+  :hover {
+    opacity: v.$opacity-hover;
+    text-decoration: underline;
+  }
+}
+
+@mixin inlineLink {
+  color: v.$color-cerise;
+  &:hover {
+    opacity: v.$opacity-hover;
+    text-decoration: underline;
   }
 }

@@ -1,0 +1,12 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.stepRounded {
+  width: 10px;
+  height: 10px;
+  border-radius: v.$border-radius-circle;
+  background-color: v.$color-neutral-80;
+  &Red {
+    background-color: v.$color-cerise;
+  }
+}
