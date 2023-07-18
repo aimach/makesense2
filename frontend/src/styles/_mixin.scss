@@ -1,0 +1,36 @@
+@use "./variable" as v;
+
+@mixin inputStyle {
+  background-color: v.$background-color-base;
+  border: v.$border-width-m solid v.$border-color-base;
+  border-radius: v.$border-radius-rounded;
+  padding: v.$space-xs;
+}
+
+@mixin buttonStyle($backgroundColor, $fontColor) {
+  background-color: $backgroundColor;
+  color: $fontColor;
+  border: none;
+  border-radius: v.$border-radius-rounded;
+  padding: v.$space-xs;
+  &:hover {
+    opacity: v.$opacity-hover;
+  }
+}
+
+@mixin textSizeS($color) {
+  font-size: v.$font-size-s;
+  color: $color;
+  :hover {
+    opacity: v.$opacity-hover;
+    text-decoration: underline;
+  }
+}
+
+@mixin inlineLink {
+  color: v.$color-cerise;
+  &:hover {
+    opacity: v.$opacity-hover;
+    text-decoration: underline;
+  }
+}
