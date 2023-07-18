@@ -13,12 +13,24 @@
   border: none;
   border-radius: v.$border-radius-rounded;
   padding: v.$space-xs;
+  &:hover {
+    opacity: v.$opacity-hover;
+  }
+}
+
+@mixin textSizeS($color) {
+  font-size: v.$font-size-s;
+  color: $color;
+  :hover {
+    opacity: v.$opacity-hover;
+    text-decoration: underline;
+  }
 }
 
 @mixin inlineLink {
   color: v.$color-cerise;
   &:hover {
-    color: v.$color-roman;
+    opacity: v.$opacity-hover;
     text-decoration: underline;
   }
 }

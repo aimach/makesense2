@@ -1,5 +1,6 @@
 import logo from "../assets/img/logo.svg";
 import style from "./LoginPage.module.scss";
+import { HelpCircle } from "react-feather";
 
 export default function LoginPage() {
   return (
@@ -12,12 +13,13 @@ export default function LoginPage() {
       </p>
       <form>
         <label>
-          Adresse email *
+          Adresse email * <HelpCircle className={style.helpIcon} />
           <input type="email" className={style.inputStyle} />
         </label>
         <label>
-          Mot de passe *
+          Mot de passe * <HelpCircle className={style.helpIcon} />
           <input type="password" className={style.inputStyle} />
+          <p className={style.textSizeS}>Oublié ?</p>
         </label>
         <button type="submit" className={style.buttonStyle}>
           Me connecter

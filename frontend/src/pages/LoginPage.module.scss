@@ -12,3 +12,13 @@
 .inlineLink {
   @include m.inlineLink;
 }
+
+.helpIcon {
+  width: 15px;
+  height: 15px;
+  color: v.$color-neutral-60;
+}
+
+.textSizeS {
+  @include m.textSizeS(v.$color-cerise);
+}
