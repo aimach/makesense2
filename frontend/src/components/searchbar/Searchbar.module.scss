@@ -1,0 +1,15 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.homeSearchBar {
+  @include m.inputStyleWithShadow;
+}
+
+.emptyInputStyle {
+  @include m.emptyInputStyle;
+  @include m.borderRight(v.$color-neutral-80);
+}
+
+.buttonSearch {
+  @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
+}

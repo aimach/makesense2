@@ -1,11 +1,16 @@
 import { Search } from "react-feather";
+import style from "./Searchbar.module.scss";
 
 export default function Searchbar() {
   return (
-    <div>
+    <div className={style.homeSearchBar}>
       <form>
-        <input type="text" placeholder="Mots clés..." />
-        <select name="pets" id="pet-select">
+        <input
+          type="text"
+          placeholder="Mots clés..."
+          className={style.emptyInputStyle}
+        />
+        <select name="pets" id="pet-select" className={style.emptyInputStyle}>
           <option value="">Status</option>
           <option value="dog">Dog</option>
           <option value="cat">Cat</option>
@@ -14,7 +19,7 @@ export default function Searchbar() {
           <option value="spider">Spider</option>
           <option value="goldfish">Goldfish</option>
         </select>
-        <select name="pets" id="pet-select">
+        <select name="pets" id="pet-select" className={style.emptyInputStyle}>
           <option value="">Date</option>
           <option value="dog">Dog</option>
           <option value="cat">Cat</option>
@@ -23,7 +28,7 @@ export default function Searchbar() {
           <option value="spider">Spider</option>
           <option value="goldfish">Goldfish</option>
         </select>
-        <button type="submit">
+        <button type="submit" className={style.buttonSearch}>
           <Search />
         </button>
       </form>

@@ -7,6 +7,19 @@
   padding: v.$space-xs;
 }
 
+@mixin inputStyleWithShadow {
+  background-color: v.$background-color-base;
+  border: v.$border-width-m solid v.$border-color-base;
+  border-radius: v.$border-radius-rounded;
+  box-shadow: v.$box-shadow-l;
+  padding: v.$space-xs;
+  width: 50vw;
+}
+
+@mixin emptyInputStyle {
+  border: none;
+}
+
 @mixin buttonStyle($backgroundColor, $fontColor) {
   background-color: $backgroundColor;
   color: $fontColor;
@@ -33,4 +46,8 @@
     opacity: v.$opacity-hover;
     text-decoration: underline;
   }
+}
+
+@mixin borderRight($color) {
+  border-right: v.$border-width-m solid $color;
 }
