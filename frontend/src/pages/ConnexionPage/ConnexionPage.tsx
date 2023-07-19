@@ -8,27 +8,16 @@ export default function ConnexionPage() {
   const [connexionType, setConnexionType] = useState("login");
 
   return (
-    <div>
+    <div className={style.connexionStyle}>
       <img src={logo} alt="logo" />
       <h2 className={`${style.title}`}>
         {connexionType === "login" ? "Se connecter" : "Créer un compte"}
       </h2>
       {connexionType === "login" ? (
-        <div>
-          Vous n'avez pas de compte ?
-          <button onClick={() => setConnexionType("register")}>
-            Créer un compte
-          </button>
-        </div>
+        <Login setConnexionType={setConnexionType} />
       ) : (
-        <div>
-          Vous avez déjà un compte ?
-          <button onClick={() => setConnexionType("login")}>
-            Se connecter
-          </button>
-        </div>
+        <Register setConnexionType={setConnexionType} />
       )}
-      {connexionType === "login" ? <Login /> : <Register />}
     </div>
   );
 }

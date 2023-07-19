@@ -124,14 +124,15 @@ $desktop: 1280;
   color: $fontColor;
   border: none;
   border-radius: v.$border-radius-rounded;
-  padding: v.$space-xs;
+  padding: v.$space-s;
+  font-size: v.$font-size-m;
   &:hover {
     opacity: v.$opacity-hover;
   }
 }
 
 @mixin textSizeS($color) {
-  font-size: v.$font-size-s;
+  font-size: 0.75rem;
   color: $color;
   :hover {
     opacity: v.$opacity-hover;

@@ -1,4 +1,11 @@
-export default function Login() {
+import style from "./ConnexionPage.module.scss";
+import { HelpCircle } from "react-feather";
+
+export interface connexionPropType {
+  setConnexionType: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Login({ setConnexionType }: connexionPropType) {
   function handleSubmit(e: Event) {
     // Prevent the browser from reloading the page
     e.preventDefault();
@@ -16,16 +23,30 @@ export default function Login() {
     console.log("submitted");
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="email">
-        Adresse email *
-        <input type="email" name="email" />
-      </label>
-      <label htmlFor="password">
-        Mot de passe *
-        <input type="password" name="password" />
-      </label>
-      <input type="submit" value="Me connecter" />
-    </form>
+    <div>
+      <p>
+        Vous n'avez pas de compte ?{" "}
+        <span
+          className={style.inlineLink}
+          onClick={() => setConnexionType("register")}
+        >
+          Créer un compte
+        </span>
+      </p>
+      <form>
+        <label>
+          Adresse email * <HelpCircle className={style.helpIcon} />
+        </label>
+        <input type="email" className={style.inputStyle} />
+        <label>
+          Mot de passe * <HelpCircle className={style.helpIcon} />
+        </label>
+        <input type="password" className={style.inputStyle} />
+        <p className={`${style.textSizeS} ${style.inlineLink}`}>Oublié ?</p>
+        <button type="submit" className={style.buttonStyle}>
+          Me connecter
+        </button>
+      </form>
+    </div>
   );
 }

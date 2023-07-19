@@ -1,2 +1,54 @@
 @use "../../styles/variable" as v;
 @use "../../styles/mixin" as m;
+
+.inputStyle {
+  @include m.inputStyle;
+}
+
+.buttonStyle {
+  @include m.buttonStyle(v.$border-color-success, v.$color-neutral-100);
+  margin-top: v.$font-space-xxxxl;
+}
+
+.inlineLink {
+  @include m.inlineLink;
+}
+
+.helpIcon {
+  width: 15px;
+  height: 15px;
+  color: v.$color-neutral-60;
+}
+
+.textSizeS {
+  @include m.textSizeS(v.$color-cerise);
+}
+
+.connexionStyle {
+  margin-top: 4rem;
+  margin-bottom: 5rem;
+  @include m.flex(column, flex-start, center);
+  flex-wrap: wrap;
+  form {
+    margin-top: v.$font-space-xxxxl;
+    width: 30vw;
+    @include m.flex-column;
+    label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: v.$font-space-xxxxl;
+      margin-bottom: v.$font-space-l;
+    }
+    input:focus-visible {
+      outline: v.$border-width-m solid v.$border-color-success;
+    }
+    p {
+      margin: v.$font-space-s;
+      left: 0;
+    }
+  }
+}
+
+.checkboxContainer {
+  display: flex;
+}
