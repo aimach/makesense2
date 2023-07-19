@@ -131,7 +131,7 @@ $desktop: 1280;
 }
 
 @mixin textSizeS($color) {
-  font-size: v.$font-size-s;
+  font-size: 0.75rem;
   color: $color;
   :hover {
     opacity: v.$opacity-hover;

@@ -14,9 +14,9 @@ export default function ConnexionPage() {
         {connexionType === "login" ? "Se connecter" : "Créer un compte"}
       </h2>
       {connexionType === "login" ? (
-        <Login setConnextionType={setConnexionType} />
+        <Login setConnexionType={setConnexionType} />
       ) : (
-        <Register />
+        <Register setConnexionType={setConnexionType} />
       )}
     </div>
   );

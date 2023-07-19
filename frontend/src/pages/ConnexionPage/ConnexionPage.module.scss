@@ -7,6 +7,7 @@
 
 .buttonStyle {
   @include m.buttonStyle(v.$border-color-success, v.$color-neutral-100);
+  margin-top: v.$font-space-xxxxl;
 }
 
 .inlineLink {
@@ -24,8 +25,25 @@
 }
 
 .connexionStyle {
-  @include m.flex-center-column;
+  margin-top: 5rem;
+  height: 80vh;
+  @include m.flex(column, flex-start, center);
+  flex-wrap: wrap;
   form {
+    margin-top: v.$font-space-xxxxl;
     @include m.flex-column;
+    label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: v.$font-space-xxxxl;
+      margin-bottom: v.$font-space-l;
+    }
+    input:focus-visible {
+      outline: v.$border-width-m solid v.$border-color-success;
+    }
+    p {
+      margin: v.$font-space-s;
+      left: 0;
+    }
   }
 }

@@ -1,12 +1,11 @@
-import logo from "../../assets/img/logo.svg";
 import style from "./ConnexionPage.module.scss";
 import { HelpCircle } from "react-feather";
 
-interface loginPropsType {
+export interface connexionPropType {
   setConnexionType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Login({ setConnexionType }: loginPropsType) {
+export default function Login({ setConnexionType }: connexionPropType) {
   function handleSubmit(e: Event) {
     // Prevent the browser from reloading the page
     e.preventDefault();
@@ -37,13 +36,13 @@ export default function Login({ setConnexionType }: loginPropsType) {
       <form>
         <label>
           Adresse email * <HelpCircle className={style.helpIcon} />
-          <input type="email" className={style.inputStyle} />
         </label>
+        <input type="email" className={style.inputStyle} />
         <label>
           Mot de passe * <HelpCircle className={style.helpIcon} />
-          <input type="password" className={style.inputStyle} />
-          <p className={style.textSizeS}>Oublié ?</p>
         </label>
+        <input type="password" className={style.inputStyle} />
+        <p className={`${style.textSizeS} ${style.inlineLink}`}>Oublié ?</p>
         <button type="submit" className={style.buttonStyle}>
           Me connecter
         </button>
