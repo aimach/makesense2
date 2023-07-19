@@ -4,6 +4,7 @@ export const router = express.Router();
 import { serviceControllers } from "./controller/serviceControllers";
 import { groupControllers } from "./controller/groupControllers";
 import { categoryControllers } from "./controller/categoryControllers";
+import { statusControllers } from "./controller/statusControllers";
 // SERVICES
 
 router.get("/services", serviceControllers.getAllServices);
@@ -27,3 +28,11 @@ router.get("/categories/:id", categoryControllers.getCategoryById);
 router.post("/categories", categoryControllers.createCategory);
 router.put("/categories/:id", categoryControllers.updateCategory);
 router.delete("/categories/:id", categoryControllers.deleteCategory);
+
+// STATUS
+
+router.get("/status", statusControllers.getAllStatus);
+router.get("/status/:id", statusControllers.getStatusById);
+router.post("/status", statusControllers.createStatus);
+router.put("/status/:id", statusControllers.updateStatus);
+router.delete("/status/:id", statusControllers.deleteStatus);
