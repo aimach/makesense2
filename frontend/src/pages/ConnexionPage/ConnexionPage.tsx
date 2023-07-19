@@ -14,21 +14,10 @@ export default function ConnexionPage() {
         {connexionType === "login" ? "Se connecter" : "Créer un compte"}
       </h2>
       {connexionType === "login" ? (
-        <div>
-          Vous n'avez pas de compte ?
-          <button onClick={() => setConnexionType("register")}>
-            Créer un compte
-          </button>
-        </div>
+        <Login setConnextionType={setConnexionType} />
       ) : (
-        <div>
-          Vous avez déjà un compte ?
-          <button onClick={() => setConnexionType("login")}>
-            Se connecter
-          </button>
-        </div>
+        <Register />
       )}
-      {connexionType === "login" ? <Login /> : <Register />}
     </div>
   );
 }

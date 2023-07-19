@@ -1,2 +1,24 @@
 @use "../../styles/variable" as v;
 @use "../../styles/mixin" as m;
+
+.inputStyle {
+  @include m.inputStyle;
+}
+
+.buttonStyle {
+  @include m.buttonStyle(v.$border-color-success, v.$color-neutral-100);
+}
+
+.inlineLink {
+  @include m.inlineLink;
+}
+
+.helpIcon {
+  width: 15px;
+  height: 15px;
+  color: v.$color-neutral-60;
+}
+
+.textSizeS {
+  @include m.textSizeS(v.$color-cerise);
+}
