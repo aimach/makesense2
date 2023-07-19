@@ -34,7 +34,7 @@ export default function Navbar() {
           className={style.userMenuButton}
           onClick={() => setOpenModale(!openModale)}
         >
-          <Menu />
+          <Menu className={style.userMenuButtonMenuIcon} />
           <User className={style.userMenuButtonUserIcon} />
         </button>
         {openModale && <UserMenuModale />}
