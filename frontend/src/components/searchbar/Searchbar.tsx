@@ -1,4 +1,4 @@
-import { Search } from "react-feather";
+import { Search, Tag, Calendar, ChevronDown } from "react-feather";
 import style from "./Searchbar.module.scss";
 
 export default function Searchbar() {
@@ -10,24 +10,16 @@ export default function Searchbar() {
           placeholder="Mots clés..."
           className={style.emptyInputStyle}
         />
-        <select name="pets" id="pet-select" className={style.emptyInputStyle}>
-          <option value="">Status</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
-        </select>
-        <select name="pets" id="pet-select" className={style.emptyInputStyle}>
-          <option value="">Date</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
-        </select>
+        <div className={`${style.searchSelect} ${style.emptyInputStyle}`}>
+          <Tag />
+          <p>Statut</p>
+          <ChevronDown />
+        </div>
+        <div className={style.searchSelect}>
+          <Calendar />
+          Date
+          <ChevronDown />
+        </div>
         <button type="submit" className={style.buttonSearch}>
           <Search />
         </button>

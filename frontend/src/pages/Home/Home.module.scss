@@ -1,1 +1,11 @@
-r
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.homeStyle {
+  margin-top: 2rem;
+}
+
+.homeTitleAndSearchSection {
+  @include m.flex(column, space-between, center);
+  margin: 2rem;
+}
