@@ -2,9 +2,24 @@
 @use "../../styles/mixin" as m;
 
 .header {
-  height: 15vh;
-  width: 100vw;
-  display: flex;
+  height: 20vh;
+  width: 100%;
+  @include m.flex(row, space-between, center);
+}
+
+.headerMenu {
+  width: 45%;
+  @include m.flex(row, space-between, center);
+  ul {
+    @include m.flex-center;
+    gap: v.$font-space-xxxxl;
+    font-weight: v.$font-weight-semi-bold;
+    font-size: v.$font-size-s;
+    li {
+      @include m.flex-center-column;
+      gap: v.$font-size-xs;
+    }
+  }
 }
 
 .icon {
