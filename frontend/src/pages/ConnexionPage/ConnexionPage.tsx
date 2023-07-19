@@ -8,7 +8,7 @@ export default function ConnexionPage() {
   const [connexionType, setConnexionType] = useState("login");
 
   return (
-    <div>
+    <div className={style.connexionStyle}>
       <img src={logo} alt="logo" />
       <h2 className={`${style.title}`}>
         {connexionType === "login" ? "Se connecter" : "Créer un compte"}

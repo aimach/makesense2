@@ -1,2 +1,9 @@
 @use "../../styles/variable" as v;
 @use "../../styles/mixin" as m;
+
+.connexionStyle {
+  @include m.flex-center-column;
+  form {
+    @include m.flex-column;
+  }
+}
