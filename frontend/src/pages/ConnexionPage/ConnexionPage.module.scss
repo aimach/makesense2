@@ -25,12 +25,13 @@
 }
 
 .connexionStyle {
-  margin-top: 5rem;
-  height: 80vh;
+  margin-top: 4rem;
+  margin-bottom: 5rem;
   @include m.flex(column, flex-start, center);
   flex-wrap: wrap;
   form {
     margin-top: v.$font-space-xxxxl;
+    width: 30vw;
     @include m.flex-column;
     label {
       display: flex;
@@ -46,4 +47,8 @@
       left: 0;
     }
   }
+}
+
+.checkboxContainer {
+  display: flex;
 }
