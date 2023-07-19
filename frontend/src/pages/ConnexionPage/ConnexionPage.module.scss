@@ -22,3 +22,10 @@
 .textSizeS {
   @include m.textSizeS(v.$color-cerise);
 }
+
+.connexionStyle {
+  @include m.flex-center-column;
+  form {
+    @include m.flex-column;
+  }
+}
