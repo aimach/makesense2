@@ -5,6 +5,9 @@ import { serviceControllers } from "./controller/serviceControllers";
 import { groupControllers } from "./controller/groupControllers";
 import { categoryControllers } from "./controller/categoryControllers";
 import { statusControllers } from "./controller/statusControllers";
+import { commentControllers } from "./controller/commentControllers";
+import { userControllers } from "./controller/userControllers";
+
 // SERVICES
 
 router.get("/services", serviceControllers.getAllServices);
@@ -36,3 +39,19 @@ router.get("/status/:id", statusControllers.getStatusById);
 router.post("/status", statusControllers.createStatus);
 router.put("/status/:id", statusControllers.updateStatus);
 router.delete("/status/:id", statusControllers.deleteStatus);
+
+// COMMENTS
+
+router.get("/comments", commentControllers.getAllComments);
+router.get("/comments/:id", commentControllers.getCommentById);
+router.post("/comments", commentControllers.createComment);
+router.put("/comments/:id", commentControllers.updateComment);
+router.delete("/comments/:id", commentControllers.deleteComment);
+
+// USERS
+
+router.get("/users", userControllers.getAllUsers);
+router.get("/users/:id", userControllers.getUserById);
+router.post("/users", userControllers.createUser);
+router.put("/users/:id", userControllers.updateUser);
+router.delete("/users/:id", userControllers.deleteUser);
