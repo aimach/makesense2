@@ -2,9 +2,24 @@
 @use "../../styles/mixin" as m;
 
 .header {
-  height: 15vh;
-  width: 100vw;
-  display: flex;
+  height: 20vh;
+  width: 100%;
+  @include m.flex(row, space-between, center);
+}
+
+.headerMenu {
+  width: 45%;
+  @include m.flex(row, space-between, center);
+  ul {
+    @include m.flex-center;
+    gap: v.$font-space-xxxxl;
+    font-weight: v.$font-weight-semi-bold;
+    font-size: v.$font-size-s;
+    li {
+      @include m.flex-center-column;
+      gap: v.$font-size-xs;
+    }
+  }
 }
 
 .icon {
@@ -15,13 +30,19 @@
   background-color: v.$color-neutral-100;
   border: v.$border-width-m solid v.$color-neutral-80;
   border-radius: 40px;
-  width: 80px;
+  width: 90px;
   height: 50px;
+  @include m.flex(row, flex-end, center);
+  flex-wrap: nowrap;
+  &MenuIcon {
+    width: 20px;
+    padding-right: 0.5rem;
+  }
   &UserIcon {
     background-color: v.$color-neutral-80;
     color: v.$color-neutral-60;
     border-radius: v.$border-radius-circle;
-    padding: v.$space-xxs;
+    padding: 9px;
   }
   &:hover {
     border: v.$border-width-m solid v.$color-neutral-0;
