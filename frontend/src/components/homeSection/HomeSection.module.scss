@@ -1,0 +1,10 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.homeSectionTitle {
+  @include m.flex(row, flex-start, center);
+  margin-top: v.$font-space-xxxxl;
+  h3 {
+    margin-left: v.$font-space-xl;
+  }
+}

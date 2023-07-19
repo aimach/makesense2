@@ -1,0 +1,34 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.homeSearchBar {
+  @include m.inputStyleWithShadow;
+  width: 60%;
+  form {
+    @include m.flex(row, space-between, center);
+    input {
+      font-size: v.$font-size-l;
+    }
+    div {
+      font-size: v.$font-size-l;
+    }
+  }
+  &:hover {
+    border: v.$border-width-m solid v.$color-neutral-0;
+  }
+}
+
+.emptyInputStyle {
+  @include m.emptyInputStyle;
+  @include m.borderRight(v.$color-neutral-80);
+}
+
+.searchSelect {
+  @include m.flex(row, space-evenly, center);
+  width: 100%;
+}
+
+.buttonSearch {
+  @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
+  width: 60px;
+}

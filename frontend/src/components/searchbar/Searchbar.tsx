@@ -1,29 +1,26 @@
-import { Search } from "react-feather";
+import { Search, Tag, Calendar, ChevronDown } from "react-feather";
+import style from "./Searchbar.module.scss";
 
 export default function Searchbar() {
   return (
-    <div>
+    <div className={style.homeSearchBar}>
       <form>
-        <input type="text" placeholder="Mots clés..." />
-        <select name="pets" id="pet-select">
-          <option value="">Status</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
-        </select>
-        <select name="pets" id="pet-select">
-          <option value="">Date</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
-        </select>
-        <button type="submit">
+        <input
+          type="text"
+          placeholder="Mots clés..."
+          className={style.emptyInputStyle}
+        />
+        <div className={`${style.searchSelect} ${style.emptyInputStyle}`}>
+          <Tag />
+          <p>Statut</p>
+          <ChevronDown />
+        </div>
+        <div className={style.searchSelect}>
+          <Calendar />
+          Date
+          <ChevronDown />
+        </div>
+        <button type="submit" className={style.buttonSearch}>
           <Search />
         </button>
       </form>

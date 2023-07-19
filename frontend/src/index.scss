@@ -4,6 +4,7 @@
 */
 
 @use "./styles/variable" as v;
+@import url("https://fonts.googleapis.com/css?family=Raleway");
 
 html,
 body,
@@ -92,7 +93,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: v.$font-heading;
+  font-family: v.$font-text;
   color: v.$color-blue-dianne;
 }
 /* HTML5 display-role reset for older browsers */
@@ -132,4 +133,14 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+h2 {
+  font-size: v.$font-size-xxxxxl;
+  font-weight: v.$font-weight-extrablack;
+}
+
+h3 {
+  font-size: v.$font-size-xxxl;
+  font-weight: v.$font-weight-extrablack;
 }
