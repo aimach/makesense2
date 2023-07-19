@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
-import "./index.scss";
-import LoginPage from "./pages/LoginPage.tsx";
+import "./index.css";
+import ConnexionPage from "./pages/ConnexionPage/ConnexionPage.tsx";
 import Home from "./pages/Home/Home.tsx";
 import DecisionCreate from "./pages/DecisionCreate/DecisionCreate.tsx";
 
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "login",
-        element: <LoginPage />,
+        path: "connexion",
+        element: <ConnexionPage />,
       },
       {
         path: "home",

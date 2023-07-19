@@ -25,3 +25,6 @@ dist-ssr
 
 # To-do list
 todolist.txt
+
+# Environment
+.env
