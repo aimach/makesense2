@@ -1,8 +1,8 @@
-@use "./variable" as v;
-
 // SOURCES
 // https://dev.to/alemesa/10-awesome-sass-scss-mixins-5ci2
 // https://www.barrage.net/blog/technology/top-8-sass-mixins
+
+@use "./variable" as v;
 
 // SIZE
 
@@ -72,19 +72,19 @@ $large: 1024;
 $desktop: 1280;
 
 @mixin tablet {
-  @media only screen and (min-width: $tablet * 1px) {
+  @media only screen and (min-width: ($tablet * 1px)) {
     @content;
   }
 }
 
 @mixin large {
-  @media only screen and (min-width: $large * 1px) {
+  @media only screen and (min-width: ($large * 1px)) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media only screen and (min-width: $desktop * 1px) {
+  @media only screen and (min-width: ($desktop * 1px)) {
     @content;
   }
 }
