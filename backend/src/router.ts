@@ -7,6 +7,7 @@ import { categoryControllers } from "./controller/categoryControllers";
 import { statusControllers } from "./controller/statusControllers";
 import { commentControllers } from "./controller/commentControllers";
 import { userControllers } from "./controller/userControllers";
+import { decisionControllers } from "./controller/decisionControllers";
 
 // SERVICES
 
@@ -55,3 +56,11 @@ router.get("/users/:id", userControllers.getUserById);
 router.post("/users", userControllers.createUser);
 router.put("/users/:id", userControllers.updateUser);
 router.delete("/users/:id", userControllers.deleteUser);
+
+// DECISIONS
+
+router.get("/decisions", decisionControllers.getAllDecisions);
+router.get("/decisions/:id", decisionControllers.getDecisionById);
+router.post("/decisions", decisionControllers.createDecision);
+router.put("/decisions/:id", decisionControllers.updateDecision);
+router.delete("/decisions/:id", decisionControllers.deleteDecision);
