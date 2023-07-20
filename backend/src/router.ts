@@ -8,7 +8,8 @@ import { statusControllers } from "./controller/statusControllers";
 import { commentControllers } from "./controller/commentControllers";
 import { userControllers } from "./controller/userControllers";
 import { decisionControllers } from "./controller/decisionControllers";
-
+import { authControllers } from "./controller/authControllers";
+import { authMiddleware } from "./middleware/authMiddleware";
 // SERVICES
 
 router.get("/services", serviceControllers.getAllServices);
@@ -53,7 +54,6 @@ router.delete("/comments/:id", commentControllers.deleteComment);
 
 router.get("/users", userControllers.getAllUsers);
 router.get("/users/:id", userControllers.getUserById);
-router.post("/users", userControllers.createUser);
 router.put("/users/:id", userControllers.updateUser);
 router.delete("/users/:id", userControllers.deleteUser);
 
@@ -64,3 +64,18 @@ router.get("/decisions/:id", decisionControllers.getDecisionById);
 router.post("/decisions", decisionControllers.createDecision);
 router.put("/decisions/:id", decisionControllers.updateDecision);
 router.delete("/decisions/:id", decisionControllers.deleteDecision);
+
+// CONNEXION
+router.post(
+  "/login",
+  authMiddleware.getUserByEmailAndPassword,
+  authMiddleware.verifyPassword,
+  authControllers.login
+);
+
+router.post(
+  "/register",
+  authMiddleware.verifyEmail,
+  authMiddleware.hashPassword,
+  authControllers.register
+);

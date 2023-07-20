@@ -55,38 +55,6 @@ export const userControllers = {
     }
   },
 
-  // CREATE
-  createUser: async (req: Request, res: Response): Promise<void> => {
-    try {
-      const {
-        firstname,
-        lastname,
-        email,
-        password,
-        avatar,
-        admin,
-        position,
-        serviceId,
-      } = req.body;
-      await prisma.user.create({
-        data: {
-          firstname,
-          lastname,
-          email,
-          password,
-          avatar,
-          admin,
-          position,
-          serviceId,
-        },
-      });
-      res.status(201).send("Created user");
-    } catch (err) {
-      console.log(err);
-      res.status(400).send({ error: "Error while creating user" });
-    }
-  },
-
   // UPDATE
   updateUser: async (req: Request, res: Response): Promise<void> => {
     try {
