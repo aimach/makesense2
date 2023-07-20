@@ -40,7 +40,7 @@ export const authMiddleware = {
         res.status(404).send({ error: "User not found" });
         return;
       }
-      req.body = userToRead;
+      req.body.user = userToRead;
       next();
     } catch (err) {
       console.log(err);
@@ -57,6 +57,24 @@ export const authMiddleware = {
     } catch (err) {
       console.log(err);
       res.status(400).send({ error: "Error while hashing password" });
+    }
+  },
+
+  verifyPassword: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { password } = req.body;
+      const isRightPassowrd = await bcrypt.compare(
+        password,
+        req.body.user.password
+      );
+      if (!isRightPassowrd) {
+        res.status(401).send({ error: "Wrong credentials" });
+        return;
+      }
+      next();
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({ error: "Error whith credentials" });
     }
   },
 };

@@ -10,11 +10,11 @@ export const authControllers = {
     if (process.env.ACCESS_TOKEN_SECRET === undefined) {
       throw new Error("ACCESS_TOKEN_SECRET variable is not defined");
     }
-    const payload: { email: string; password: string } = { email, password };
+    const payload = { email, password };
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "1h",
     });
-    res.send({ token, payload });
+    res.status(200).send({ token, payload });
   },
   register: async (req: Request, res: Response) => {
     try {

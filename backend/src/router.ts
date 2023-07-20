@@ -69,7 +69,8 @@ router.delete("/decisions/:id", decisionControllers.deleteDecision);
 router.post(
   "/login",
   authMiddleware.getUserByEmailAndPassword,
-  authMiddleware.hashPassword
+  authMiddleware.verifyPassword,
+  authControllers.login
 );
 
 router.post(
