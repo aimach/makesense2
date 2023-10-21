@@ -46,6 +46,11 @@ router.delete("/status/:id", statusControllers.deleteStatus);
 
 router.get("/comments", commentControllers.getAllComments);
 router.get("/comments/:id", commentControllers.getCommentById);
+router.get(
+  "/comments/decisions/:decisionId",
+  commentControllers.getCommentsByDecisionId
+);
+router.get("/comments/users/:userId", commentControllers.getCommentsByUserId);
 router.post("/comments", commentControllers.createComment);
 router.put("/comments/:id", commentControllers.updateComment);
 router.delete("/comments/:id", commentControllers.deleteComment);

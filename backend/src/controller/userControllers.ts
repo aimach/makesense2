@@ -9,6 +9,7 @@ export const userControllers = {
     try {
       const allUsers = await prisma.user.findMany({
         select: {
+          id: true,
           firstname: true,
           lastname: true,
           email: true,
@@ -33,6 +34,7 @@ export const userControllers = {
           id: parseInt(req.params.id),
         },
         select: {
+          id: true,
           firstname: true,
           lastname: true,
           email: true,

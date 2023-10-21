@@ -7,7 +7,11 @@ export const categoryControllers = {
   // READ
   getAllCategories: async (req: Request, res: Response): Promise<void> => {
     try {
-      const allCategories = await prisma.category.findMany();
+      const allCategories = await prisma.category.findMany({
+        include: {
+          decisions: true,
+        },
+      });
       res.status(200).send(allCategories);
     } catch (err) {
       console.log(err);
@@ -19,6 +23,9 @@ export const categoryControllers = {
       const categoryToRead = await prisma.category.findUnique({
         where: {
           id: parseInt(req.params.id),
+        },
+        include: {
+          decisions: true,
         },
       });
       if (categoryToRead === null) {

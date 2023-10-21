@@ -31,13 +31,52 @@ export const commentControllers = {
       res.status(400).send({ error: "Error while reading comment" });
     }
   },
+  getCommentsByDecisionId: async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const commentsToRead = await prisma.comment.findMany({
+        where: {
+          decisionId: parseInt(req.params.decisionId),
+        },
+      });
+      if (commentsToRead === null) {
+        res.status(404).send({ error: "Comments not found" });
+        return;
+      }
+      res.status(200).send(commentsToRead);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({ error: "Error while reading comment" });
+    }
+  },
+  getCommentsByUserId: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const commentsToRead = await prisma.comment.findMany({
+        where: {
+          userId: parseInt(req.params.userId),
+        },
+      });
+      if (commentsToRead === null) {
+        res.status(404).send({ error: "Comments not found" });
+        return;
+      }
+      res.status(200).send(commentsToRead);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({ error: "Error while reading comment" });
+    }
+  },
 
   // CREATE
   createComment: async (req: Request, res: Response): Promise<void> => {
     try {
-      const { decisionId, userId, date } = req.body;
+      const { title, content, decisionId, userId, date } = req.body;
       await prisma.comment.create({
         data: {
+          title,
+          content,
           decisionId,
           userId,
           date,
@@ -53,16 +92,12 @@ export const commentControllers = {
   // UPDATE
   updateComment: async (req: Request, res: Response): Promise<void> => {
     try {
-      const { decisionId, userId, date } = req.body;
+      const { title, content, decisionId, userId, date } = req.body;
       await prisma.comment.update({
         where: {
           id: parseInt(req.params.id),
         },
-        data: {
-          decisionId,
-          userId,
-          date,
-        },
+        data: { title, content, decisionId, userId, date },
       });
       res.status(201).send("Updated comment");
     } catch (err) {
