@@ -1,46 +1,49 @@
 // REACT IMPORTS
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 // COMPONENTS IMPORTS
 import { connexionPropType } from "./Login";
 // STYLE IMPORTS
 import style from "./ConnexionPage.module.scss";
 import { HelpCircle } from "react-feather";
-// OTHER IMPORTS
-import regex from "../../utils/regex";
+// PACKAGE IMPORTS
+import Joi from "joi";
+
+// VALIDATE DATA WITH JOI
+
+const schema = Joi.object({
+  email: Joi.string().email({ tlds: { allow: false } }),
+  password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{6,30}$")),
+  confirmedPassword: Joi.ref("password"),
+  cgu: Joi.string().pattern(/^(on)$/),
+});
 
 export default function Register({ setConnexionType }: connexionPropType) {
-  // VALIDATE DATA WITH REGEX
-  const verifyData = (e, regex) => {
-    if (e.target.value.match(regex)) {
-      setRequest({ ...request, [e.target.name]: e.target.value });
-      setErrors({ ...errors, [e.target.name]: false });
-    } else {
-      setErrors({ ...errors, [e.target.name]: true });
-    }
-  };
-
   // ERRORS HANDLER
   const [errors, setErrors] = useState({
     email: { status: false, message: "Veillez taper un email valide" },
+    password: { status: false, message: "Veillez taper un email valide" },
+    confirmedPassword: {
+      status: false,
+      message: "Veillez taper un email valide",
+    },
+    cgu: { status: false, message: "Veillez taper un email valide" },
   });
 
   // FORM SUBMIT HANDLER
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     // Prevent the browser from reloading the page
     event.preventDefault();
-
     // Read the form data
     const form = event.currentTarget;
     const formData = new FormData(form);
-    console.log(formData);
-
-    // // You can pass formData as a fetch body directly:
-    // fetch("/some-api", { method: form.method, body: formData });
-
-    // // Or you can work with it as a plain object:
     const formJson = Object.fromEntries(formData.entries());
     console.log(formJson);
-    console.log("submitted");
+
+    const checkFormDatas = schema.validate(formJson);
+    if (checkFormDatas.error) {
+      // console.log(checkFormDatas.error.details[0].path[0]);
+      console.log(checkFormDatas);
+    }
   }
   return (
     <div>
