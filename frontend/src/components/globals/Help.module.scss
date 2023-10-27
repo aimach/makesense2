@@ -1,0 +1,12 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.helpModal {
+  box-shadow: v.$box-shadow-l;
+  border-radius: v.$border-radius-rounded;
+  padding: v.$font-size-xs;
+  font-weight: v.$font-weight-black;
+  position: absolute;
+  right: 20%;
+  max-width: 180px;
+}
