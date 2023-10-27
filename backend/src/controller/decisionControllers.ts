@@ -7,7 +7,15 @@ export const decisionControllers = {
   // READ
   getAllDecisions: async (req: Request, res: Response): Promise<void> => {
     try {
-      const allDecisions = await prisma.decision.findMany();
+      const allDecisions = await prisma.decision.findMany({
+        include: {
+          status: true,
+          comments: true,
+          user: true,
+          users: true,
+          groups: true,
+        },
+      });
       res.status(200).send(allDecisions);
     } catch (err) {
       console.log(err);
@@ -19,6 +27,13 @@ export const decisionControllers = {
       const decisionToRead = await prisma.decision.findUnique({
         where: {
           id: parseInt(req.params.id),
+        },
+        include: {
+          status: true,
+          comments: true,
+          user: true,
+          users: true,
+          groups: true,
         },
       });
       if (decisionToRead === null) {
@@ -44,6 +59,7 @@ export const decisionControllers = {
         pros,
         cons,
         statusId,
+        userId,
       } = req.body;
       await prisma.decision.create({
         data: {
@@ -55,6 +71,7 @@ export const decisionControllers = {
           pros,
           cons,
           statusId,
+          userId,
         },
       });
       res.status(201).send("Created decision");
@@ -76,6 +93,7 @@ export const decisionControllers = {
         pros,
         cons,
         statusId,
+        userId,
       } = req.body;
       await prisma.decision.update({
         where: {
@@ -90,9 +108,10 @@ export const decisionControllers = {
           pros,
           cons,
           statusId,
+          userId,
         },
       });
-      res.status(201).send("Updated deicision");
+      res.status(201).send("Updated decision");
     } catch (err) {
       console.log(err);
       res.status(400).send({ error: "Error while updating decision" });
