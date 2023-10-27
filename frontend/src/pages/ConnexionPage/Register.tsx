@@ -12,9 +12,7 @@ export default function Register({ setConnexionType }: connexionPropType) {
     email: Joi.string().email({ tlds: { allow: false } }),
     // password rules : at least one uppercase letter, one lowercase letter, one digit, one special character and min 8 characters
     password: Joi.string().pattern(
-      new RegExp(
-        "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/"
-      )
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
     ),
     confirmedPassword: Joi.ref("password"),
     cgu: Joi.string().pattern(/^(on)$/),
@@ -33,6 +31,8 @@ export default function Register({ setConnexionType }: connexionPropType) {
     if (checkFormDatas.error) {
       // console.log(checkFormDatas.error.details[0].path[0]);
       console.log(checkFormDatas);
+    } else {
+      console.log("Form posted");
     }
   }
   return (
