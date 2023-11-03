@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { IrefreshToken } from "../controller/authControllers";
 
 const prisma = new PrismaClient();
 
@@ -75,6 +77,57 @@ export const authMiddleware = {
     } catch (err) {
       console.log(err);
       res.status(400).send({ error: "Error whith credentials" });
+    }
+  },
+
+  protected: async (req: Request, res: Response, next: NextFunction) => {
+    // get the token from the header
+    const authorization = req.headers["authorization"];
+    // if we don't have a token, return error
+    if (!authorization) {
+      res.status(500).json({
+        message: "No token! 🤔",
+        type: "error",
+      });
+    } else {
+      // if we have a token, you have to verify it
+      const token = authorization.split(" ")[1];
+      let tokenVerified;
+      try {
+        tokenVerified = jwt.verify(
+          token,
+          process.env.ACCESS_TOKEN_SECRET as string
+        ) as IrefreshToken;
+      } catch {
+        return res.status(500).json({
+          message: "Invalid token! 🤔",
+          type: "error",
+        });
+      }
+      // if the token is invalid, return error
+      if (!tokenVerified) {
+        res.status(500).json({
+          message: "Invalid token! 🤔",
+          type: "error",
+        });
+      } else {
+        // if the token is valid, check if the user exists
+        const userToRead = await prisma.user.findUnique({
+          where: {
+            email: tokenVerified.email,
+          },
+        });
+        // if the user doesn't exist, return error
+        if (!userToRead) {
+          res.status(500).json({
+            message: "User doesn't exist! 😢",
+            type: "error",
+          });
+        } else {
+          req.body.user = userToRead;
+          next();
+        }
+      }
     }
   },
 };

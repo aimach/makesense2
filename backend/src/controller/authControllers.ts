@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
-interface refreshToken {
+export interface IrefreshToken {
   email: string;
   password: string;
   iat: number;
@@ -108,7 +108,7 @@ export const authControllers = {
         refreshTokenVerified = jwt.verify(
           refreshTokenCookie,
           process.env.REFRESH_TOKEN_SECRET as string
-        ) as refreshToken;
+        ) as IrefreshToken;
       } catch (error) {
         res.status(500).json({
           message: "Invalid refresh token! 🤔",
@@ -192,6 +192,31 @@ export const authControllers = {
       res.status(500).json({
         type: "error",
         message: "Error refreshing token!",
+        error,
+      });
+    }
+  },
+
+  checkifUserExists: async (req: Request, res: Response) => {
+    try {
+      // if user exists in the request, send the data
+      if (req.body.user) {
+        res.json({
+          message: "You are logged in! 🤗",
+          type: "success",
+          user: req.body.user,
+        });
+      } else {
+        // if user doesn't exist, return error
+        res.status(500).json({
+          message: "You are not logged in! 😢",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        type: "error",
+        message: "Error getting protected route!",
         error,
       });
     }

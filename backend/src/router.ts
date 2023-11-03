@@ -87,3 +87,11 @@ router.post(
 
 router.post("/logout", authControllers.logout);
 router.post("/refresh-token", authControllers.refreshToken);
+
+// PROTECTED ROUTES
+
+router.get(
+  "/protected",
+  authMiddleware.protected,
+  authControllers.checkifUserExists
+);
