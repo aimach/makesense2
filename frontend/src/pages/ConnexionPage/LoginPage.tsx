@@ -5,6 +5,7 @@ import logo from "../../assets/img/logo.svg";
 // PACKAGE IMPORTS
 import Joi from "joi";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function LoginPage() {
   const schema = Joi.object({
@@ -24,12 +25,17 @@ export default function LoginPage() {
     const formJson = Object.fromEntries(formData.entries());
 
     const checkFormDatas = schema.validate(formJson);
-    const checkCheckBox = "cgu" in formJson;
     if (checkFormDatas.error) {
       // console.log(checkFormDatas.error.details[0].path[0]);
       console.log(checkFormDatas);
     } else {
-      console.log("Form posted");
+      axios
+        .post(`${import.meta.env.VITE_BACKEND_URL as string}/login`, {
+          email: formJson.email,
+          password: formJson.password,
+        })
+        .then((response) => console.log(response.data))
+        .catch((err) => console.error(err));
     }
   }
   return (
@@ -46,12 +52,18 @@ export default function LoginPage() {
         <label>
           Adresse email * <HelpCircle className={style.helpIcon} />
         </label>
-        <input type="email" className={style.inputStyle} required />
+        <input
+          type="email"
+          name="email"
+          className={style.inputStyle}
+          required
+        />
         <label>
           Mot de passe * <HelpCircle className={style.helpIcon} />
         </label>
         <input
           type="password"
+          name="password"
           className={style.inputStyle}
           pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*\-]).{8,}$"
           required
