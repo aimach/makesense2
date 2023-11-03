@@ -4,6 +4,13 @@ import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
+interface refreshToken {
+  email: string;
+  password: string;
+  iat: number;
+  exp: number;
+}
+
 export const authControllers = {
   login: async (req: Request, res: Response) => {
     const { email, password } = req.body;
@@ -59,6 +66,67 @@ export const authControllers = {
     } catch (err) {
       console.log(err);
       res.status(400).send({ error: "Error while creating user" });
+    }
+  },
+
+  logout: (req: Request, res: Response) => {
+    // clear cookies
+    res
+      .clearCookie("refreshtoken")
+      .send({ message: "Logged out successfully! 🤗", type: "success" });
+  },
+
+  refreshToken: async (req: Request, res: Response) => {
+    try {
+      const { refreshtoken } = req.cookies;
+      // if we don't have a refresh token, return error
+      if (!refreshtoken) {
+        res.status(500).json({
+          message: "No refresh token!",
+          type: "error",
+        });
+      }
+      // if we have a refresh token, you have to verify it
+      let refreshTokenVerified;
+      try {
+        refreshTokenVerified = jwt.verify(
+          refreshtoken,
+          process.env.REFRESH_TOKEN_SECRET as string
+        ) as refreshToken;
+      } catch (error) {
+        res.status(500).json({
+          message: "Invalid refresh token! 🤔",
+          type: "error",
+        });
+      }
+      // if the refresh token is invalid, return error
+      if (!refreshTokenVerified)
+        return res.status(500).json({
+          message: "Invalid refresh token! 🤔",
+          type: "error",
+        });
+      // if the refresh token is valid, check if the user exists
+      let user;
+      try {
+        user = await prisma.user.findUnique({
+          where: {
+            email: refreshTokenVerified.email,
+          },
+        });
+        console.log(user);
+      } catch (error) {
+        // if the user doesn't exist, return error
+        res.status(500).json({
+          message: "User doesn't exist! 😢",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        type: "error",
+        message: "Error refreshing token!",
+        error,
+      });
     }
   },
 };
