@@ -46,11 +46,16 @@ export default function LoginPage() {
         <label>
           Adresse email * <HelpCircle className={style.helpIcon} />
         </label>
-        <input type="email" className={style.inputStyle} />
+        <input type="email" className={style.inputStyle} required />
         <label>
           Mot de passe * <HelpCircle className={style.helpIcon} />
         </label>
-        <input type="password" className={style.inputStyle} />
+        <input
+          type="password"
+          className={style.inputStyle}
+          pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*\-]).{8,}$"
+          required
+        />
         <p className={style.textSizeS}>Oublié ?</p>
         <button type="submit" className={style.buttonStyle}>
           Me connecter

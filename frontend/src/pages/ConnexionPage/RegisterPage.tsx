@@ -49,11 +49,23 @@ export default function RegisterPage() {
         <label>
           Adresse email * <HelpCircle className={style.helpIcon} />
         </label>
-        <input type="email" name="email" className={style.inputStyle} />
+        <input
+          type="email"
+          name="email"
+          className={style.inputStyle}
+          required
+        />
         <label>
           Mot de passe * <HelpCircle className={style.helpIcon} />
         </label>
-        <input type="password" name="password" className={style.inputStyle} />
+        <input
+          type="password"
+          name="password"
+          className={style.inputStyle}
+          minLength={8}
+          pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*\-]).{8,}$"
+          required
+        />
         <p className={style.infoPassword}>
           Pour être un mot de passe fort, doit contenir des minuscules, des
           majuscules, des chiffres et des caractères spéciaux (#?!@$%^&*-). Il
@@ -67,13 +79,16 @@ export default function RegisterPage() {
           type="password"
           name="confirmedPassword"
           className={style.inputStyle}
+          minLength={8}
+          pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*\-]).{8,}$"
+          required
         />
         <label>
           Conditions générales d'utilisation *
           <HelpCircle className={style.helpIcon} />
         </label>
         <div className={style.checkboxContainer}>
-          <input type="checkbox" name="cgu" />
+          <input type="checkbox" name="cgu" required />
           <p>
             En cochant la présente case, je reconnais avoir pris connaissance et
             accepte les conditions générales d’utilisation
