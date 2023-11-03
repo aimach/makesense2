@@ -59,7 +59,12 @@ router.delete("/comments/:id", commentControllers.deleteComment);
 
 router.get("/users", userControllers.getAllUsers);
 router.get("/users/:id", userControllers.getUserById);
-router.put("/users/:id", userControllers.updateUser);
+router.put(
+  "/users/:id",
+  authMiddleware.getUserByEmailAndPassword,
+  authMiddleware.hashPassword,
+  userControllers.updateUser
+);
 router.delete("/users/:id", userControllers.deleteUser);
 
 // DECISIONS
@@ -93,5 +98,5 @@ router.post("/refresh-token", authControllers.refreshToken);
 router.get(
   "/protected",
   authMiddleware.protected,
-  authControllers.checkifUserExists
+  authControllers.checkIfUserIsInBodyReq
 );

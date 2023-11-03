@@ -197,7 +197,7 @@ export const authControllers = {
     }
   },
 
-  checkifUserExists: async (req: Request, res: Response) => {
+  checkIfUserIsInBodyReq: async (req: Request, res: Response) => {
     try {
       // if user exists in the request, send the data
       if (req.body.user) {
