@@ -1,14 +1,12 @@
 // STYLE IMPORTS
 import style from "./ConnexionPage.module.scss";
 import { HelpCircle } from "react-feather";
+import logo from "../../assets/img/logo.svg";
+
 // PACKAGE IMPORTS
 import Joi from "joi";
 
-export interface connexionPropType {
-  setConnexionType: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export default function Login({ setConnexionType }: connexionPropType) {
+export default function Login() {
   const schema = Joi.object({
     email: Joi.string().email({ tlds: { allow: false } }),
     // password rules : at least one uppercase letter, one lowercase letter, one digit, one special character and min 8 characters
@@ -35,15 +33,12 @@ export default function Login({ setConnexionType }: connexionPropType) {
     }
   }
   return (
-    <div>
+    <div className={style.connexionStyle}>
+      <img src={logo} alt="logo" />
+      <h2 className={`${style.title}`}>Se connecter</h2>
       <p>
-        Vous n'avez pas de compte ?{" "}
-        <span
-          className={style.inlineLink}
-          onClick={() => setConnexionType("register")}
-        >
-          Créer un compte
-        </span>
+        Vous n'avez pas de compte ?
+        <span className={style.inlineLink}>Créer un compte</span>
       </p>
       <form onSubmit={handleSubmit}>
         <label>

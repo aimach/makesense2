@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import "./index.scss";
-import ConnexionPage from "./pages/ConnexionPage/ConnexionPage.tsx";
+import Login from "./pages/ConnexionPage/ConnexionPage.tsx";
 import Home from "./pages/Home/Home.tsx";
 import DecisionCreate from "./pages/DecisionCreate/DecisionCreate.tsx";
 
@@ -30,8 +30,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "connexion",
-    element: <ConnexionPage />,
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "register",
+    // element: <ConnexionPage />,
   },
 ]);
 
