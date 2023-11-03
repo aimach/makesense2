@@ -33,7 +33,7 @@ export const authMiddleware = {
       const { email } = req.body;
       const userToRead = await prisma.user.findUnique({
         where: {
-          email,
+          email: email,
         },
       });
       if (userToRead === null) {

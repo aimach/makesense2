@@ -11,10 +11,25 @@ export const authControllers = {
       throw new Error("ACCESS_TOKEN_SECRET variable is not defined");
     }
     const payload = { email, password };
-    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "1h",
+    // signing the access token
+    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: 15 * 60,
     });
-    res.status(200).send({ token, payload });
+    // signing the refresh token
+    const refreshToken = jwt.sign(
+      payload,
+      process.env.REFRESH_TOKEN_SECRET as string,
+      {
+        expiresIn: "90d",
+      }
+    );
+
+    res
+      // sending the refresh token to the client as a cookie
+      .cookie("refreshtoken", refreshToken, { httpOnly: true })
+      // sending the access token to the client
+      .send({ accessToken, payload })
+      .status(200);
   },
   register: async (req: Request, res: Response) => {
     try {
