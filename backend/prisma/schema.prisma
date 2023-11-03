@@ -16,6 +16,7 @@ model User {
   lastname String
   email String  @unique
   password String
+  refreshToken String?
   avatar String?
   admin Boolean @default(false)
   position String
