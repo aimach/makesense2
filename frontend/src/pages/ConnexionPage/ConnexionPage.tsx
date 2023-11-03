@@ -1,10 +1,12 @@
 import { useState } from "react";
-import logo from "../../assets/img/logo.svg";
+// STYLE IMPORTS
 import style from "./ConnexionPage.module.scss";
-import Login from "./Login";
-import Register from "./Register";
+import logo from "../../assets/img/logo.svg";
+import { HelpCircle } from "react-feather";
+// PACKAGE IMPORTS
+import Joi from "joi";
 
-export default function ConnexionPage() {
+export default function Login() {
   const [connexionType, setConnexionType] = useState("login");
 
   return (

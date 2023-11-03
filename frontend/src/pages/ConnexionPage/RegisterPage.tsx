@@ -1,12 +1,12 @@
-// COMPONENTS IMPORTS
-import { connexionPropType } from "./Login";
+import { Link } from "react-router-dom";
 // STYLE IMPORTS
-import style from "./ConnexionPage.module.scss";
+import style from "../ConnexionPage/ConnexionPage.module.scss";
 import { HelpCircle } from "react-feather";
+import logo from "../../assets/img/logo.svg";
 // PACKAGE IMPORTS
 import Joi from "joi";
 
-export default function Register({ setConnexionType }: connexionPropType) {
+export default function RegisterPage() {
   // VALIDATE DATA WITH JOI
   const schema = Joi.object({
     email: Joi.string().email({ tlds: { allow: false } }),
@@ -36,15 +36,14 @@ export default function Register({ setConnexionType }: connexionPropType) {
     }
   }
   return (
-    <div>
+    <div className={style.connexionStyle}>
+      <img src={logo} alt="logo" />
+      <h2>Créer un compte</h2>
       <p>
         Vous avez déjà un compte ?{" "}
-        <span
-          className={style.inlineLink}
-          onClick={() => setConnexionType("login")}
-        >
-          Me connecter
-        </span>
+        <Link to="/login">
+          <span className={style.inlineLink}>Me connecter</span>
+        </Link>
       </p>
       <form onSubmit={handleSubmit}>
         <label>
