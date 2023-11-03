@@ -1,0 +1,30 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+.decisionCardContainer {
+  @include m.flex(row, space-between, flex-start);
+  flex-wrap: wrap;
+  margin: v.$font-space-xxxxl 0;
+  gap: v.$font-space-xxxxl;
+}
+
+.decisionCard {
+  max-width: 300px;
+  padding: v.$font-space-xxxxl;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: v.$border-radius-rounded;
+  h4 {
+    font-size: v.$font-size-xxl;
+    font-weight: v.$font-weight-extrablack;
+    padding-bottom: v.$font-space-l;
+  }
+  p {
+    font-weight: v.$font-weight-light;
+    padding-bottom: v.$font-space-xxxl;
+    text-align: justify;
+  }
+}
+
+.tagContainer {
+  @include m.flex(row, flex-start, flex-start);
+  gap: v.$font-space-l;
+}

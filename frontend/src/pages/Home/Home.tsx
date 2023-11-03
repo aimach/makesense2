@@ -1,4 +1,6 @@
 import title from "../../assets/img/title.svg";
+import DecisionCard from "../../components/decisionCard/DecisionCard";
+import DecisionCardContainer from "../../components/decisionCard/decisionCardContainer";
 import CategorySection from "../../components/homeSection/CategorySection";
 import LastSection from "../../components/homeSection/LastSection";
 import Searchbar from "../../components/searchbar/Searchbar";
@@ -12,9 +14,10 @@ export default function Home() {
         <Searchbar />
       </div>
       <section>
-        {/* <h2>Trouver une décision à impact positif</h2> */}
+        <h2>Trouver une décision à impact positif</h2>
         <CategorySection />
         <LastSection />
+        <DecisionCardContainer />
       </section>
     </div>
   );
