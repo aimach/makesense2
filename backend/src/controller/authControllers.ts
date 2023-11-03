@@ -23,17 +23,33 @@ export const authControllers = {
       expiresIn: 15 * 60,
     });
     // signing the refresh token
-    const refreshToken = jwt.sign(
+    const refreshTokenCookie = jwt.sign(
       payload,
       process.env.REFRESH_TOKEN_SECRET as string,
       {
         expiresIn: "90d",
       }
     );
+    try {
+      await prisma.user.update({
+        where: {
+          email: email,
+        },
+        data: {
+          refreshToken: refreshTokenCookie,
+        },
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Cannot register token in db!",
+        type: "error",
+        error,
+      });
+    }
 
     res
       // sending the refresh token to the client as a cookie
-      .cookie("refreshtoken", refreshToken, { httpOnly: true })
+      .cookie("refreshtoken", refreshTokenCookie, { httpOnly: true })
       // sending the access token to the client
       .send({ accessToken, payload })
       .status(200);
@@ -78,9 +94,9 @@ export const authControllers = {
 
   refreshToken: async (req: Request, res: Response) => {
     try {
-      const { refreshtoken } = req.cookies;
+      const refreshTokenCookie = req.cookies.refreshtoken;
       // if we don't have a refresh token, return error
-      if (!refreshtoken) {
+      if (!refreshTokenCookie) {
         res.status(500).json({
           message: "No refresh token!",
           type: "error",
@@ -90,7 +106,7 @@ export const authControllers = {
       let refreshTokenVerified;
       try {
         refreshTokenVerified = jwt.verify(
-          refreshtoken,
+          refreshTokenCookie,
           process.env.REFRESH_TOKEN_SECRET as string
         ) as refreshToken;
       } catch (error) {
@@ -113,7 +129,6 @@ export const authControllers = {
             email: refreshTokenVerified.email,
           },
         });
-        console.log(user);
       } catch (error) {
         // if the user doesn't exist, return error
         res.status(500).json({
@@ -121,6 +136,58 @@ export const authControllers = {
           type: "error",
         });
       }
+      // if the user exists, check if the refresh token is correct. return error if it is incorrect.
+      if (user?.refreshToken !== refreshTokenCookie) {
+        return res.status(500).json({
+          message: "Invalid refresh token! 🤔",
+          type: "error",
+        });
+      }
+      // if the refresh token is correct, create the new tokens
+      const payload = { email: user?.email, password: user?.password };
+      // signing the access token
+      const newAccessToken = jwt.sign(
+        payload,
+        process.env.ACCESS_TOKEN_SECRET as string,
+        {
+          expiresIn: 15 * 60,
+        }
+      );
+      // signing the refresh token
+      const newRefreshToken = jwt.sign(
+        payload,
+        process.env.REFRESH_TOKEN_SECRET as string,
+        {
+          expiresIn: "90d",
+        }
+      );
+      // update the refresh token in the database
+      try {
+        await prisma.user.update({
+          where: {
+            email: user?.email,
+          },
+          data: {
+            refreshToken: newRefreshToken,
+          },
+        });
+      } catch (error) {
+        res.status(500).json({
+          message: "Cannot register token in db!",
+          type: "error",
+          error,
+        });
+      }
+      // send the new tokens as response
+      res
+        .cookie("refreshtoken", newRefreshToken, {
+          httpOnly: true,
+        })
+        .json({
+          message: "Refreshed successfully! 🤗",
+          type: "success",
+          newAccessToken,
+        });
     } catch (error) {
       res.status(500).json({
         type: "error",

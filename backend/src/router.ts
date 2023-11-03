@@ -85,5 +85,5 @@ router.post(
   authControllers.register
 );
 
-router.post("logout", authControllers.logout);
+router.post("/logout", authControllers.logout);
 router.post("/refresh-token", authControllers.refreshToken);
