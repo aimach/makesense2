@@ -6,7 +6,7 @@ interface TagProps {
 }
 
 export default function Tag({ content, color }: TagProps) {
-  const backgroundColor = `${color.slice(0, -1)}, .3)`;
+  const backgroundColor = `${color.slice(0, -1)}, .1)`;
   const tagStyle = {
     backgroundColor: backgroundColor,
     border: `1px solid ${color}`,

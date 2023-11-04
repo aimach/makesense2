@@ -15,16 +15,27 @@
   h4 {
     font-size: v.$font-size-xxl;
     font-weight: v.$font-weight-extrablack;
-    padding-bottom: v.$font-space-l;
   }
   p {
     font-weight: v.$font-weight-light;
     padding-bottom: v.$font-space-xxxl;
     text-align: justify;
+    font-size: v.$font-size-s;
+  }
+}
+
+.titleSection {
+  @include m.flex(row, space-between, center);
+  padding-bottom: v.$font-space-l;
+  img {
+    width: 40px;
+    border: 1px solid black;
+    border-radius: v.$border-radius-circle;
   }
 }
 
 .tagContainer {
   @include m.flex(row, flex-start, flex-start);
+  flex-wrap: wrap;
   gap: v.$font-space-l;
 }

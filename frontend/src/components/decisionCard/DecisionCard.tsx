@@ -1,5 +1,6 @@
 import Tag from "../tag/Tag";
 import style from "./DecisionCard.module.scss";
+import logo from "../../assets/img/logo.svg";
 
 interface DecisionCardProps {
   decision: {
@@ -15,7 +16,10 @@ interface DecisionCardProps {
 export default function DecisionCard({ decision }: DecisionCardProps) {
   return (
     <div className={style.decisionCard}>
-      <h4>{decision.title}</h4>
+      <div className={style.titleSection}>
+        <h4>{decision.title}</h4>
+        <img src={logo} alt="avatar" />
+      </div>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro numquam
         odio necessitatibus? Molestiae aperiam, repudiandae officia commodi esse
