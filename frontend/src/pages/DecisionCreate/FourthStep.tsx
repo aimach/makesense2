@@ -1,10 +1,23 @@
+import style from "./DecisionCreate.module.scss";
+import { Plus } from "react-feather";
+
 export default function FourthStep() {
   return (
-    <div>
-      <label>Les experts</label>
-      <button>Ajouter un expert</button>
-      <label>Les impactés</label>
-      <button>Ajouter un impacté</button>
-    </div>
+    <>
+      <div className={style.inputContainer}>
+        <label>Les experts</label>
+        <button>
+          <Plus />
+          Ajouter un expert
+        </button>
+      </div>
+      <div className={style.inputContainer}>
+        <label>Les impactés</label>
+        <button>
+          <Plus />
+          Ajouter un impacté
+        </button>
+      </div>
+    </>
   );
 }
