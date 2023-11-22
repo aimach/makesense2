@@ -30,6 +30,7 @@ export default function DecisionCreate() {
               className={`${style.stepRounded} ${
                 step === index ? style.stepRoundedRed : ""
               }`}
+              key={index}
             />
           ))}
         </div>
