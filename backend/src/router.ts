@@ -10,6 +10,12 @@ import { userControllers } from "./controller/userControllers";
 import { decisionControllers } from "./controller/decisionControllers";
 import { authControllers } from "./controller/authControllers";
 import { authMiddleware } from "./middleware/authMiddleware";
+
+// TEST
+router.get("/", (req, res) => {
+  res.status(200).send("Helloooooo");
+});
+
 // SERVICES
 
 router.get("/services", serviceControllers.getAllServices);
