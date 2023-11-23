@@ -1,0 +1,15 @@
+services:
+  backend:
+    image: ./makesense-back
+    ports:
+      - 5000:5000
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/public:/app/public
+    env_file: ./backend/.env
+  frontend:
+    image: ./makesense-front
+    ports: 5173:3000
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
