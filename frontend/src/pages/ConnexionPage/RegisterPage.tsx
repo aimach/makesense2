@@ -27,7 +27,7 @@ export default function RegisterPage() {
     const formJson = Object.fromEntries(formData.entries());
 
     const checkFormDatas = schema.validate(formJson);
-    const checkCheckBox = "cgu" in formJson;
+    // const checkCheckBox = "cgu" in formJson;
     if (checkFormDatas.error) {
       // console.log(checkFormDatas.error.details[0].path[0]);
       console.log(checkFormDatas);
