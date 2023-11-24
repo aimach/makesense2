@@ -13,6 +13,11 @@ export type Decision = {
   userId: number;
 };
 
+export type StatusType = {
+  id?: number;
+  name: string;
+};
+
 export type UserType = {
   id?: number;
   firstname: string;

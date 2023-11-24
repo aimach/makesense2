@@ -2,7 +2,7 @@
 import { PrismaClient, User } from "@prisma/client";
 import { fakerFR as faker } from "@faker-js/faker";
 import { removeDuplicates } from "../utils/utils";
-import { UserType } from "../utils/types";
+import { StatusType, UserType } from "../utils/types";
 
 const prisma = new PrismaClient();
 
@@ -10,6 +10,7 @@ async function main() {
   // DELETE BEFORE CREATING
   await prisma.user.deleteMany({}); // use with caution.
   await prisma.service.deleteMany({}); // use with caution.
+  await prisma.status.deleteMany({}); // use with caution.
 
   // SERVICES
   const amountOfServices = 5;
@@ -77,6 +78,29 @@ async function main() {
       users.map(async (user) => {
         await prisma.user.create({
           data: user,
+        });
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  // STATUS
+  const status: StatusType[] = [
+    { id: 1, name: "Prise de décision commencée" },
+    { id: 2, name: "Deadline pour donner son avis" },
+    { id: 3, name: "Première décision prise" },
+    { id: 4, name: "Deadline pour entrer en conflit" },
+    { id: 5, name: "Décision définitive" },
+    { id: 6, name: "Décision archivée" },
+    { id: 7, name: "Décision abandonnée" },
+  ];
+
+  try {
+    await Promise.all(
+      status.map(async (status) => {
+        await prisma.status.create({
+          data: status,
         });
       })
     );
