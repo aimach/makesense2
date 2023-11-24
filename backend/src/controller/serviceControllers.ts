@@ -66,7 +66,7 @@ export const serviceControllers = {
     }
   },
 
-  // UPDATE
+  // DELETE
   deleteService: async (req: Request, res: Response): Promise<void> => {
     try {
       await prisma.service.delete({
