@@ -1,4 +1,13 @@
-export type Decision = {
+export type CommentType = {
+  id?: number;
+  title: string;
+  content: string;
+  userId: number;
+  decisionId: number;
+  date?: Date;
+};
+
+export type DecisionType = {
   id?: number;
   title: string;
   firstContent: string;

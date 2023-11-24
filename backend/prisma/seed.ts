@@ -2,7 +2,7 @@
 import { PrismaClient, User } from "@prisma/client";
 import { fakerFR as faker } from "@faker-js/faker";
 import { removeDuplicates } from "../utils/utils";
-import { StatusType, UserType } from "../utils/types";
+import { DecisionType, StatusType, UserType } from "../utils/types";
 
 const prisma = new PrismaClient();
 
@@ -101,6 +101,56 @@ async function main() {
       status.map(async (status) => {
         await prisma.status.create({
           data: status,
+        });
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  // DECISIONS
+  const amountOfDecisions = 5;
+
+  const getRandomStatusId = async (): Promise<number> => {
+    const allStatus = await prisma.status.findMany();
+    return allStatus[Math.floor(Math.random() * allStatus.length)].id;
+  };
+  const getRandomUserId = async (): Promise<number> => {
+    const allUsers = await prisma.user.findMany();
+    return allUsers[Math.floor(Math.random() * allUsers.length)].id;
+  };
+  const createDecision = async (): Promise<DecisionType> => {
+    // INITIALIZE REUSED DATAS
+    const statusId = await getRandomStatusId();
+    const userId = await getRandomUserId();
+
+    // CREATE NEW USER
+    const newDecision: DecisionType = {
+      title: faker.lorem.words({ min: 3, max: 10 }),
+      firstContent: faker.lorem.paragraphs({ min: 3, max: 10 }),
+      secondContent: faker.lorem.paragraphs({ min: 3, max: 10 }),
+      utility: faker.lorem.paragraphs({ min: 1, max: 3 }),
+      context: faker.lorem.paragraphs({ min: 1, max: 3 }),
+      pros: faker.lorem.paragraphs({ min: 1, max: 3 }),
+      cons: faker.lorem.paragraphs({ min: 1, max: 3 }),
+      statusId: statusId,
+      userId: userId,
+    };
+
+    return newDecision;
+  };
+
+  const decisions: DecisionType[] = [];
+
+  for (let i = 0; i < amountOfDecisions; i++) {
+    decisions.push(await createDecision());
+  }
+
+  try {
+    await Promise.all(
+      decisions.map(async (decision) => {
+        await prisma.decision.create({
+          data: decision,
         });
       })
     );
