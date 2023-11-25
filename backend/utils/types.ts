@@ -1,3 +1,9 @@
+export type CategoryType = {
+  id?: number;
+  name: string;
+  color: string;
+};
+
 export type CommentType = {
   id?: number;
   title: string;
@@ -20,6 +26,11 @@ export type DecisionType = {
   updatedAt?: Date;
   statusId: number;
   userId: number;
+};
+
+export type GroupType = {
+  id?: number;
+  name: string;
 };
 
 export type StatusType = {

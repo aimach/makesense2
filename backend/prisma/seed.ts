@@ -9,8 +9,10 @@ import {
   getRandomDecisionId,
 } from "../utils/utils";
 import {
+  CategoryType,
   CommentType,
   DecisionType,
+  GroupType,
   StatusType,
   UserType,
 } from "../utils/types";
@@ -18,11 +20,7 @@ import {
 const prisma = new PrismaClient();
 
 async function main() {
-  // DELETE BEFORE CREATING
-  await prisma.decision.deleteMany({}); // use with caution.
-  await prisma.user.deleteMany({}); // use with caution.
-  await prisma.service.deleteMany({}); // use with caution.
-  await prisma.status.deleteMany({}); // use with caution.
+  //
 
   // SERVICES
   const amountOfServices = 5;
@@ -54,7 +52,6 @@ async function main() {
     // INITIALIZE REUSED DATAS
     const firstname = faker.person.firstName();
     const lastname = faker.person.lastName();
-    const serviceId = await getRandomServiceId();
 
     // CREATE NEW USER
     const newUser: UserType = {
@@ -69,7 +66,7 @@ async function main() {
       avatar: faker.internet.avatar(),
       admin: faker.datatype.boolean({ probability: 0.2 }),
       position: faker.company.buzzNoun(),
-      serviceId: serviceId,
+      serviceId: await getRandomServiceId(),
     };
 
     return newUser;
@@ -180,6 +177,69 @@ async function main() {
       comments.map(async (comment) => {
         await prisma.comment.create({
           data: comment,
+        });
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  // CATEGORIES
+  const amountOfCategories = 5;
+
+  const createCategory = async (): Promise<CategoryType> => {
+    // CREATE NEW CATEGORY
+    const newCategory: CategoryType = {
+      name: faker.lorem.words({ min: 1, max: 2 }),
+      color: faker.color.rgb({ format: "hex" }),
+    };
+
+    return newCategory;
+  };
+
+  const categories: CategoryType[] = [];
+
+  for (let i = 0; i < amountOfCategories; i++) {
+    categories.push(await createCategory());
+  }
+  removeDuplicates(categories);
+
+  try {
+    await Promise.all(
+      categories.map(async (category) => {
+        await prisma.category.create({
+          data: category,
+        });
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  // GROUPS
+  const amountOfGroups = 5;
+
+  const createGroup = async (): Promise<GroupType> => {
+    // CREATE NEW GROUP
+    const newGroup: GroupType = {
+      name: faker.commerce.department(),
+    };
+
+    return newGroup;
+  };
+
+  const groups: GroupType[] = [];
+
+  for (let i = 0; i < amountOfGroups; i++) {
+    groups.push(await createGroup());
+  }
+  removeDuplicates(groups);
+
+  try {
+    await Promise.all(
+      groups.map(async (group) => {
+        await prisma.group.create({
+          data: group,
         });
       })
     );

@@ -1,9 +1,27 @@
 import { PrismaClient } from "@prisma/client";
+import { GroupType, CategoryType } from "./types";
 
 const prisma = new PrismaClient();
 
-const removeDuplicates = (array: string[]): string[] => {
-  return [...new Set(array)];
+type arrayWithDuplicates = string[] | GroupType[] | CategoryType[];
+
+const removeDuplicates = (array: arrayWithDuplicates) => {
+  if (typeof array[0] === "string") {
+    return [...new Set(array as Iterable<string>)];
+  } else if (typeof array[0] === "object") {
+    const uniqueItems: string[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (array as any[]).filter(
+      (item: string | GroupType | CategoryType) => {
+        if (typeof item !== "string") {
+          const isDuplicate = uniqueItems.includes(item.name);
+          if (!isDuplicate) {
+            uniqueItems.push(item.name);
+          }
+        }
+      }
+    );
+  }
 };
 
 const getRandomUserId = async (): Promise<number> => {

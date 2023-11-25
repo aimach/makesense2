@@ -58,7 +58,7 @@ model Decision {
 
 model Status {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   decisions Decision[]
 }
 
@@ -75,14 +75,14 @@ model Comment {
 
 model Category {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   color String
   decisions Decision[]
 }
 
 model Group {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   users User[]
   decisions GroupsOnDecisions[]
 }
