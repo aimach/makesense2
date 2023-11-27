@@ -26,9 +26,15 @@ export type DecisionType = {
   updatedAt?: Date;
   statusId: number;
   userId: number;
+  categories?: { create: CategoryType[] };
 };
 
 export type GroupType = {
+  id?: number;
+  name: string;
+};
+
+export type ServiceType = {
   id?: number;
   name: string;
 };

@@ -14,6 +14,7 @@ export const decisionControllers = {
           user: true,
           users: true,
           groups: true,
+          categories: true,
         },
       });
       res.status(200).send(allDecisions);

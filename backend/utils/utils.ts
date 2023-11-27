@@ -44,10 +44,29 @@ const getRandomDecisionId = async (): Promise<number> => {
   return allDecisions[Math.floor(Math.random() * allDecisions.length)].id;
 };
 
+const getRandomCategoryId = async (): Promise<number> => {
+  const allCategories = await prisma.category.findMany();
+  return allCategories[Math.floor(Math.random() * allCategories.length)].id;
+};
+
+const getRandomCategory = async (): Promise<CategoryType> => {
+  const allCategories = await prisma.category.findMany();
+  return allCategories[Math.floor(Math.random() * allCategories.length)];
+};
+
+const getRandomNumberInRange = (min: number, max: number) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 export {
   removeDuplicates,
   getRandomUserId,
   getRandomServiceId,
   getRandomStatusId,
   getRandomDecisionId,
+  getRandomCategoryId,
+  getRandomNumberInRange,
+  getRandomCategory,
 };

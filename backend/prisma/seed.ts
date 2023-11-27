@@ -7,6 +7,8 @@ import {
   getRandomStatusId,
   getRandomServiceId,
   getRandomDecisionId,
+  // getRandomNumberInRange,
+  getRandomCategory,
 } from "../utils/utils";
 import {
   CategoryType,
@@ -46,7 +48,7 @@ async function main() {
   }
 
   // USERS
-  const amountOfUsers = 5;
+  const amountOfUsers = 50;
 
   const createUsers = async (): Promise<UserType> => {
     // INITIALIZE REUSED DATAS
@@ -113,10 +115,55 @@ async function main() {
     console.error(error);
   }
 
+  // CATEGORIES
+  const amountOfCategories = 10;
+
+  const createCategory = async (): Promise<CategoryType> => {
+    // CREATE NEW CATEGORY
+    const newCategory: CategoryType = {
+      name: faker.lorem.words({ min: 1, max: 2 }),
+      color: faker.color.rgb({ format: "hex" }),
+    };
+
+    return newCategory;
+  };
+
+  const categories: CategoryType[] = [];
+
+  for (let i = 0; i < amountOfCategories; i++) {
+    categories.push(await createCategory());
+  }
+  removeDuplicates(categories);
+
+  try {
+    await Promise.all(
+      categories.map(async (category) => {
+        await prisma.category.create({
+          data: category,
+        });
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
   // DECISIONS
   const amountOfDecisions = 5;
 
   const createDecision = async (): Promise<DecisionType> => {
+    // CREATE CATEGORIES ARRAY
+    // const minCategories = 1;
+    // const maxCategories = 3;
+    // const randomNbOfCategories = getRandomNumberInRange(
+    //   minCategories,
+    //   maxCategories
+    // );
+    // const categoriesArray: CategoryType[] = [];
+
+    // for (let i = 0; i <= randomNbOfCategories; i++) {
+    //   categoriesArray.push(await getRandomCategory());
+    // }
+
     // CREATE NEW DECISION
     const newDecision: DecisionType = {
       title: faker.lorem.words({ min: 3, max: 10 }),
@@ -128,6 +175,7 @@ async function main() {
       cons: faker.lorem.paragraphs({ min: 1, max: 3 }),
       statusId: await getRandomStatusId(),
       userId: await getRandomUserId(),
+      categories: { create: [await getRandomCategory()] },
     };
 
     return newDecision;
@@ -152,7 +200,7 @@ async function main() {
   }
 
   // COMMENTS
-  const amountOfComments = 5;
+  const amountOfComments = 20;
 
   const createComment = async (): Promise<CommentType> => {
     // CREATE NEW COMMENT
@@ -184,40 +232,8 @@ async function main() {
     console.error(error);
   }
 
-  // CATEGORIES
-  const amountOfCategories = 5;
-
-  const createCategory = async (): Promise<CategoryType> => {
-    // CREATE NEW CATEGORY
-    const newCategory: CategoryType = {
-      name: faker.lorem.words({ min: 1, max: 2 }),
-      color: faker.color.rgb({ format: "hex" }),
-    };
-
-    return newCategory;
-  };
-
-  const categories: CategoryType[] = [];
-
-  for (let i = 0; i < amountOfCategories; i++) {
-    categories.push(await createCategory());
-  }
-  removeDuplicates(categories);
-
-  try {
-    await Promise.all(
-      categories.map(async (category) => {
-        await prisma.category.create({
-          data: category,
-        });
-      })
-    );
-  } catch (error) {
-    console.error(error);
-  }
-
   // GROUPS
-  const amountOfGroups = 5;
+  const amountOfGroups = 10;
 
   const createGroup = async (): Promise<GroupType> => {
     // CREATE NEW GROUP
