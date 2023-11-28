@@ -1,15 +1,6 @@
-// app/prisma/seed.ts
 import { PrismaClient } from "@prisma/client";
 import { fakerFR as faker } from "@faker-js/faker";
-import {
-  removeDuplicates,
-  getRandomUserId,
-  getRandomStatusId,
-  getRandomServiceId,
-  getRandomDecisionId,
-  // getRandomNumberInRange,
-  getRandomCategory,
-} from "../utils/utils";
+import { getRandomNb, getRandomCategory } from "../utils/utils";
 import {
   CategoryType,
   CommentType,
@@ -22,16 +13,14 @@ import {
 const prisma = new PrismaClient();
 
 async function main() {
-  //
-
   // SERVICES
   const amountOfServices = 5;
 
-  const services = [];
+  const services: string[] = [];
   for (let i = 0; i < amountOfServices; i++) {
-    services.push(faker.company.buzzNoun());
+    const newService = faker.company.buzzNoun();
+    if (!services.includes(newService)) services.push(newService);
   }
-  removeDuplicates(services);
 
   try {
     await Promise.all(
@@ -48,7 +37,7 @@ async function main() {
   }
 
   // USERS
-  const amountOfUsers = 50;
+  const amountOfUsers = 5;
 
   const createUsers = async (): Promise<UserType> => {
     // INITIALIZE REUSED DATAS
@@ -68,7 +57,7 @@ async function main() {
       avatar: faker.internet.avatar(),
       admin: faker.datatype.boolean({ probability: 0.2 }),
       position: faker.company.buzzNoun(),
-      serviceId: await getRandomServiceId(),
+      serviceId: getRandomNb(amountOfServices),
     };
 
     return newUser;
@@ -131,9 +120,14 @@ async function main() {
   const categories: CategoryType[] = [];
 
   for (let i = 0; i < amountOfCategories; i++) {
-    categories.push(await createCategory());
+    const newCategory = await createCategory();
+    if (
+      !categories.filter((category) => category.name === newCategory.name)
+        .length
+    ) {
+      categories.push(newCategory);
+    }
   }
-  removeDuplicates(categories);
 
   try {
     await Promise.all(
@@ -152,17 +146,12 @@ async function main() {
 
   const createDecision = async (): Promise<DecisionType> => {
     // CREATE CATEGORIES ARRAY
-    // const minCategories = 1;
-    // const maxCategories = 3;
-    // const randomNbOfCategories = getRandomNumberInRange(
-    //   minCategories,
-    //   maxCategories
-    // );
-    // const categoriesArray: CategoryType[] = [];
+    const randomNbOfCategories = getRandomNb(3);
+    const categoriesArray: CategoryType[] = [];
 
-    // for (let i = 0; i <= randomNbOfCategories; i++) {
-    //   categoriesArray.push(await getRandomCategory());
-    // }
+    for (let i = 0; i <= randomNbOfCategories; i++) {
+      categoriesArray.push(await getRandomCategory());
+    }
 
     // CREATE NEW DECISION
     const newDecision: DecisionType = {
@@ -173,9 +162,19 @@ async function main() {
       context: faker.lorem.paragraphs({ min: 1, max: 3 }),
       pros: faker.lorem.paragraphs({ min: 1, max: 3 }),
       cons: faker.lorem.paragraphs({ min: 1, max: 3 }),
-      statusId: await getRandomStatusId(),
-      userId: await getRandomUserId(),
-      categories: { create: [await getRandomCategory()] },
+      statusId: getRandomNb(status.length),
+      userId: getRandomNb(amountOfUsers),
+      categories: {
+        create: [
+          {
+            category: {
+              connect: {
+                id: 1,
+              },
+            },
+          },
+        ],
+      },
     };
 
     return newDecision;
@@ -207,8 +206,8 @@ async function main() {
     const newComment: CommentType = {
       title: faker.lorem.words({ min: 3, max: 10 }),
       content: faker.lorem.paragraph({ min: 1, max: 3 }),
-      userId: await getRandomUserId(),
-      decisionId: await getRandomDecisionId(),
+      userId: getRandomNb(amountOfUsers),
+      decisionId: getRandomNb(amountOfDecisions),
     };
 
     return newComment;
@@ -233,7 +232,7 @@ async function main() {
   }
 
   // GROUPS
-  const amountOfGroups = 10;
+  const amountOfGroups = 5;
 
   const createGroup = async (): Promise<GroupType> => {
     // CREATE NEW GROUP
@@ -247,9 +246,11 @@ async function main() {
   const groups: GroupType[] = [];
 
   for (let i = 0; i < amountOfGroups; i++) {
-    groups.push(await createGroup());
+    const newGroup = await createGroup();
+    if (!groups.filter((group) => group.name === newGroup.name).length) {
+      groups.push(newGroup);
+    }
   }
-  removeDuplicates(groups);
 
   try {
     await Promise.all(

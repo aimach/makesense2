@@ -51,7 +51,7 @@ model Decision {
   user User @relation(fields: [userId], references: [id])
   userId Int
   comments Comment[]
-  categories Category[]
+  categories CategoriesOnDecisions[]
   users UsersOnDecisions[]
   groups GroupsOnDecisions[]
 }
@@ -77,7 +77,7 @@ model Category {
   id Int @id @default(autoincrement())
   name String @unique
   color String
-  decisions Decision[]
+  decisions CategoriesOnDecisions[]
 }
 
 model Group {
@@ -86,6 +86,15 @@ model Group {
   users User[]
   decisions GroupsOnDecisions[]
 }
+
+model CategoriesOnDecisions {
+  decision Decision @relation(fields: [decisionId], references: [id])
+  decisionId Int
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  @@id([decisionId, categoryId])
+}
+
 
 model UsersOnDecisions {
   decision Decision @relation(fields: [decisionId], references: [id])
