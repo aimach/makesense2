@@ -7,7 +7,19 @@ export const groupControllers = {
   // READ
   getAllGroups: async (req: Request, res: Response): Promise<void> => {
     try {
-      const allGroups = await prisma.group.findMany();
+      const allGroups = await prisma.group.findMany({
+        include: {
+          users: {
+            select: { user: true },
+          },
+          decisions: {
+            select: {
+              type: true,
+              decision: true,
+            },
+          },
+        },
+      });
       res.status(200).send(allGroups);
     } catch (err) {
       console.log(err);

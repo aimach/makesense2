@@ -7,7 +7,12 @@ export const commentControllers = {
   // READ
   getAllComments: async (req: Request, res: Response): Promise<void> => {
     try {
-      const allComments = await prisma.comment.findMany();
+      const allComments = await prisma.comment.findMany({
+        include: {
+          user: true,
+          decision: true,
+        },
+      });
       res.status(200).send(allComments);
     } catch (err) {
       console.log(err);
