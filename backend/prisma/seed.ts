@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { fakerFR as faker } from "@faker-js/faker";
-import { getRandomNb, getRandomCategory } from "../utils/utils";
 import {
   CategoryType,
   CommentType,
@@ -16,11 +15,10 @@ async function main() {
   // SERVICES
   const amountOfServices = 5;
 
-  const services: string[] = [];
-  for (let i = 0; i < amountOfServices; i++) {
-    const newService = faker.company.buzzNoun();
-    if (!services.includes(newService)) services.push(newService);
-  }
+  const services: string[] = faker.helpers.multiple(faker.company.buzzNoun, {
+    count: amountOfServices,
+  });
+  console.log(services);
 
   try {
     await Promise.all(
@@ -37,27 +35,35 @@ async function main() {
   }
 
   // USERS
-  const amountOfUsers = 5;
+  const amountOfUsers = 10;
 
   const createUsers = async (): Promise<UserType> => {
     // INITIALIZE REUSED DATAS
     const firstname = faker.person.firstName();
     const lastname = faker.person.lastName();
 
+    // CREATE RANDOM PASSWORD
+    const chars =
+      "0123456789abcdefghijklmnopqrstuvwxyz#?!@$%^&*-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const passwordLength = 8;
+    let password = "";
+    for (let i = 0; i <= passwordLength; i++) {
+      const randomNumber = Math.floor(Math.random() * chars.length);
+      password += chars.substring(randomNumber, randomNumber + 1);
+    }
+
     // CREATE NEW USER
     const newUser: UserType = {
       firstname: firstname,
       lastname: lastname,
-      email: faker.internet.email({
-        firstName: firstname,
-        lastName: lastname,
-        provider: "makesense.com",
-      }),
-      password: faker.internet.password(), // A FINIR
+      email: `${firstname.toLowerCase().normalize()}.${lastname
+        .toLowerCase()
+        .normalize()}@makesense.com`,
+      password: password,
       avatar: faker.internet.avatar(),
       admin: faker.datatype.boolean({ probability: 0.2 }),
       position: faker.company.buzzNoun(),
-      serviceId: getRandomNb(amountOfServices),
+      serviceId: faker.helpers.rangeToNumber({ min: 1, max: amountOfServices }),
     };
 
     return newUser;
@@ -141,16 +147,130 @@ async function main() {
     console.error(error);
   }
 
+  // GROUPS
+  const amountOfGroups = 5;
+
+  const createGroup = async (): Promise<GroupType> => {
+    // CREATE USERS ARRAY
+    const randomNbOfUsers = faker.helpers.rangeToNumber({ min: 1, max: 10 });
+    const usersArray = [];
+
+    for (let i = 0; i <= randomNbOfUsers; i++) {
+      const newId = faker.helpers.rangeToNumber({ min: 1, max: amountOfUsers });
+      if (
+        !usersArray.filter((object) => object.user.connect.id === newId).length
+      )
+        usersArray.push({
+          user: {
+            connect: {
+              id: newId,
+            },
+          },
+        });
+    }
+
+    // CREATE NEW GROUP
+    const newGroup: GroupType = {
+      name: faker.commerce.department(),
+      users: {
+        create: usersArray,
+      },
+    };
+
+    return newGroup;
+  };
+
+  const groups: GroupType[] = [];
+
+  for (let i = 0; i < amountOfGroups; i++) {
+    const newGroup = await createGroup();
+    if (!groups.filter((group) => group.name === newGroup.name).length) {
+      groups.push(newGroup);
+    }
+  }
+
+  try {
+    await Promise.all(
+      groups.map(async (group) => {
+        await prisma.group.create({
+          data: group,
+        });
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
   // DECISIONS
   const amountOfDecisions = 5;
 
   const createDecision = async (): Promise<DecisionType> => {
     // CREATE CATEGORIES ARRAY
-    const randomNbOfCategories = getRandomNb(3);
-    const categoriesArray: CategoryType[] = [];
+    const randomNbOfCategories = faker.helpers.rangeToNumber({
+      min: 1,
+      max: 3,
+    });
+    const categoriesArray = [];
 
     for (let i = 0; i <= randomNbOfCategories; i++) {
-      categoriesArray.push(await getRandomCategory());
+      const newId = faker.helpers.rangeToNumber({
+        min: 1,
+        max: amountOfCategories,
+      });
+      if (
+        !categoriesArray.filter(
+          (object) => object.category.connect.id === newId
+        ).length
+      )
+        categoriesArray.push({
+          category: {
+            connect: {
+              id: newId,
+            },
+          },
+        });
+    }
+
+    // CREATE USERS ARRAY
+    const randomNbOfUsers = faker.helpers.rangeToNumber({ min: 1, max: 5 });
+    const usersArray = [];
+
+    for (let i = 0; i <= randomNbOfUsers; i++) {
+      const newId = faker.helpers.rangeToNumber({ min: 1, max: amountOfUsers });
+      if (
+        !usersArray.filter((object) => object.user.connect.id === newId).length
+      )
+        usersArray.push({
+          type: faker.helpers.arrayElement(["expert", "concerné"]),
+          user: {
+            connect: {
+              id: newId,
+            },
+          },
+        });
+    }
+
+    // CREATE GROUPS ARRAY
+    const randomNbOfGroups = faker.helpers.rangeToNumber({ min: 1, max: 2 });
+    const groupsArray = [];
+
+    for (let i = 0; i <= randomNbOfGroups; i++) {
+      const newId = faker.helpers.rangeToNumber({
+        min: 1,
+        max: amountOfGroups,
+      });
+      if (
+        !groupsArray.filter((object) => object.group.connect.id === newId)
+          .length
+      )
+        groupsArray.push({
+          type: faker.helpers.arrayElement(["experts", "concernés"]),
+          group: {
+            connect: {
+              id: newId,
+            },
+          },
+        });
     }
 
     // CREATE NEW DECISION
@@ -162,18 +282,16 @@ async function main() {
       context: faker.lorem.paragraphs({ min: 1, max: 3 }),
       pros: faker.lorem.paragraphs({ min: 1, max: 3 }),
       cons: faker.lorem.paragraphs({ min: 1, max: 3 }),
-      statusId: getRandomNb(status.length),
-      userId: getRandomNb(amountOfUsers),
+      statusId: faker.helpers.rangeToNumber({ min: 1, max: status.length }),
+      userId: faker.helpers.rangeToNumber({ min: 1, max: amountOfUsers }),
       categories: {
-        create: [
-          {
-            category: {
-              connect: {
-                id: 1,
-              },
-            },
-          },
-        ],
+        create: categoriesArray,
+      },
+      users: {
+        create: usersArray,
+      },
+      groups: {
+        create: groupsArray,
       },
     };
 
@@ -206,8 +324,11 @@ async function main() {
     const newComment: CommentType = {
       title: faker.lorem.words({ min: 3, max: 10 }),
       content: faker.lorem.paragraph({ min: 1, max: 3 }),
-      userId: getRandomNb(amountOfUsers),
-      decisionId: getRandomNb(amountOfDecisions),
+      userId: faker.helpers.rangeToNumber({ min: 1, max: amountOfUsers }),
+      decisionId: faker.helpers.rangeToNumber({
+        min: 1,
+        max: amountOfDecisions,
+      }),
     };
 
     return newComment;
@@ -224,39 +345,6 @@ async function main() {
       comments.map(async (comment) => {
         await prisma.comment.create({
           data: comment,
-        });
-      })
-    );
-  } catch (error) {
-    console.error(error);
-  }
-
-  // GROUPS
-  const amountOfGroups = 5;
-
-  const createGroup = async (): Promise<GroupType> => {
-    // CREATE NEW GROUP
-    const newGroup: GroupType = {
-      name: faker.commerce.department(),
-    };
-
-    return newGroup;
-  };
-
-  const groups: GroupType[] = [];
-
-  for (let i = 0; i < amountOfGroups; i++) {
-    const newGroup = await createGroup();
-    if (!groups.filter((group) => group.name === newGroup.name).length) {
-      groups.push(newGroup);
-    }
-  }
-
-  try {
-    await Promise.all(
-      groups.map(async (group) => {
-        await prisma.group.create({
-          data: group,
         });
       })
     );

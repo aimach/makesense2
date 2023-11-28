@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { GroupType, CategoryType } from "./types";
+import { GroupType, CategoryType, UserType } from "./types";
 
 const prisma = new PrismaClient();
 
@@ -35,5 +35,9 @@ const getRandomCategory = async (): Promise<CategoryType> => {
   const allCategories = await prisma.category.findMany();
   return allCategories[Math.floor(Math.random() * allCategories.length)];
 };
+const getRandomUser = async (): Promise<UserType> => {
+  const allUsers = await prisma.user.findMany();
+  return allUsers[Math.floor(Math.random() * allUsers.length)];
+};
 
-export { removeDuplicates, getRandomNb, getRandomCategory };
+export { removeDuplicates, getRandomNb, getRandomCategory, getRandomUser };

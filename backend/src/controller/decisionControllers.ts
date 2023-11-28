@@ -14,7 +14,11 @@ export const decisionControllers = {
           user: true,
           users: true,
           groups: true,
-          categories: true,
+          categories: {
+            select: {
+              category: true,
+            },
+          },
         },
       });
       res.status(200).send(allDecisions);
@@ -35,6 +39,11 @@ export const decisionControllers = {
           user: true,
           users: true,
           groups: true,
+          categories: {
+            select: {
+              category: true,
+            },
+          },
         },
       });
       if (decisionToRead === null) {

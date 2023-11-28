@@ -7,7 +7,11 @@ export const serviceControllers = {
   // READ
   getAllServices: async (req: Request, res: Response): Promise<void> => {
     try {
-      const allServices = await prisma.service.findMany();
+      const allServices = await prisma.service.findMany({
+        include: {
+          users: true,
+        },
+      });
       res.status(200).send(allServices);
     } catch (err) {
       console.log(err);

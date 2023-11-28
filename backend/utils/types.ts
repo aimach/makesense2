@@ -27,21 +27,48 @@ export type DecisionType = {
   statusId: number;
   userId: number;
   categories: {
-    create: [
-      {
-        category: {
-          connect: {
-            id: number;
-          };
+    create: {
+      category: {
+        connect: {
+          id: number;
         };
-      }
-    ];
+      };
+    }[];
+  };
+  users: {
+    create: {
+      type: string;
+      user: {
+        connect: {
+          id: number;
+        };
+      };
+    }[];
+  };
+  groups: {
+    create: {
+      type: string;
+      group: {
+        connect: {
+          id: number;
+        };
+      };
+    }[];
   };
 };
 
 export type GroupType = {
   id?: number;
   name: string;
+  users?: {
+    create: {
+      user: {
+        connect: {
+          id: number;
+        };
+      };
+    }[];
+  };
 };
 
 export type ServiceType = {
@@ -60,7 +87,7 @@ export type UserType = {
   lastname: string;
   email: string;
   password: string;
-  avatar?: string;
+  avatar: string | null;
   admin: boolean;
   position: string;
   serviceId: number;

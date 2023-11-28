@@ -9,7 +9,11 @@ export const categoryControllers = {
     try {
       const allCategories = await prisma.category.findMany({
         include: {
-          decisions: true,
+          decisions: {
+            select: {
+              decision: true,
+            },
+          },
         },
       });
       res.status(200).send(allCategories);
@@ -25,7 +29,11 @@ export const categoryControllers = {
           id: parseInt(req.params.id),
         },
         include: {
-          decisions: true,
+          decisions: {
+            select: {
+              decision: true,
+            },
+          },
         },
       });
       if (categoryToRead === null) {
