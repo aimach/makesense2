@@ -7,7 +7,6 @@ interface DecisionCardProps {
 }
 
 export default function DecisionCard({ decision }: DecisionCardProps) {
-  console.log(decision);
   const descriptionSliced =
     decision.firstContent
       .split("")
