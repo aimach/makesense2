@@ -18,7 +18,6 @@ async function main() {
   const services: string[] = faker.helpers.multiple(faker.company.buzzNoun, {
     count: amountOfServices,
   });
-  console.log(services);
 
   try {
     await Promise.all(
@@ -202,7 +201,7 @@ async function main() {
   }
 
   // DECISIONS
-  const amountOfDecisions = 5;
+  const amountOfDecisions = 13;
 
   const createDecision = async (): Promise<DecisionType> => {
     // CREATE CATEGORIES ARRAY
@@ -212,7 +211,7 @@ async function main() {
     });
     const categoriesArray = [];
 
-    for (let i = 0; i <= randomNbOfCategories; i++) {
+    for (let i = 0; i < randomNbOfCategories; i++) {
       const newId = faker.helpers.rangeToNumber({
         min: 1,
         max: amountOfCategories,
