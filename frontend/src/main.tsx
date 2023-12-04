@@ -8,16 +8,26 @@ import Home from "./pages/Home/Home.tsx";
 import DecisionCreate from "./pages/DecisionCreate/DecisionCreate.tsx";
 import LoginPage from "./pages/ConnexionPage/LoginPage.tsx";
 import RegisterPage from "./pages/ConnexionPage/RegisterPage.tsx";
+import { DecisionType } from "./utils/types.ts";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
         element: <Home />,
+        loader: (): Promise<DecisionType[] | void> => {
+          return axios
+            .get<DecisionType[]>(
+              `${import.meta.env.VITE_BACKEND_URL as string}/decisions`
+            )
+            .then((res) => res.data)
+            .catch((err) => console.error(err));
+        },
       },
       {
         path: "decisions/",

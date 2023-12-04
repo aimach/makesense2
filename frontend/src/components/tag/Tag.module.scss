@@ -1,0 +1,8 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.tag {
+  border-radius: v.$border-radius-rounded * 2;
+  padding: v.$font-space-s v.$font-space-m;
+  font-size: v.$font-size-s;
+}
