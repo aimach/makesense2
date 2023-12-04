@@ -4,22 +4,15 @@ import style from "./Searchbar.module.scss";
 import "./Searchbar.module.scss";
 import { StatusType } from "../../utils/types";
 import axios from "axios";
+import { IFilters } from "../../pages/Home/Home";
 
-interface IFilters {
-  text: string;
-  status: number[] | [];
-  date: string;
+interface searchbarProps {
+  filters: IFilters;
+  setFilters: (arg0: IFilters) => void;
 }
-
-export default function Searchbar() {
+export default function Searchbar({ filters, setFilters }: searchbarProps) {
   const [status, setStatus] = useState<StatusType[] | []>([]);
   const [displayStatusModal, setDisplayStatusModal] = useState<boolean>(false);
-
-  const [filters, setFilters] = useState<IFilters>({
-    text: "",
-    status: [],
-    date: "",
-  });
 
   function addStatus(event: React.ChangeEvent<HTMLInputElement>) {
     const newStatus: number[] = [
@@ -35,8 +28,6 @@ export default function Searchbar() {
     );
     setFilters({ ...filters, status: newStatus });
   }
-
-  console.log(filters.status);
 
   useEffect(() => {
     axios
