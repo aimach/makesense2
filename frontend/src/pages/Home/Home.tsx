@@ -22,11 +22,19 @@ export default function Home() {
     date: "",
   });
   const allDecisions = useLoaderData() as LoaderData;
-  const filteredDecisions = allDecisions.filter(
-    (decision) =>
-      filters.status.length === 0 || filters.status.includes(decision.statusId)
-  );
-  console.log(filteredDecisions);
+  const filteredDecisions = allDecisions
+    .filter(
+      (decision) =>
+        filters.status.length === 0 ||
+        filters.status.includes(decision.statusId)
+    )
+    .filter((decision) =>
+      filters.text !== ""
+        ? decision.title.includes(filters.text) ||
+          decision.firstContent.includes(filters.text)
+        : true
+    );
+  // il va falloir gérer les majuscules et minuscules
   return (
     <div className={style.homeStyle}>
       <div className={style.homeTitleAndSearchSection}>

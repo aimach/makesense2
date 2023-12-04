@@ -44,6 +44,9 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
             type="text"
             placeholder="Mots clés..."
             className={style.emptyInputStyle}
+            onChange={(event) => {
+              setFilters({ ...filters, text: event.target.value });
+            }}
           />
           <div className={`${style.searchSelect} ${style.emptyInputStyle}`}>
             <Tag />
