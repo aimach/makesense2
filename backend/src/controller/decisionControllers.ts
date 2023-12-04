@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
@@ -7,7 +7,24 @@ export const decisionControllers = {
   // READ
   getAllDecisions: async (req: Request, res: Response): Promise<void> => {
     try {
+      const filters: Prisma.DecisionWhereInput[] = [];
+      const status = req.query.status as string;
+      const text = req.query.text as string;
+      if (status)
+        filters.push({
+          statusId: {
+            in: status.split(",").map((item: string) => parseInt(item, 10)),
+          },
+        });
+      if (text)
+        filters.push({
+          OR: [
+            { title: { contains: text } },
+            { firstContent: { contains: text } },
+          ],
+        });
       const allDecisions = await prisma.decision.findMany({
+        where: { AND: filters },
         include: {
           status: true,
           comments: true,
