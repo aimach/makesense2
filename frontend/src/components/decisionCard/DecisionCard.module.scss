@@ -5,6 +5,9 @@
   flex-wrap: wrap;
   margin: v.$font-space-xxxxl 0;
   gap: v.$font-space-xxxxl;
+  a {
+    text-decoration: none;
+  }
 }
 
 .decisionCard {
@@ -26,8 +29,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   &:hover {
-    cursor: pointer;
     -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
       both;
     animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;

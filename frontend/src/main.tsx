@@ -10,6 +10,7 @@ import LoginPage from "./pages/ConnexionPage/LoginPage.tsx";
 import RegisterPage from "./pages/ConnexionPage/RegisterPage.tsx";
 import { DecisionType } from "./utils/types.ts";
 import axios from "axios";
+import DecisionPage from "./pages/DecisionPage/DecisionPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
           {
             path: "create",
             element: <DecisionCreate />,
+          },
+          {
+            path: ":decisionId",
+            element: <DecisionPage />,
           },
         ],
       },
