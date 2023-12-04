@@ -11,7 +11,7 @@ export default function DecisionCardContainer({
   return (
     <div className={style.decisionCardContainer}>
       {allDecisions.map((decision) => (
-        <DecisionCard decision={decision} />
+        <DecisionCard decision={decision} key={decision.id} />
       ))}
     </div>
   );

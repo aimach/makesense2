@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
             .get<DecisionType[]>(
               `${import.meta.env.VITE_BACKEND_URL as string}/decisions`
             )
-            .then((res) => console.log(res.data))
+            .then((res) => res.data)
             .catch((err) => console.error(err));
         },
       },

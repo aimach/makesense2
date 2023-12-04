@@ -7,13 +7,11 @@ import Searchbar from "../../components/searchbar/Searchbar";
 import style from "./Home.module.scss";
 import { DecisionType } from "../../utils/types";
 
-type LoaderData = {
-  allDecisions: DecisionType[];
-};
+type LoaderData = DecisionType[];
 
 export default function Home() {
-  const { allDecisions } = useLoaderData() as LoaderData;
-  console.log(allDecisions);
+  const allDecisions = useLoaderData() as LoaderData;
+
   return (
     <div className={style.homeStyle}>
       <div className={style.homeTitleAndSearchSection}>
