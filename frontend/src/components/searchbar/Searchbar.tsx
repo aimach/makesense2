@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Search, Tag, Calendar, ChevronDown } from "react-feather";
 import style from "./Searchbar.module.scss";
 import "./Searchbar.module.scss";
-import { DecisionType, StatusType } from "../../utils/types";
+import { StatusType } from "../../utils/types";
 import axios from "axios";
 import { IFilters } from "../../pages/Home/Home";
 import { Link } from "react-router-dom";
@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 interface searchbarProps {
   filters: IFilters;
   setFilters: (arg0: IFilters) => void;
-  allDecisions: DecisionType[];
 }
 export default function Searchbar({ filters, setFilters }: searchbarProps) {
   const [status, setStatus] = useState<StatusType[] | []>([]);
@@ -35,7 +34,7 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
   console.log(filters.text);
 
   function createQueryParams(filters: IFilters) {
-    let query = "?";
+    const query = "?";
     const queryParams: string[] = [];
     if (filters.text !== "") queryParams.push(`text=${filters.text}`);
     if (filters.status.length > 0) {
@@ -59,6 +58,7 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
             type="text"
             placeholder="Mots clés..."
             className={style.emptyInputStyle}
+            value={filters.text}
             onChange={(event) => {
               setFilters({ ...filters, text: event.target.value });
             }}

@@ -1,0 +1,22 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.decisionResultSection {
+  width: 80vw;
+  margin: auto;
+}
+
+.separator {
+  width: 100%;
+  border-top: v.$border-width-m solid #e0e4eb;
+  margin: (v.$font-size-m * 5) 0;
+}
+
+.decisionResultContainer {
+  p {
+    font-size: v.$font-size-xxxxl;
+    span {
+      color: v.$color-cerise;
+    }
+  }
+}

@@ -4,13 +4,18 @@ import axios from "axios";
 import { DecisionType } from "../../utils/types";
 import DecisionCardContainer from "../../components/decisionCard/DecisionCardContainer";
 import { useLocation } from "react-router-dom";
+import Searchbar from "../../components/searchbar/Searchbar";
+import { IFilters } from "../Home/Home";
 
 export default function DecisionResult() {
-  // const text: string | null = new URLSearchParams(location.search).get("text");
-  // const status: number[] = fromStringToArray(
-  //   new URLSearchParams(location.search).get("status") as string
-  // );
   const { search } = useLocation();
+  const text = new URLSearchParams(location.search).get("text");
+  const status = new URLSearchParams(location.search).get("status");
+  const [filters, setFilters] = useState<IFilters>({
+    text: text ?? "",
+    status: status?.split(",").map((item: string) => parseInt(item, 10)) ?? [],
+    date: "",
+  });
 
   const [filteredDecisions, setFilteredDecisions] = useState<
     DecisionType[] | []
@@ -28,8 +33,22 @@ export default function DecisionResult() {
   }, [search]);
 
   return (
-    <div>
+    <div className="decisionResultSection">
+      <Searchbar filters={filters} setFilters={setFilters} />
+      <div className="separator" />
+      <div className="decisionResultContainer">
+        <p>
+          <span>{filteredDecisions.length}</span> décisions |
+          {
+            // trier par : statut ou date
+          }
+        </p>
+      </div>
       <DecisionCardContainer allDecisions={filteredDecisions} />
+      <p>
+        Votre recherche correspond à {filteredDecisions.length} résultat
+        {filteredDecisions.length > 1 ? "s" : ""}
+      </p>
     </div>
   );
 }

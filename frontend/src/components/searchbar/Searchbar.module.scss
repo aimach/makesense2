@@ -5,6 +5,7 @@
   @include m.inputStyleWithShadow;
   position: relative;
   width: 700px;
+  margin: auto;
   form {
     @include m.flex(row, space-between, center);
     input {

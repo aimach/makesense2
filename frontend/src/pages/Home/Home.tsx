@@ -27,11 +27,7 @@ export default function Home() {
     <div className={style.homeStyle}>
       <div className={style.homeTitleAndSearchSection}>
         <img src={title} alt="title" />
-        <Searchbar
-          filters={filters}
-          setFilters={setFilters}
-          allDecisions={allDecisions}
-        />
+        <Searchbar filters={filters} setFilters={setFilters} />
       </div>
       <section>
         <h2>Trouver une décision à impact positif</h2>
