@@ -22,30 +22,22 @@ export default function Home() {
     date: "",
   });
   const allDecisions = useLoaderData() as LoaderData;
-  const filteredDecisions = allDecisions
-    .filter(
-      (decision) =>
-        filters.status.length === 0 ||
-        filters.status.includes(decision.statusId)
-    )
-    .filter((decision) =>
-      filters.text !== ""
-        ? decision.title.includes(filters.text) ||
-          decision.firstContent.includes(filters.text)
-        : true
-    );
-  // il va falloir gérer les majuscules et minuscules
+
   return (
     <div className={style.homeStyle}>
       <div className={style.homeTitleAndSearchSection}>
         <img src={title} alt="title" />
-        <Searchbar filters={filters} setFilters={setFilters} />
+        <Searchbar
+          filters={filters}
+          setFilters={setFilters}
+          allDecisions={allDecisions}
+        />
       </div>
       <section>
         <h2>Trouver une décision à impact positif</h2>
         <CategorySection />
         <LastSection />
-        <DecisionCardContainer allDecisions={filteredDecisions} />
+        <DecisionCardContainer allDecisions={allDecisions} />
       </section>
     </div>
   );

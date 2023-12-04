@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { Search, Tag, Calendar, ChevronDown } from "react-feather";
 import style from "./Searchbar.module.scss";
 import "./Searchbar.module.scss";
-import { StatusType } from "../../utils/types";
+import { DecisionType, StatusType } from "../../utils/types";
 import axios from "axios";
 import { IFilters } from "../../pages/Home/Home";
+import { Link } from "react-router-dom";
 
 interface searchbarProps {
   filters: IFilters;
   setFilters: (arg0: IFilters) => void;
+  allDecisions: DecisionType[];
 }
 export default function Searchbar({ filters, setFilters }: searchbarProps) {
   const [status, setStatus] = useState<StatusType[] | []>([]);
@@ -28,6 +30,18 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
       (item) => item !== parseInt(event.target.id, 10)
     );
     setFilters({ ...filters, status: newStatus });
+  }
+
+  console.log(filters.text);
+
+  function createQueryParams(filters: IFilters) {
+    let query = "?";
+    const queryParams: string[] = [];
+    if (filters.text !== "") queryParams.push(`text=${filters.text}`);
+    if (filters.status.length > 0) {
+      queryParams.push(`status=${filters.status}`);
+    }
+    return query + queryParams.join("&");
   }
 
   useEffect(() => {
@@ -68,8 +82,15 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
               onClick={() => setDisplayDateModal(!displayDateModal)}
             />
           </div>
-          <button type="submit" className={style.buttonSearch}>
-            <Search />
+          <button type="button" className={style.buttonSearch}>
+            <Link
+              to={{
+                pathname: "/decisions/search",
+                search: createQueryParams(filters),
+              }}
+            >
+              <Search />
+            </Link>
           </button>
         </form>
         {displayStatusModal && status && (
