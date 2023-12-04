@@ -13,6 +13,7 @@ interface searchbarProps {
 export default function Searchbar({ filters, setFilters }: searchbarProps) {
   const [status, setStatus] = useState<StatusType[] | []>([]);
   const [displayStatusModal, setDisplayStatusModal] = useState<boolean>(false);
+  const [displayDateModal, setDisplayDateModal] = useState<boolean>(false);
 
   function addStatus(event: React.ChangeEvent<HTMLInputElement>) {
     const newStatus: number[] = [
@@ -50,7 +51,12 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
           />
           <div className={`${style.searchSelect} ${style.emptyInputStyle}`}>
             <Tag />
-            <p>Statut</p>
+            <p>
+              Statut{" "}
+              {filters.status.length > 0 ? (
+                <span>{filters.status.length}</span>
+              ) : null}
+            </p>
             <ChevronDown
               onClick={() => setDisplayStatusModal(!displayStatusModal)}
             />
@@ -58,7 +64,9 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
           <div className={style.searchSelect}>
             <Calendar />
             Date
-            <ChevronDown />
+            <ChevronDown
+              onClick={() => setDisplayDateModal(!displayDateModal)}
+            />
           </div>
           <button type="submit" className={style.buttonSearch}>
             <Search />
@@ -83,6 +91,22 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
                 <label htmlFor={item.id.toString()}>{item.name}</label>
               </div>
             ))}
+          </div>
+        )}
+        {displayDateModal && (
+          <div className={style.selectModal}>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              onChange={(event) => {
+                if (event.target.checked) {
+                  addStatus(event);
+                } else {
+                  removeStatus(event);
+                }
+              }}
+            />
           </div>
         )}
       </div>

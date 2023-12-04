@@ -27,6 +27,7 @@ export type DecisionType = {
   createdAt: Date;
   updatedAt: Date;
   statusId: number;
+  status: StatusType;
   userId: number;
   user: UserType;
   categories: CategoryType[];

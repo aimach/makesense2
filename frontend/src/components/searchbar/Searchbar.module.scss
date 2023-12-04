@@ -9,6 +9,9 @@
     @include m.flex(row, space-between, center);
     input {
       font-size: v.$font-size-l;
+      &:focus-visible {
+        outline: none;
+      }
     }
     div {
       font-size: v.$font-size-l;
@@ -27,6 +30,16 @@
 .searchSelect {
   @include m.flex(row, space-evenly, center);
   width: 100%;
+  p {
+    span {
+      color: v.$color-calypso;
+      font-weight: 800;
+      background-color: v.$color-atlantis;
+      border-radius: v.$border-radius-circle;
+      padding: 0.25rem 0.5rem;
+      font-size: v.$font-size-xs;
+    }
+  }
 }
 
 .buttonSearch {
@@ -39,6 +52,7 @@
   @include m.flex(column, space-evenly, flex-start);
   position: absolute;
   left: 35%;
+  padding: 0 v.$font-space-xl;
   div {
     @include m.flex(row, space-evenly, flex-start);
     margin: v.$font-space-m 0;
