@@ -1,0 +1,36 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.decisionResultSection {
+  width: 80vw;
+  margin: auto;
+  & > p {
+    @include m.flex(row, center, center);
+    color: v.$color-neutral-60;
+  }
+}
+
+.separator {
+  width: 100%;
+  border-top: v.$border-width-m solid v.$color-neutral-80;
+  margin: (v.$font-size-m * 5) 0;
+}
+
+.decisionResultContainer {
+  @include m.flex(row, flex-start, center);
+  gap: v.$font-size-l;
+  p {
+    font-size: v.$font-size-xxxxl;
+    font-weight: 900;
+  }
+  span {
+    color: v.$color-cerise;
+  }
+  select {
+    font-size: v.$font-size-l;
+    border: none;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}

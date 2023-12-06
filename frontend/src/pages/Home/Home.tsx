@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import title from "../../assets/img/title.svg";
 import DecisionCardContainer from "../../components/decisionCard/DecisionCardContainer";
@@ -8,15 +9,27 @@ import style from "./Home.module.scss";
 import { DecisionType } from "../../utils/types";
 
 type LoaderData = DecisionType[];
+export interface IFilters {
+  text: string;
+  status: number[] | [];
+  after: string;
+  before: string;
+}
 
 export default function Home() {
+  const [filters, setFilters] = useState<IFilters>({
+    text: "",
+    status: [],
+    after: "",
+    before: "",
+  });
   const allDecisions = useLoaderData() as LoaderData;
 
   return (
     <div className={style.homeStyle}>
       <div className={style.homeTitleAndSearchSection}>
         <img src={title} alt="title" />
-        <Searchbar />
+        <Searchbar filters={filters} setFilters={setFilters} />
       </div>
       <section>
         <h2>Trouver une décision à impact positif</h2>

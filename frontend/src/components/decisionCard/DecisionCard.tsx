@@ -7,7 +7,6 @@ interface DecisionCardProps {
 }
 
 export default function DecisionCard({ decision }: DecisionCardProps) {
-  console.log(decision);
   const descriptionSliced =
     decision.firstContent
       .split("")
@@ -21,6 +20,7 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
           <img src={decision.user.avatar as string} alt="avatar" />
         </div>
         <p>{descriptionSliced}</p>
+        <p>{decision.status.name}</p>
         <div className={style.tagContainer}>
           {decision.categories.map((category: CategoryType) => (
             <Tag
