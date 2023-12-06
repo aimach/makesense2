@@ -5,5 +5,12 @@ interface Props {
 }
 
 export default function CategoryCard({ category }: Props) {
-  return <div className={style.categoryCard}>{category.name}</div>;
+  const backgroundStyle = {
+    backgroundColor: category.color,
+  };
+  return (
+    <div className={style.categoryCard} style={backgroundStyle}>
+      {category.name}
+    </div>
+  );
 }

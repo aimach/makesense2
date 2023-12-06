@@ -18,7 +18,7 @@ export default function CategoryCardContainer() {
   return (
     <div className={style.categoryCardContainer}>
       {categories.map((category) => (
-        <CategoryCard category={category} key={category.id as number} />
+        <CategoryCard category={category} key={category.id} />
       ))}
     </div>
   );
