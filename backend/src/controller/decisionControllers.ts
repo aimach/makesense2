@@ -8,16 +8,17 @@ export const decisionControllers = {
   getAllDecisions: async (req: Request, res: Response): Promise<void> => {
     try {
       const filters: Prisma.DecisionWhereInput[] = [];
-      const status = req.query.status as string;
-      const text = req.query.text as string;
-      const sort = req.query.sort as string;
-      console.log(req.query);
+      const { status, text, sort, before, after } = req.query;
+      const beforeDate = new Date(before as string);
+      const afterDate = new Date(after as string);
 
       // ADD STATUS FILTER
       if (status)
         filters.push({
           statusId: {
-            in: status.split(",").map((item: string) => parseInt(item, 10)),
+            in: (status as string)
+              .split(",")
+              .map((item: string) => parseInt(item, 10)),
           },
         });
 
@@ -25,11 +26,26 @@ export const decisionControllers = {
       if (text)
         filters.push({
           OR: [
-            { title: { contains: text } },
-            { firstContent: { contains: text } },
+            { title: { contains: text as string } },
+            { firstContent: { contains: text as string } },
           ],
         });
 
+      // ADD DATE FILTER
+      if (before) {
+        filters.push({
+          createdAt: {
+            lte: beforeDate,
+          },
+        });
+      }
+      if (after) {
+        filters.push({
+          createdAt: {
+            gte: afterDate,
+          },
+        });
+      }
       // ADD SORTING
       const sorting: Prisma.DecisionOrderByWithRelationInput =
         sort === "date"
@@ -39,6 +55,7 @@ export const decisionControllers = {
           : {
               statusId: "asc",
             };
+
       const allDecisions = await prisma.decision.findMany({
         where: { AND: filters },
         include: {

@@ -9,14 +9,15 @@ import { IFilters } from "../Home/Home";
 
 export default function DecisionResult() {
   const { search } = useLocation();
-  console.log(search);
   const text = new URLSearchParams(location.search).get("text");
   const status = new URLSearchParams(location.search).get("status");
+  const before = new URLSearchParams(location.search).get("before");
+  const after = new URLSearchParams(location.search).get("after");
   const [filters, setFilters] = useState<IFilters>({
     text: text ?? "",
     status: status?.split(",").map((item: string) => parseInt(item, 10)) ?? [],
-    after: "",
-    before: "",
+    after: after as string,
+    before: before as string,
   });
   const [sort, setSort] = useState<string>("date");
 
@@ -46,15 +47,20 @@ export default function DecisionResult() {
         <p>
           <span>{filteredDecisions.length}</span> décisions
         </p>
-        |
-        <select
-          name="sort"
-          id="sort"
-          onChange={(event) => setSort(event.target.value)}
-        >
-          <option value="date">Trier par date de dépôt</option>
-          <option value="status">Trier par status</option>
-        </select>
+
+        {filteredDecisions.length > 0 && (
+          <>
+            |
+            <select
+              name="sort"
+              id="sort"
+              onChange={(event) => setSort(event.target.value)}
+            >
+              <option value="date">Trier par date de dépôt</option>
+              <option value="status">Trier par status</option>
+            </select>
+          </>
+        )}
       </div>
       <DecisionCardContainer allDecisions={filteredDecisions} />
       <p>
