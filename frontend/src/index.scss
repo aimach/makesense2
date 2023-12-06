@@ -4,6 +4,7 @@
 */
 
 @use "./styles/variable" as v;
+@use "./styles/mixin" as m;
 @import url("https://fonts.googleapis.com/css?family=Raleway");
 
 html,
@@ -143,4 +144,15 @@ h2 {
 h3 {
   font-size: v.$font-size-xxxl;
   font-weight: v.$font-weight-extrablack;
+}
+
+footer {
+  @include m.flex(row, space-between, center);
+  border-top: v.$border-width-m solid v.$color-neutral-80;
+  margin-top: v.$font-size-xxxxxl;
+  padding: v.$font-size-xxxl 0;
+  div {
+    @include m.flex(row, space-between, center);
+    gap: v.$font-size-xxl;
+  }
 }

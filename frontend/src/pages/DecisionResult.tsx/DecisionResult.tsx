@@ -57,7 +57,7 @@ export default function DecisionResult() {
       <DecisionCardContainer allDecisions={filteredDecisions} />
       <p>
         Votre recherche correspond à {filteredDecisions.length} résultat
-        {filteredDecisions.length > 1 ? "s" : ""}
+        {filteredDecisions.length > 1 ? "s" : ""}.
       </p>
     </div>
   );
