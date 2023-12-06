@@ -11,6 +11,7 @@ export const decisionControllers = {
       const status = req.query.status as string;
       const text = req.query.text as string;
       const sort = req.query.sort as string;
+      console.log(req.query);
 
       // ADD STATUS FILTER
       if (status)

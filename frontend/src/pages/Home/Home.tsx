@@ -7,7 +7,6 @@ import LastSection from "../../components/homeSection/LastSection";
 import Searchbar from "../../components/searchbar/Searchbar";
 import style from "./Home.module.scss";
 import { DecisionType } from "../../utils/types";
-import { JSDateToNormalDate } from "../../utils/utils";
 
 type LoaderData = DecisionType[];
 export interface IFilters {

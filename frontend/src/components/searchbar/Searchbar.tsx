@@ -6,7 +6,7 @@ import { StatusType } from "../../utils/types";
 import axios from "axios";
 import { IFilters } from "../../pages/Home/Home";
 import { Link } from "react-router-dom";
-import { JSDateToNormalDate } from "../../utils/utils";
+import { JSDateToNormalDate, NormalDateToJSDate } from "../../utils/utils";
 
 interface searchbarProps {
   filters: IFilters;
@@ -37,10 +37,8 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
     if (filters.status.length > 0) {
       queryParams.push(`status=${filters.status}`);
     }
-    if (filters.before !== JSDateToNormalDate(new Date()))
-      queryParams.push(`before=${filters.before}`);
-    if (filters.after !== JSDateToNormalDate(new Date()))
-      queryParams.push(`after=${filters.after}`);
+    if (filters.before !== "") queryParams.push(`before=${filters.before}`);
+    if (filters.after !== "") queryParams.push(`after=${filters.after}`);
     return startQuery + queryParams.join("&");
   }
 
@@ -131,7 +129,7 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
                 name="after"
                 value={filters.after}
                 max={
-                  JSDateToNormalDate(new Date()) > filters.before
+                  new Date() > NormalDateToJSDate(filters.before)
                     ? filters.before
                     : JSDateToNormalDate(new Date())
                 }
