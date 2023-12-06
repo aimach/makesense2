@@ -1,7 +1,7 @@
 @use "../../styles/variable" as v;
 @use "../../styles/mixin" as m;
 
-.homeSectionTitle {
+.categorySectionTitle {
   @include m.flex(row, flex-start, center);
   margin-top: v.$font-space-xxxxl;
   h3 {

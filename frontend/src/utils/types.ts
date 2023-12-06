@@ -1,9 +1,7 @@
 export type CategoryType = {
-  category: {
-    id: number;
-    name: string;
-    color: string;
-  };
+  id: number;
+  name: string;
+  color: string;
 };
 
 export type CommentType = {
@@ -30,7 +28,7 @@ export type DecisionType = {
   status: StatusType;
   userId: number;
   user: UserType;
-  categories: CategoryType[];
+  categories: { category: CategoryType }[];
   users: UserType[];
   groups: GroupType[];
 };

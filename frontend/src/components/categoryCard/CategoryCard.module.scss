@@ -1,0 +1,19 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.categoryCardContainer {
+  @include m.flex(row, flex-start, center);
+  gap: v.$font-space-xl;
+  margin: v.$font-size-xl 0;
+  overflow-x: scroll;
+}
+
+.categoryCard {
+  min-width: 150px;
+  width: 150px;
+  min-height: 150px;
+  height: 150px;
+  border-radius: v.$border-radius-rounded;
+  @include m.flex(row, center, center);
+  border: 1px solid black;
+}
