@@ -26,7 +26,6 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
           <img src={decision.user.avatar as string} alt="avatar" />
         </div>
         <p>{descriptionSliced}</p>
-        <p>{decision.status.name}</p>
         <div className={style.tagContainer}>
           {decision.categories.map((category: CategoryType) => (
             <Tag
@@ -37,8 +36,11 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
           ))}
         </div>
         <div className={style.dateContainer}>
-          <Calendar /> il y a {differenceInDays} jour
-          {differenceInDays > 1 && "s"}
+          <p>{decision.status.name}</p>
+          <div>
+            <Calendar /> il y a {differenceInDays} jour
+            {differenceInDays > 1 && "s"}
+          </div>
         </div>
       </div>
     </Link>
