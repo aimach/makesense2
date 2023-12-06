@@ -8,7 +8,7 @@ export const decisionControllers = {
   getAllDecisions: async (req: Request, res: Response): Promise<void> => {
     try {
       const filters: Prisma.DecisionWhereInput[] = [];
-      const { status, text, sort, before, after } = req.query;
+      const { status, text, sort, before, after, category } = req.query;
       const beforeDate = new Date(before as string);
       const afterDate = new Date(after as string);
 
@@ -46,6 +46,18 @@ export const decisionControllers = {
           },
         });
       }
+
+      // ADD CATEGORY FILTER
+      if (category) {
+        filters.push({
+          categories: {
+            some: {
+              categoryId: parseInt(category as string, 10),
+            },
+          },
+        });
+      }
+
       // ADD SORTING
       const sorting: Prisma.DecisionOrderByWithRelationInput =
         sort === "date"

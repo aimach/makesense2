@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { CategoryType } from "../../utils/types";
 import style from "./CategoryCard.module.scss";
 interface Props {
@@ -9,8 +10,15 @@ export default function CategoryCard({ category }: Props) {
     backgroundColor: category.color,
   };
   return (
-    <div className={style.categoryCard} style={backgroundStyle}>
-      {category.name}
-    </div>
+    <Link
+      to={{
+        pathname: "/decisions/search",
+        search: `?category=${category.id}`,
+      }}
+    >
+      <div className={style.categoryCard} style={backgroundStyle}>
+        {category.name}
+      </div>
+    </Link>
   );
 }

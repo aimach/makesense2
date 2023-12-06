@@ -6,6 +6,9 @@
   gap: v.$font-space-xl;
   margin: v.$font-size-xl 0;
   overflow-x: scroll;
+  a {
+    text-decoration: none;
+  }
 }
 
 .categoryCard {
