@@ -12,11 +12,12 @@
 
 .decisionCard {
   @include m.flex(column, space-between, flex-start);
-  max-width: 300px;
-  height: 200px;
+  max-width: 350px;
+  height: 220px;
   padding: v.$font-space-xxxxl;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: v.$border-radius-rounded;
+  gap: v.$font-space-l;
   h4 {
     font-size: v.$font-size-xxl;
     font-weight: v.$font-weight-extrablack;
@@ -38,7 +39,7 @@
 }
 
 .titleSection {
-  @include m.flex(row, space-between, flex-start);
+  @include m.flex(row, space-between, center);
   gap: v.$font-size-m;
   padding-bottom: v.$font-space-l;
 
@@ -53,6 +54,27 @@
   @include m.flex(row, flex-start, flex-start);
   flex-wrap: wrap;
   gap: v.$font-space-l;
+}
+
+.dateContainer {
+  width: 100%;
+  @include m.flex(row, space-between, center);
+
+  svg {
+    width: 15px;
+  }
+  p {
+    padding: 0.5rem;
+
+    border-radius: v.$border-radius-rounded;
+    background-color: v.$color-neutral-80;
+  }
+  div {
+    @include m.flex(row, center, center);
+    gap: v.$font-space-l;
+    color: v.$color-neutral-60;
+    font-size: v.$font-size-s;
+  }
 }
 
 // ANIMATION
