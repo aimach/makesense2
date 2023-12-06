@@ -30,9 +30,6 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
     );
     setFilters({ ...filters, status: newStatus });
   }
-
-  console.log(filters.text);
-
   function createQueryParams(filters: IFilters) {
     const query = "?";
     const queryParams: string[] = [];

@@ -10,12 +10,17 @@ export const decisionControllers = {
       const filters: Prisma.DecisionWhereInput[] = [];
       const status = req.query.status as string;
       const text = req.query.text as string;
+      const sort = req.query.sort as string;
+
+      // ADD STATUS FILTER
       if (status)
         filters.push({
           statusId: {
             in: status.split(",").map((item: string) => parseInt(item, 10)),
           },
         });
+
+      // ADD TEXT FILTER
       if (text)
         filters.push({
           OR: [
@@ -23,6 +28,16 @@ export const decisionControllers = {
             { firstContent: { contains: text } },
           ],
         });
+
+      // ADD SORTING
+      const sorting: Prisma.DecisionOrderByWithRelationInput =
+        sort === "date"
+          ? {
+              createdAt: "desc",
+            }
+          : {
+              statusId: "asc",
+            };
       const allDecisions = await prisma.decision.findMany({
         where: { AND: filters },
         include: {
@@ -37,6 +52,7 @@ export const decisionControllers = {
             },
           },
         },
+        orderBy: sorting,
       });
       res.status(200).send(allDecisions);
     } catch (err) {

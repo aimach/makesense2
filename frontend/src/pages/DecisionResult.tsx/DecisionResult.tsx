@@ -16,21 +16,25 @@ export default function DecisionResult() {
     status: status?.split(",").map((item: string) => parseInt(item, 10)) ?? [],
     date: "",
   });
+  const [sort, setSort] = useState<string>("date");
 
   const [filteredDecisions, setFilteredDecisions] = useState<
     DecisionType[] | []
   >([]);
 
   useEffect(() => {
+    const sortQuery = (search === "" ? "?" : "&") + `sort=${sort}`;
     axios
       .get<DecisionType[]>(
-        `${import.meta.env.VITE_BACKEND_URL as string}/decisions${search}`
+        `${
+          import.meta.env.VITE_BACKEND_URL as string
+        }/decisions${search}${sortQuery}`
       )
       .then((res) => {
         setFilteredDecisions(res.data);
       })
       .catch((err) => console.error(err));
-  }, [search]);
+  }, [search, sort]);
 
   return (
     <div className="decisionResultSection">
@@ -38,11 +42,17 @@ export default function DecisionResult() {
       <div className="separator" />
       <div className="decisionResultContainer">
         <p>
-          <span>{filteredDecisions.length}</span> décisions |
-          {
-            // trier par : statut ou date
-          }
+          <span>{filteredDecisions.length}</span> décisions
         </p>
+        |
+        <select
+          name="sort"
+          id="sort"
+          onChange={(event) => setSort(event.target.value)}
+        >
+          <option value="date">Trier par date de dépôt</option>
+          <option value="status">Trier par status</option>
+        </select>
       </div>
       <DecisionCardContainer allDecisions={filteredDecisions} />
       <p>

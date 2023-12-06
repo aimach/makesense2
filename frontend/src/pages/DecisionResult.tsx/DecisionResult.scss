@@ -13,10 +13,20 @@
 }
 
 .decisionResultContainer {
+  @include m.flex(row, flex-start, center);
+  gap: v.$font-size-l;
   p {
     font-size: v.$font-size-xxxxl;
-    span {
-      color: v.$color-cerise;
+    font-weight: 900;
+  }
+  span {
+    color: v.$color-cerise;
+  }
+  select {
+    font-size: v.$font-size-l;
+    border: none;
+    &:focus-visible {
+      outline: none;
     }
   }
 }
