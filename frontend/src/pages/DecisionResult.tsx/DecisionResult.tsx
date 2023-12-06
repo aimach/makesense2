@@ -9,12 +9,14 @@ import { IFilters } from "../Home/Home";
 
 export default function DecisionResult() {
   const { search } = useLocation();
+  console.log(search);
   const text = new URLSearchParams(location.search).get("text");
   const status = new URLSearchParams(location.search).get("status");
   const [filters, setFilters] = useState<IFilters>({
     text: text ?? "",
     status: status?.split(",").map((item: string) => parseInt(item, 10)) ?? [],
-    date: "",
+    after: "",
+    before: "",
   });
   const [sort, setSort] = useState<string>("date");
 

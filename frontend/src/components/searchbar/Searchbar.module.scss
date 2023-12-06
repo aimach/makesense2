@@ -48,14 +48,35 @@
   width: 60px;
 }
 
-.selectModal {
+.statusModal {
   @include m.inputStyleWithShadow;
   @include m.flex(column, space-evenly, flex-start);
   position: absolute;
-  left: 35%;
+  left: 24%;
   padding: 0 v.$font-space-xl;
+  padding: 1rem;
   div {
     @include m.flex(row, space-evenly, flex-start);
     margin: v.$font-space-m 0;
+  }
+}
+
+.dateModal {
+  @include m.inputStyleWithShadow;
+  @include m.flex(column, space-evenly, flex-start);
+  position: absolute;
+  right: 0;
+  padding: 0 v.$font-space-xl;
+  padding: 1rem;
+  div {
+    @include m.flex(row, space-evenly, flex-start);
+    margin: v.$font-space-m 0;
+    input[type="date"] {
+      border: none;
+      font-family: "Raleway";
+      &:hover {
+        outline: none;
+      }
+    }
   }
 }

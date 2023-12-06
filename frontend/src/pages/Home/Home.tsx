@@ -7,19 +7,22 @@ import LastSection from "../../components/homeSection/LastSection";
 import Searchbar from "../../components/searchbar/Searchbar";
 import style from "./Home.module.scss";
 import { DecisionType } from "../../utils/types";
+import { JSDateToNormalDate } from "../../utils/utils";
 
 type LoaderData = DecisionType[];
 export interface IFilters {
   text: string;
   status: number[] | [];
-  date: string;
+  after: string;
+  before: string;
 }
 
 export default function Home() {
   const [filters, setFilters] = useState<IFilters>({
     text: "",
     status: [],
-    date: "",
+    after: "",
+    before: "",
   });
   const allDecisions = useLoaderData() as LoaderData;
 

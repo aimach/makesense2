@@ -6,6 +6,7 @@ import { StatusType } from "../../utils/types";
 import axios from "axios";
 import { IFilters } from "../../pages/Home/Home";
 import { Link } from "react-router-dom";
+import { JSDateToNormalDate } from "../../utils/utils";
 
 interface searchbarProps {
   filters: IFilters;
@@ -15,7 +16,6 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
   const [status, setStatus] = useState<StatusType[] | []>([]);
   const [displayStatusModal, setDisplayStatusModal] = useState<boolean>(false);
   const [displayDateModal, setDisplayDateModal] = useState<boolean>(false);
-
   function addStatus(event: React.ChangeEvent<HTMLInputElement>) {
     const newStatus: number[] = [
       ...filters.status,
@@ -31,13 +31,17 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
     setFilters({ ...filters, status: newStatus });
   }
   function createQueryParams(filters: IFilters) {
-    const query = "?";
+    const startQuery = "?";
     const queryParams: string[] = [];
     if (filters.text !== "") queryParams.push(`text=${filters.text}`);
     if (filters.status.length > 0) {
       queryParams.push(`status=${filters.status}`);
     }
-    return query + queryParams.join("&");
+    if (filters.before !== JSDateToNormalDate(new Date()))
+      queryParams.push(`before=${filters.before}`);
+    if (filters.after !== JSDateToNormalDate(new Date()))
+      queryParams.push(`after=${filters.after}`);
+    return startQuery + queryParams.join("&");
   }
 
   useEffect(() => {
@@ -69,14 +73,20 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
               ) : null}
             </p>
             <ChevronDown
-              onClick={() => setDisplayStatusModal(!displayStatusModal)}
+              onClick={() => {
+                setDisplayStatusModal(!displayStatusModal);
+                setDisplayDateModal(false);
+              }}
             />
           </div>
           <div className={style.searchSelect}>
             <Calendar />
             Date
             <ChevronDown
-              onClick={() => setDisplayDateModal(!displayDateModal)}
+              onClick={() => {
+                setDisplayDateModal(!displayDateModal);
+                setDisplayStatusModal(false);
+              }}
             />
           </div>
           <button type="button" className={style.buttonSearch}>
@@ -91,7 +101,7 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
           </button>
         </form>
         {displayStatusModal && status && (
-          <div className={style.selectModal}>
+          <div className={style.statusModal}>
             {status.map((item: StatusType) => (
               <div key={item.id}>
                 <input
@@ -112,19 +122,38 @@ export default function Searchbar({ filters, setFilters }: searchbarProps) {
           </div>
         )}
         {displayDateModal && (
-          <div className={style.selectModal}>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              onChange={(event) => {
-                if (event.target.checked) {
-                  addStatus(event);
-                } else {
-                  removeStatus(event);
+          <div className={style.dateModal}>
+            <div>
+              <label htmlFor="before">Déposée après le : </label>
+              <input
+                type="date"
+                id="after"
+                name="after"
+                value={filters.after}
+                max={
+                  JSDateToNormalDate(new Date()) > filters.before
+                    ? filters.before
+                    : JSDateToNormalDate(new Date())
                 }
-              }}
-            />
+                onChange={(event) => {
+                  setFilters({ ...filters, after: event.target.value });
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="before">Déposée avant le : </label>
+              <input
+                type="date"
+                id="before"
+                name="before"
+                value={filters.before}
+                min={filters.after}
+                max={JSDateToNormalDate(new Date())}
+                onChange={(event) => {
+                  setFilters({ ...filters, before: event.target.value });
+                }}
+              />
+            </div>
           </div>
         )}
       </div>
