@@ -25,7 +25,7 @@ export type DecisionType = {
   pros: string;
   cons: string;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt: Date | string;
   statusId: number;
   status: StatusType;
   userId: number;
