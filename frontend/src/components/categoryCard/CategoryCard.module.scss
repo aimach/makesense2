@@ -1,6 +1,10 @@
 @use "../../styles/variable" as v;
 @use "../../styles/mixin" as m;
 
+.categoryContainer {
+  position: relative;
+}
+
 .categoryCardContainer {
   @include m.flex(row, flex-start, center);
   gap: v.$font-space-xl;
@@ -12,6 +16,24 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.buttonLeft,
+.buttonRight {
+  @include m.unbuttonize();
+  @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
+  border-radius: v.$border-radius-circle;
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+}
+
+.buttonLeft {
+  left: 5px;
+}
+
+.buttonRight {
+  right: 5px;
 }
 
 .categoryCard {
