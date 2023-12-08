@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { CategoryType, DecisionType } from "../../utils/types";
 import axios from "axios";
 import Tag from "../../components/tag/Tag";
+import Summary from "../../components/globals/summary/Summary";
 
 export default function DecisionPage() {
   const { decisionId } = useParams();
@@ -23,6 +24,14 @@ export default function DecisionPage() {
   }, [decisionId]);
 
   console.log(decision);
+
+  const summaryToDisplay = [
+    { summary: "Les détails de la décision", details: decision?.firstContent },
+    { summary: "Impact sur l'organisation", details: decision?.context },
+    { summary: "Bénéfices 👍", details: decision?.pros },
+    { summary: "Risques potentiels 🚨", details: decision?.cons },
+    { summary: "Avis 💬", details: decision?.comments },
+  ];
 
   return (
     <div className={style.decisionPageContainer}>
@@ -51,6 +60,11 @@ export default function DecisionPage() {
               </span>
             </div>
           </div>
+        </div>
+        <div className={style.decisionContainer}>
+          {summaryToDisplay.map((item) => (
+            <Summary summary={item.summary} details={item.details} />
+          ))}
         </div>
       </section>
       <aside></aside>

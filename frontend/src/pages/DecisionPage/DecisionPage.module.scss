@@ -4,9 +4,8 @@
 .decisionPageContainer {
   @include m.flex(row, flex-start, flex-start);
   section {
-    padding: v.$font-size-xs;
+    padding: v.$font-size-xs 0 v.$font-size-xs v.$font-size-xs;
     flex-basis: 75%;
-    border: 1px solid black;
     min-height: 200px;
     @include m.flex(column, flex-start, flex-start);
     gap: 1rem;
@@ -34,8 +33,10 @@
   }
 
   img {
-    width: 40px;
-    border: 1px solid v.$color-blue-dianne;
-    border-radius: v.$border-radius-circle;
+    @include m.avatar();
   }
+}
+
+.decisionContainer {
+  width: 100%;
 }

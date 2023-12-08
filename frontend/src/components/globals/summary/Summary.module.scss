@@ -1,0 +1,25 @@
+@use "../../../styles/variable" as v;
+@use "../../../styles/mixin" as m;
+
+.detailsContainer {
+  width: 100%;
+  summary {
+    width: 100%;
+    padding: v.$font-size-l 0;
+    border-bottom: 1px solid v.$color-neutral-80;
+    font-size: v.$font-size-xl;
+    font-weight: v.$font-weight-black;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+details[open] summary {
+  color: v.$color-cerise;
+}
+
+details[open] {
+  background-color: v.$background-color-soft;
+  border-bottom: 1px solid v.$color-neutral-80;
+}
