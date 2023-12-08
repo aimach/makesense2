@@ -4,9 +4,12 @@
 .decisionPageContainer {
   @include m.flex(row, flex-start, flex-start);
   section {
+    padding: v.$font-size-xs;
     flex-basis: 75%;
     border: 1px solid black;
     min-height: 200px;
+    @include m.flex(column, flex-start, flex-start);
+    gap: 1rem;
   }
   aside {
     flex-basis: 25%;
@@ -18,4 +21,21 @@
 .tagContainer {
   @include m.flex(row, flex-start, flex-start);
   gap: v.$font-size-xs;
+}
+
+.titleContainer {
+  > div {
+    @include m.flex(row, flex-start, center);
+    gap: v.$font-size-xs;
+    margin: v.$font-size-xs 0;
+    span {
+      font-weight: v.$font-weight-extrabold;
+    }
+  }
+
+  img {
+    width: 40px;
+    border: 1px solid v.$color-blue-dianne;
+    border-radius: v.$border-radius-circle;
+  }
 }

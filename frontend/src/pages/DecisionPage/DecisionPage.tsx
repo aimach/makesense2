@@ -35,6 +35,23 @@ export default function DecisionPage() {
             />
           ))}
         </div>
+        <div className={style.titleContainer}>
+          <h2>{decision?.title}</h2>
+          <div>
+            <img
+              src={decision?.user.avatar as string}
+              alt={`${decision?.user.firstname as string} ${
+                decision?.user.lastname as string
+              }`}
+            />
+            <div>
+              par{" "}
+              <span>
+                {decision?.user.firstname} {decision?.user.lastname}
+              </span>
+            </div>
+          </div>
+        </div>
       </section>
       <aside></aside>
     </div>
