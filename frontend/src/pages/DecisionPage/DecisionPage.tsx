@@ -1,8 +1,13 @@
 import { useParams } from "react-router-dom";
-import "./DecisionPage.scss";
+import style from "./DecisionPage.module.scss";
 
 export default function DecisionPage() {
   const { decisionId } = useParams();
   console.log(decisionId);
-  return <div>DecisionPage</div>;
+  return (
+    <div className={style.decisionPageContainer}>
+      <section></section>
+      <aside></aside>
+    </div>
+  );
 }

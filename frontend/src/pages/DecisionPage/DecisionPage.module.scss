@@ -1,0 +1,16 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.decisionPageContainer {
+  @include m.flex(row, flex-start, flex-start);
+  section {
+    flex-basis: 75%;
+    border: 1px solid black;
+    min-height: 200px;
+  }
+  aside {
+    flex-basis: 25%;
+    border: 1px solid red;
+    min-height: 200px;
+  }
+}
