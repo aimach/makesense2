@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import style from "./DecisionPage.module.scss";
 import { useEffect, useState } from "react";
-import { DecisionType } from "../../utils/types";
+import { CategoryType, DecisionType } from "../../utils/types";
 import axios from "axios";
+import Tag from "../../components/tag/Tag";
 
 export default function DecisionPage() {
   const { decisionId } = useParams();
@@ -25,7 +26,16 @@ export default function DecisionPage() {
 
   return (
     <div className={style.decisionPageContainer}>
-      <section></section>
+      <section>
+        <div className={style.tagContainer}>
+          {decision?.categories.map((category) => (
+            <Tag
+              content={category.category.name}
+              color={category.category.color}
+            />
+          ))}
+        </div>
+      </section>
       <aside></aside>
     </div>
   );
