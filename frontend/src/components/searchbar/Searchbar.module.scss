@@ -55,6 +55,7 @@
   left: 24%;
   padding: 0 v.$font-space-xl;
   padding: 1rem;
+  z-index: 2;
   div {
     @include m.flex(row, space-evenly, flex-start);
     margin: v.$font-space-m 0;

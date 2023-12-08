@@ -4,7 +4,7 @@ import axios from "axios";
 import CategoryCard from "./CategoryCard";
 import style from "./CategoryCard.module.scss";
 import useWindowDimensions from "../../utils/hooks/useWindowDimensions";
-import { ArrowLeftCircle, ArrowRightCircle } from "react-feather";
+import { ArrowLeft, ArrowRight } from "react-feather";
 export default function CategoryCardContainer() {
   const [categories, setCategories] = useState<CategoryType[] | []>([]);
   const windowSize = useWindowDimensions();
@@ -25,13 +25,17 @@ export default function CategoryCardContainer() {
   }, []);
 
   const scroll = (direction: string) => {
-    if (direction === "right") {
+    if (
+      direction === "right" &&
       categoryCards[categoryCards.length - 1].getBoundingClientRect().x + 160 >
-      windowSize
-        ? (x += 165)
-        : x;
-    } else {
-      categoryCards[0].getBoundingClientRect().x < 80 ? (x -= 160) : 5 * 16;
+        windowSize
+    ) {
+      x += 165;
+    } else if (
+      direction === "left" &&
+      categoryCards[0].getBoundingClientRect().x < 80
+    ) {
+      x -= 165;
     }
     container[0].scrollTo({ left: x, behavior: "smooth" });
   };
@@ -53,7 +57,7 @@ export default function CategoryCardContainer() {
           onClick={() => scroll("left")}
           className={style.buttonLeft}
         >
-          <ArrowLeftCircle />
+          <ArrowLeft />
         </button>
 
         <button
@@ -61,7 +65,7 @@ export default function CategoryCardContainer() {
           onClick={() => scroll("right")}
           className={style.buttonRight}
         >
-          <ArrowRightCircle />
+          <ArrowRight />
         </button>
       </div>
     </>

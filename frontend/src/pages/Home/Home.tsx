@@ -26,11 +26,11 @@ export default function Home() {
 
   return (
     <div className={style.homeStyle}>
-      <div className={style.homeTitleAndSearchSection}>
+      <section className={style.homeTitleAndSearchSection}>
         <img src={title} alt="title" />
         <Searchbar filters={filters} setFilters={setFilters} />
-      </div>
-      <section>
+      </section>
+      <section className={style.categoryAndDecisionSection}>
         <h2>Trouver une décision à impact positif</h2>
         <CategorySection />
         <LastSection allDecisions={allDecisions} />

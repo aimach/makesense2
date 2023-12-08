@@ -8,4 +8,11 @@
 .homeTitleAndSearchSection {
   @include m.flex(column, space-between, center);
   margin: 2rem;
+  gap: 2rem;
+}
+
+.categoryAndDecisionSection {
+  @include m.flex(column, space-between, flex-start);
+  margin-top: 5rem;
+  gap: 2rem;
 }
