@@ -67,7 +67,18 @@ export default function DecisionPage() {
           ))}
         </div>
       </section>
-      <aside></aside>
+      <aside className={style.decisionAside}>
+        <div>
+          <h3>Dates à retenir</h3>
+        </div>
+        <div>
+          <h3>Personnes impactées</h3>
+          {/* {decision?.users.filter((user) => user.type === "concerné").map((user) => <img src={user.avatar} alt={user.firstname})} */}
+        </div>
+        <div>
+          <h3>Personnes expertes</h3>
+        </div>
+      </aside>
     </div>
   );
 }

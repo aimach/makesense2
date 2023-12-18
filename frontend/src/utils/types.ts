@@ -31,7 +31,7 @@ export type DecisionType = {
   userId: number;
   user: UserType;
   categories: CategoryType[];
-  users: UserType[];
+  users: { decisionId: number; userId: number; type: string }[];
   groups: GroupType[];
 };
 
