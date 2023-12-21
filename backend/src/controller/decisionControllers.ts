@@ -65,6 +65,7 @@ export const decisionControllers = {
           users: {
             select: {
               user: true,
+              type: true,
             },
           },
           groups: {
@@ -96,8 +97,17 @@ export const decisionControllers = {
           status: true,
           comments: true,
           user: true,
-          users: true,
-          groups: true,
+          users: {
+            select: {
+              user: true,
+              type: true,
+            },
+          },
+          groups: {
+            select: {
+              group: true,
+            },
+          },
           categories: {
             select: {
               category: true,

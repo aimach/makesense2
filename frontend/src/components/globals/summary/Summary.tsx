@@ -10,7 +10,7 @@ export default function Summary({ summary, details }: Props) {
   return (
     <details className={style.detailsContainer}>
       <summary>{summary}</summary>
-      {summary !== "Avis 💬" ? (details as string) : null}
+      <p>{summary !== "Avis 💬" ? (details as string) : null}</p>
     </details>
   );
 }

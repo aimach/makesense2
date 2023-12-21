@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import style from "./DecisionPage.module.scss";
 import { useEffect, useState } from "react";
-import { CategoryType, DecisionType } from "../../utils/types";
+import { DecisionType } from "../../utils/types";
 import axios from "axios";
 import Tag from "../../components/tag/Tag";
 import Summary from "../../components/globals/summary/Summary";
@@ -22,8 +22,6 @@ export default function DecisionPage() {
       })
       .catch((err) => console.error(err));
   }, [decisionId]);
-
-  console.log(decision);
 
   const summaryToDisplay = [
     { summary: "Les détails de la décision", details: decision?.firstContent },
@@ -73,10 +71,31 @@ export default function DecisionPage() {
         </div>
         <div>
           <h3>Personnes impactées</h3>
-          {/* {decision?.users.filter((user) => user.type === "concerné").map((user) => <img src={user.avatar} alt={user.firstname})} */}
+          {decision?.users
+            .filter((user) => {
+              return user.type === "concerné";
+            })
+            .map((user) => (
+              <img
+                src={user.user.avatar as string}
+                alt={user.user.firstname}
+                key={user.user.id}
+              />
+            ))}
         </div>
-        <div>
+        <div className={style.expertsContainer}>
           <h3>Personnes expertes</h3>
+          {decision?.users
+            .filter((user) => {
+              return user.type === "expert";
+            })
+            .map((user) => (
+              <img
+                src={user.user.avatar as string}
+                alt={user.user.firstname}
+                key={user.user.id}
+              />
+            ))}
         </div>
       </aside>
     </div>

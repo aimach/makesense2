@@ -5,7 +5,7 @@
   width: 100%;
   summary {
     width: 100%;
-    padding: v.$font-size-l 0;
+    padding: v.$font-size-l;
     border-bottom: 1px solid v.$color-neutral-80;
     font-size: v.$font-size-xl;
     font-weight: v.$font-weight-black;
@@ -21,5 +21,9 @@ details[open] summary {
 
 details[open] {
   background-color: v.$background-color-soft;
-  border-bottom: 1px solid v.$color-neutral-80;
+  border-bottom: v.$border-width-m solid v.$color-neutral-80;
+  line-height: v.$font-size-xxxl;
+  p {
+    margin: v.$font-size-xxxl;
+  }
 }

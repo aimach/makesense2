@@ -10,8 +10,6 @@
     @include m.flex(column, flex-start, flex-start);
     gap: 1rem;
   }
-  aside {
-  }
 }
 
 .tagContainer {
@@ -44,4 +42,14 @@
   flex-basis: 25%;
   border-left: 1px solid v.$color-neutral-80;
   padding: 0 v.$font-size-l;
+  div {
+    margin: v.$font-size-s;
+    h3 {
+      padding-bottom: v.$font-size-s;
+    }
+  }
+  img {
+    @include m.avatar();
+    margin: 0.2rem;
+  }
 }
