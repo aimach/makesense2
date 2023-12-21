@@ -60,10 +60,23 @@ export const decisionControllers = {
         where: { AND: filters },
         include: {
           status: true,
-          comments: true,
+          comments: {
+            include: {
+              user: true,
+            },
+          },
           user: true,
-          users: true,
-          groups: true,
+          users: {
+            select: {
+              user: true,
+              type: true,
+            },
+          },
+          groups: {
+            select: {
+              group: true,
+            },
+          },
           categories: {
             select: {
               category: true,
@@ -86,10 +99,23 @@ export const decisionControllers = {
         },
         include: {
           status: true,
-          comments: true,
+          comments: {
+            include: {
+              user: true,
+            },
+          },
           user: true,
-          users: true,
-          groups: true,
+          users: {
+            select: {
+              user: true,
+              type: true,
+            },
+          },
+          groups: {
+            select: {
+              group: true,
+            },
+          },
           categories: {
             select: {
               category: true,
