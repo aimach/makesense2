@@ -61,7 +61,7 @@ export default function DecisionPage() {
         </div>
         <div className={style.decisionContainer}>
           {summaryToDisplay.map((item) => (
-            <Summary summary={item.summary} details={item.details} />
+            <Summary summary={item.summary} details={item.details as string} />
           ))}
         </div>
       </section>

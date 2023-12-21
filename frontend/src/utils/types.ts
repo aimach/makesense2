@@ -12,7 +12,9 @@ export type CommentType = {
   content: string;
   userId: number;
   decisionId: number;
-  date: Date;
+  date: string;
+  user: UserType;
+  decision: DecisionType;
 };
 
 export type DecisionType = {
@@ -33,6 +35,7 @@ export type DecisionType = {
   categories: CategoryType[];
   users: { user: UserType; type: string }[];
   groups: GroupType[];
+  comments: CommentType[];
 };
 
 export type GroupType = {

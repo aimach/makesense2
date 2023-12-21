@@ -27,3 +27,9 @@ details[open] {
     margin: v.$font-size-xxxl;
   }
 }
+
+.commentContainer {
+  margin: v.$font-size-xxxl;
+  @include m.flex(column, flex-start, flex-start);
+  gap: 2 * v.$font-size-xxxxl;
+}

@@ -60,7 +60,11 @@ export const decisionControllers = {
         where: { AND: filters },
         include: {
           status: true,
-          comments: true,
+          comments: {
+            include: {
+              user: true,
+            },
+          },
           user: true,
           users: {
             select: {
@@ -95,7 +99,11 @@ export const decisionControllers = {
         },
         include: {
           status: true,
-          comments: true,
+          comments: {
+            include: {
+              user: true,
+            },
+          },
           user: true,
           users: {
             select: {
