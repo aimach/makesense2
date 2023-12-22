@@ -88,7 +88,7 @@ async function main() {
 
   // STATUS
   const status: StatusType[] = [
-    { id: 1, name: "Prise de décision commencée" },
+    { id: 1, name: "Prise de décision commencée" }, // date de création de la décision
     { id: 2, name: "Deadline pour donner son avis" },
     { id: 3, name: "Première décision prise" },
     { id: 4, name: "Deadline pour entrer en conflit" },
