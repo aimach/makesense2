@@ -272,6 +272,37 @@ async function main() {
         });
     }
 
+    // GENERATE DEADLINES
+    const firstDeadline = faker.date.soon({
+      days: faker.helpers.rangeToNumber({ min: 1, max: 30 }),
+    });
+    const firstDecision = faker.datatype.boolean({ probability: 0.5 })
+      ? faker.date.soon({
+          days: faker.helpers.rangeToNumber({
+            min: 1,
+            max: 30,
+          }),
+          refDate: firstDeadline,
+        })
+      : undefined;
+    const secondDeadline =
+      firstDecision != undefined
+        ? faker.date.soon({
+            days: faker.helpers.rangeToNumber({
+              min: 1,
+              max: 30,
+            }),
+            refDate: firstDecision,
+          })
+        : undefined;
+    const finalDecision = faker.date.soon({
+      days: faker.helpers.rangeToNumber({
+        min: 1,
+        max: 30,
+      }),
+      refDate: secondDeadline ? secondDeadline : firstDeadline,
+    });
+
     // CREATE NEW DECISION
     const newDecision: DecisionType = {
       title: faker.lorem.words({ min: 3, max: 10 }),
@@ -281,6 +312,10 @@ async function main() {
       context: faker.lorem.paragraphs({ min: 1, max: 3 }),
       pros: faker.lorem.paragraphs({ min: 1, max: 3 }),
       cons: faker.lorem.paragraphs({ min: 1, max: 3 }),
+      firstDeadline: firstDeadline,
+      firstDecision: firstDecision,
+      secondDeadline: secondDeadline,
+      finalDecision: finalDecision,
       statusId: faker.helpers.rangeToNumber({ min: 1, max: status.length }),
       userId: faker.helpers.rangeToNumber({ min: 1, max: amountOfUsers }),
       categories: {

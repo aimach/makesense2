@@ -20,7 +20,11 @@
   "keywords": [],
   "author": "aimach",
   "dependencies": {
+    "@prisma/client": "^5.7.1",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.1"
   }
 }
