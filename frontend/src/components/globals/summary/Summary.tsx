@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function Summary({ summary, details }: Props) {
-  console.log(summary === "Avis 💬" && details);
   return (
     <details className={style.detailsContainer}>
       <summary>

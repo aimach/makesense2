@@ -42,8 +42,9 @@
   flex-basis: 25%;
   border-left: 1px solid v.$color-neutral-80;
   padding: 0 v.$font-size-l;
-  div {
+  > div {
     margin: v.$font-size-s;
+    width: 100%;
     h3 {
       padding-bottom: v.$font-size-s;
     }
@@ -51,5 +52,54 @@
   img {
     @include m.avatar();
     margin: 0.2rem;
+  }
+}
+.datesContainer {
+  @include m.flex(row, flex-start, flex-start);
+  width: 100%;
+  gap: 2rem;
+  &__dates {
+    //   @include m.flex(column, flex-start, center);
+    //   gap: v.$font-size-l;
+
+    width: 40%;
+    p {
+      height: 60px;
+      color: v.$color-neutral-60;
+    }
+  }
+  &__labels {
+    width: 70%;
+    p {
+      height: 60px;
+      color: v.$color-neutral-60;
+    }
+  }
+  &__progress {
+    position: relative;
+    transform: rotate(90deg);
+  }
+
+  progress {
+    position: absolute;
+    margin: auto;
+  }
+
+  progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  progress[value]::-webkit-progress-bar {
+    // background-color: v.$color-atlantis;
+    background-color: v.$color-neutral-80;
+    height: 5px;
+    border-radius: v.$border-radius-rounded;
+  }
+
+  progress[value]::-webkit-progress-value {
+    background-color: v.$color-atlantis;
+    height: 5px;
+    border-radius: v.$border-radius-rounded;
   }
 }

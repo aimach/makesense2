@@ -26,8 +26,12 @@ export type DecisionType = {
   context: string;
   pros: string;
   cons: string;
-  createdAt: Date;
-  updatedAt: Date | string;
+  createdAt: string;
+  updatedAt: string;
+  firstDeadline: string;
+  firstDecision: string;
+  secondDeadline: string;
+  finalDecision: string;
   statusId: number;
   status: StatusType;
   userId: number;

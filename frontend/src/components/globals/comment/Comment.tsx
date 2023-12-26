@@ -1,5 +1,7 @@
 import { CommentType } from "../../../utils/types";
 import style from "./Comment.module.scss";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 
 interface Props {
   comment: CommentType;
@@ -15,8 +17,10 @@ export default function Comment({ comment }: Props) {
           alt={`${comment.user.firstname} ${comment.user.lastname}`}
         />
         <h4>
-          {comment.user.firstname} {comment.user.lastname}, le{" "}
-          {comment.date.substring(0, 10)}
+          {comment.user.firstname} {comment.user.lastname},{" "}
+          {format(new Date(comment.date), "'le' dd MMMMMM yyyy", {
+            locale: fr,
+          })}
         </h4>
       </div>
       <div className={style.contentContainer}>{comment.content}</div>

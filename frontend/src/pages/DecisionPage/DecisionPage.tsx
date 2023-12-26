@@ -5,10 +5,14 @@ import { DecisionType } from "../../utils/types";
 import axios from "axios";
 import Tag from "../../components/tag/Tag";
 import Summary from "../../components/globals/summary/Summary";
+import { differenceInCalendarDays, format } from "date-fns";
+import { fr } from "date-fns/locale";
 
 export default function DecisionPage() {
   const { decisionId } = useParams();
   const [decision, setDecision] = useState<DecisionType | null>(null);
+
+  console.log(decision);
 
   useEffect(() => {
     axios
@@ -31,6 +35,19 @@ export default function DecisionPage() {
     { summary: "Avis 💬", details: decision?.comments },
   ];
 
+  const dates = [
+    { label: "Prise de décision commencée", date: decision?.createdAt },
+    { label: "Deadline pour donner son avis", date: decision?.firstDeadline },
+    { label: "Première décision prise", date: decision?.firstDecision },
+    {
+      label: "Deadline pour rentrer en conflit",
+      date: decision?.secondDeadline,
+    },
+    { label: "Décision définitive", date: decision?.finalDecision },
+  ];
+
+  // console.log(differenceInCalendarDays(new Date(), dates[0].date as string));
+
   return (
     <div className={style.decisionPageContainer}>
       <section>
@@ -39,6 +56,7 @@ export default function DecisionPage() {
             <Tag
               content={category.category.name}
               color={category.category.color}
+              key={category.category.id}
             />
           ))}
         </div>
@@ -60,14 +78,64 @@ export default function DecisionPage() {
           </div>
         </div>
         <div className={style.decisionContainer}>
-          {summaryToDisplay.map((item) => (
-            <Summary summary={item.summary} details={item.details as string} />
+          {summaryToDisplay.map((item, index) => (
+            <Summary
+              summary={item.summary}
+              details={item.details as string}
+              key={index}
+            />
           ))}
         </div>
       </section>
       <aside className={style.decisionAside}>
         <div>
           <h3>Dates à retenir</h3>
+          <div className={style.datesContainer}>
+            {/* <div className={style.datesContainer__dates}>
+              {dates.map((date) => {
+                if (date.date != null) {
+                  return (
+                    <div className={style.datesContainer__rows}>
+                      <div>
+                        {format(new Date(date.date), "dd MMM yy", {
+                          locale: fr,
+                        })}
+                      </div>
+                      <div>{date.label}</div>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+            <progress value="70" max="100">
+              70 %
+            </progress> */}
+            <div className={style.datesContainer__dates}>
+              {dates.map((date) => {
+                if (date.date != null) {
+                  return (
+                    <p>
+                      {format(new Date(date.date), "dd MMM yy", {
+                        locale: fr,
+                      })}
+                    </p>
+                  );
+                }
+              })}
+            </div>
+            <div className={style.datesContainer__progress}>
+              <progress value="70" max="100">
+                70 %
+              </progress>
+            </div>
+            <div className={style.datesContainer__labels}>
+              {dates.map((date) => {
+                if (date.date != null) {
+                  return <p>{date.label}</p>;
+                }
+              })}
+            </div>
+          </div>
         </div>
         <div>
           <h3>Personnes impactées</h3>
