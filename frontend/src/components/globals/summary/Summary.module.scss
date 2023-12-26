@@ -33,3 +33,10 @@ details[open] {
   @include m.flex(column, flex-start, flex-start);
   gap: 2 * v.$font-size-xxxxl;
 }
+
+.commentButton {
+  @include m.unbuttonize();
+  @include m.buttonStyle(v.$color-calypso, v.$color-neutral-100);
+  margin: auto;
+  cursor: pointer;
+}

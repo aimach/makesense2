@@ -21,9 +21,12 @@ export default function Summary({ summary, details }: Props) {
       ) : (
         <div className={style.commentContainer}>
           {details != null && details.length > 0 ? (
-            (details as CommentType[]).map((comment: CommentType) => (
-              <Comment key={comment.id} comment={comment} />
-            ))
+            <>
+              {(details as CommentType[]).map((comment: CommentType) => (
+                <Comment key={comment.id} comment={comment} />
+              ))}
+              <button className={style.commentButton}>Donner mon avis</button>
+            </>
           ) : (
             <p>Il n'y a pas de commentaire pour l'instant</p>
           )}
