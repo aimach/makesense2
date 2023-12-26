@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CategoryType } from "../../utils/types";
+import { CategoryType, DecisionType } from "../../utils/types";
 import axios from "axios";
 import CategoryCard from "./CategoryCard";
 import style from "./CategoryCard.module.scss";
@@ -28,10 +28,10 @@ export default function CategoryCardContainer() {
   const scroll = (direction: string) => {
     const leftButton: HTMLElement = document.getElementsByClassName(
       style.buttonLeft
-    )[0];
+    )[0] as HTMLElement;
     const rightButton: HTMLElement = document.getElementsByClassName(
       style.buttonRight
-    )[0];
+    )[0] as HTMLElement;
 
     if (x <= 200) {
       leftButton.style.display = "none";
@@ -66,9 +66,11 @@ export default function CategoryCardContainer() {
           className={style.categoryCardContainer}
           style={{ width: containerSize }}
         >
-          {categories.map((category) => (
-            <CategoryCard category={category} key={category.id} />
-          ))}
+          {categories
+            .sort((a, b) => b.decisions.length - a.decisions.length)
+            .map((category) => (
+              <CategoryCard category={category} key={category.id} />
+            ))}
         </div>
         <button
           type="button"
@@ -77,7 +79,6 @@ export default function CategoryCardContainer() {
         >
           <ArrowLeft />
         </button>
-
         <button
           type="button"
           onClick={() => scroll("right")}

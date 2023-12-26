@@ -44,8 +44,10 @@
   min-height: 150px;
   height: 150px;
   border-radius: v.$border-radius-rounded;
-  @include m.flex(row, center, center);
-  color: v.$color-neutral-100;
-  font-size: v.$font-size-l;
-  font-weight: v.$font-weight-black;
+  @include m.flex(column, space-evenly, center);
+  p {
+    color: v.$color-neutral-100;
+    font-size: v.$font-size-l;
+    font-weight: v.$font-weight-black;
+  }
 }

@@ -17,7 +17,10 @@ export default function CategoryCard({ category }: Props) {
       }}
     >
       <div className={style.categoryCard} style={backgroundStyle}>
-        {category.name}
+        <p>{category.name}</p>
+        <p>{`${category.decisions.length} décision${
+          category.decisions.length > 1 ? "s" : ""
+        }`}</p>
       </div>
     </Link>
   );
