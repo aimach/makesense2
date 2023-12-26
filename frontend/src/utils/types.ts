@@ -10,7 +10,9 @@ export type CommentType = {
   content: string;
   userId: number;
   decisionId: number;
-  date: Date;
+  date: string;
+  user: UserType;
+  decision: DecisionType;
 };
 
 export type DecisionType = {
@@ -22,15 +24,20 @@ export type DecisionType = {
   context: string;
   pros: string;
   cons: string;
-  createdAt: Date;
-  updatedAt: Date | string;
+  createdAt: string;
+  updatedAt: string;
+  firstDeadline: string;
+  firstDecision: string;
+  secondDeadline: string;
+  finalDecision: string;
   statusId: number;
   status: StatusType;
   userId: number;
   user: UserType;
   categories: { category: CategoryType }[];
-  users: UserType[];
+  users: { user: UserType; type: string }[];
   groups: GroupType[];
+  comments: CommentType[];
 };
 
 export type GroupType = {

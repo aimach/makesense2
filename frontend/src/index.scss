@@ -96,6 +96,7 @@ video {
   vertical-align: baseline;
   font-family: v.$font-text;
   color: v.$color-blue-dianne;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,

@@ -46,6 +46,12 @@
   justify-content: center;
 }
 
+@mixin avatar {
+  width: 40px;
+  border: 1px solid v.$color-blue-dianne;
+  border-radius: v.$border-radius-circle;
+}
+
 // POSITION
 
 @mixin position(

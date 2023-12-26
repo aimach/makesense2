@@ -1,0 +1,17 @@
+@use "../../../styles/variable" as v;
+@use "../../../styles/mixin" as m;
+
+.commentDetailsContainer {
+}
+
+.userContainer {
+  @include m.flex(row, flex-start, center);
+  gap: v.$font-size-l;
+  margin-bottom: v.$font-size-l;
+  h4 {
+    font-weight: v.$font-weight-extrablack;
+  }
+  img {
+    @include m.avatar();
+  }
+}

@@ -26,7 +26,7 @@ export const categoryControllers = {
     try {
       const categoryToRead = await prisma.category.findUnique({
         where: {
-          id: parseInt(req.params.id),
+          id: parseInt(req.params.id, 10),
         },
         include: {
           decisions: {

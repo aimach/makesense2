@@ -1,0 +1,30 @@
+{
+  "name": "makesense2",
+  "version": "4.2.0",
+  "description": "project realized for CDA exam",
+  "homepage": "https://github.com/aimach/makesense2",
+  "bugs": {
+    "url": "https://github.com/aimach/makesense2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:aimach/makesense2.git"
+  },
+  "scripts": {
+    "db:migrate": "cd ./backend && npx prisma migrate dev",
+    "db:seed": "cd ./backend && npx prisma migrate reset",
+    "dev": "cross-env-shell 'concurrently -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time}\" \"npm:dev-*\"'",
+    "dev-front": "cross-env-shell \"cd ./frontend && npm run dev\"",
+    "dev-back": "cross-env-shell \"cd ./backend && npm start\""
+  },
+  "keywords": [],
+  "author": "aimach",
+  "dependencies": {
+    "@prisma/client": "^5.7.1",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.1"
+  }
+}

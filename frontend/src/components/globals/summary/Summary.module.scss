@@ -1,0 +1,35 @@
+@use "../../../styles/variable" as v;
+@use "../../../styles/mixin" as m;
+
+.detailsContainer {
+  width: 100%;
+  summary {
+    width: 100%;
+    padding: v.$font-size-l;
+    border-bottom: 1px solid v.$color-neutral-80;
+    font-size: v.$font-size-xl;
+    font-weight: v.$font-weight-black;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+details[open] summary {
+  color: v.$color-cerise;
+}
+
+details[open] {
+  background-color: v.$background-color-soft;
+  border-bottom: v.$border-width-m solid v.$color-neutral-80;
+  line-height: v.$font-size-xxxl;
+  p {
+    margin: v.$font-size-xxxl;
+  }
+}
+
+.commentContainer {
+  margin: v.$font-size-xxxl;
+  @include m.flex(column, flex-start, flex-start);
+  gap: 2 * v.$font-size-xxxxl;
+}
