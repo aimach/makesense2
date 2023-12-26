@@ -12,7 +12,17 @@ export default function DecisionPage() {
   const { decisionId } = useParams();
   const [decision, setDecision] = useState<DecisionType | null>(null);
 
-  console.log(decision);
+  const differenceBetweenDates = (date1: string, date2: string | number) => {
+    return differenceInCalendarDays(new Date(date1), new Date(date2));
+  };
+
+  const progressDate = Math.round(
+    (differenceBetweenDates(decision?.createdAt as string, Date.now()) * 100) /
+      differenceBetweenDates(
+        decision?.createdAt as string,
+        decision?.finalDecision as string
+      )
+  );
 
   useEffect(() => {
     axios
@@ -91,25 +101,6 @@ export default function DecisionPage() {
         <div>
           <h3>Dates à retenir</h3>
           <div className={style.datesContainer}>
-            {/* <div className={style.datesContainer__dates}>
-              {dates.map((date) => {
-                if (date.date != null) {
-                  return (
-                    <div className={style.datesContainer__rows}>
-                      <div>
-                        {format(new Date(date.date), "dd MMM yy", {
-                          locale: fr,
-                        })}
-                      </div>
-                      <div>{date.label}</div>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-            <progress value="70" max="100">
-              70 %
-            </progress> */}
             <div className={style.datesContainer__dates}>
               {dates.map((date) => {
                 if (date.date != null) {
@@ -124,9 +115,7 @@ export default function DecisionPage() {
               })}
             </div>
             <div className={style.datesContainer__progress}>
-              <progress value="70" max="100">
-                70 %
-              </progress>
+              <progress value={progressDate} max="100" />
             </div>
             <div className={style.datesContainer__labels}>
               {dates.map((date) => {
