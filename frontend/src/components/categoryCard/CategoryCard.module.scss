@@ -25,11 +25,13 @@
   border-radius: v.$border-radius-circle;
   cursor: pointer;
   position: absolute;
-  bottom: -40%;
+  top: 30%;
+  height: 53px;
 }
 
 .buttonLeft {
   left: 5px;
+  display: none;
 }
 
 .buttonRight {

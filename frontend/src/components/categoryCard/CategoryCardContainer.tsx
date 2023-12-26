@@ -5,6 +5,7 @@ import CategoryCard from "./CategoryCard";
 import style from "./CategoryCard.module.scss";
 import useWindowDimensions from "../../utils/hooks/useWindowDimensions";
 import { ArrowLeft, ArrowRight } from "react-feather";
+
 export default function CategoryCardContainer() {
   const [categories, setCategories] = useState<CategoryType[] | []>([]);
   const windowSize = useWindowDimensions();
@@ -25,17 +26,35 @@ export default function CategoryCardContainer() {
   }, []);
 
   const scroll = (direction: string) => {
+    const leftButton: HTMLElement = document.getElementsByClassName(
+      style.buttonLeft
+    )[0];
+    const rightButton: HTMLElement = document.getElementsByClassName(
+      style.buttonRight
+    )[0];
+
+    if (x <= 200) {
+      leftButton.style.display = "none";
+    }
+    if (
+      categoryCards[categoryCards.length - 1].getBoundingClientRect().x - 160 <
+      containerSize
+    ) {
+      rightButton.style.display = "none";
+    }
     if (
       direction === "right" &&
       categoryCards[categoryCards.length - 1].getBoundingClientRect().x + 160 >
         windowSize
     ) {
       x += 165;
+      leftButton.style.display = "block";
     } else if (
       direction === "left" &&
       categoryCards[0].getBoundingClientRect().x < 80
     ) {
       x -= 165;
+      rightButton.style.display = "block";
     }
     container[0].scrollTo({ left: x, behavior: "smooth" });
   };
@@ -51,7 +70,6 @@ export default function CategoryCardContainer() {
             <CategoryCard category={category} key={category.id} />
           ))}
         </div>
-
         <button
           type="button"
           onClick={() => scroll("left")}
