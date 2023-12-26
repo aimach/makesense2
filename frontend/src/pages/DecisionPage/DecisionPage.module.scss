@@ -59,25 +59,30 @@
   width: 100%;
   gap: 2rem;
   &__dates {
-    //   @include m.flex(column, flex-start, center);
-    //   gap: v.$font-size-l;
-
     width: 40%;
-    p {
+    div {
       height: 60px;
-      color: v.$color-neutral-60;
     }
   }
   &__labels {
     width: 70%;
-    p {
+    div {
       height: 60px;
-      color: v.$color-neutral-60;
+      font-weight: v.$font-weight-extrabold;
     }
   }
   &__progress {
     position: relative;
     transform: rotate(90deg);
+  }
+  &__pass {
+    color: v.$color-neutral-60;
+  }
+  &__future {
+    color: v.$color-calypso;
+    p {
+      font-size: v.$font-size-xs;
+    }
   }
 
   progress {

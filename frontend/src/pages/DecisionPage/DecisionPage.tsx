@@ -5,24 +5,12 @@ import { DecisionType } from "../../utils/types";
 import axios from "axios";
 import Tag from "../../components/tag/Tag";
 import Summary from "../../components/globals/summary/Summary";
-import { differenceInCalendarDays, format } from "date-fns";
+import { differenceInDays, format, isFuture, isPast } from "date-fns";
 import { fr } from "date-fns/locale";
 
 export default function DecisionPage() {
   const { decisionId } = useParams();
   const [decision, setDecision] = useState<DecisionType | null>(null);
-
-  const differenceBetweenDates = (date1: string, date2: string | number) => {
-    return differenceInCalendarDays(new Date(date1), new Date(date2));
-  };
-
-  const progressDate = Math.round(
-    (differenceBetweenDates(decision?.createdAt as string, Date.now()) * 100) /
-      differenceBetweenDates(
-        decision?.createdAt as string,
-        decision?.finalDecision as string
-      )
-  );
 
   useEffect(() => {
     axios
@@ -55,8 +43,6 @@ export default function DecisionPage() {
     },
     { label: "Décision définitive", date: decision?.finalDecision },
   ];
-
-  // console.log(differenceInCalendarDays(new Date(), dates[0].date as string));
 
   return (
     <div className={style.decisionPageContainer}>
@@ -105,22 +91,64 @@ export default function DecisionPage() {
               {dates.map((date) => {
                 if (date.date != null) {
                   return (
-                    <p>
+                    <div
+                      key={date.date}
+                      className={
+                        isFuture(date.date)
+                          ? style.datesContainer__future
+                          : style.datesContainer__pass
+                      }
+                    >
                       {format(new Date(date.date), "dd MMM yy", {
                         locale: fr,
                       })}
-                    </p>
+                    </div>
                   );
                 }
               })}
             </div>
             <div className={style.datesContainer__progress}>
-              <progress value={progressDate} max="100" />
+              <progress
+                value={
+                  dates.filter((date) => isPast(date.date as string)).length
+                }
+                max={dates.filter((date) => date.date != null).length}
+                style={{
+                  width:
+                    (dates.filter((date) => date.date != null).length - 0.5) *
+                    60,
+                }}
+              />
             </div>
             <div className={style.datesContainer__labels}>
               {dates.map((date) => {
                 if (date.date != null) {
-                  return <p>{date.label}</p>;
+                  return (
+                    <div
+                      key={date.date}
+                      className={
+                        isFuture(date.date)
+                          ? style.datesContainer__future
+                          : style.datesContainer__pass
+                      }
+                    >
+                      {date.label}
+                      {dates.filter((date) => isFuture(date.date as string))
+                        .length > 0 &&
+                      dates.filter((date) => isFuture(date.date as string))[0]
+                        .label === date.label ? (
+                        <p>
+                          {differenceInDays(new Date(date.date), new Date()) !==
+                          0
+                            ? `Plus que ${differenceInDays(
+                                new Date(date.date),
+                                new Date()
+                              )} jours`
+                            : "Aujourdhui"}
+                        </p>
+                      ) : null}
+                    </div>
+                  );
                 }
               })}
             </div>
