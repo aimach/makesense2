@@ -24,6 +24,10 @@ export type DecisionType = {
   cons: string;
   createdAt?: Date;
   updatedAt?: Date;
+  firstDeadline: Date;
+  firstDecision?: Date;
+  secondDeadline?: Date;
+  finalDecision: Date;
   statusId: number;
   userId: number;
   categories: {

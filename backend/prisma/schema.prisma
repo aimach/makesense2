@@ -23,6 +23,7 @@ model User {
   serviceId Int
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+
   // USER REFERENCE IN DECISIONS (EXPERT OR CONCERNED)
   userOnDecision UsersOnDecisions[]
   // USER REFERENCED IN GROUPS
@@ -50,6 +51,10 @@ model Decision {
   cons String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+  firstDeadline DateTime
+  firstDecision DateTime?
+  secondDeadline DateTime?
+  finalDecision DateTime
   status Status @relation(fields: [statusId], references: [id])
   statusId Int
   user User @relation(fields: [userId], references: [id])

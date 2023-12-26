@@ -5,6 +5,8 @@ import { DecisionType } from "../../utils/types";
 import axios from "axios";
 import Tag from "../../components/tag/Tag";
 import Summary from "../../components/globals/summary/Summary";
+import { differenceInDays, format, isFuture, isPast } from "date-fns";
+import { fr } from "date-fns/locale";
 
 export default function DecisionPage() {
   const { decisionId } = useParams();
@@ -31,6 +33,17 @@ export default function DecisionPage() {
     { summary: "Avis 💬", details: decision?.comments },
   ];
 
+  const dates = [
+    { label: "Prise de décision commencée", date: decision?.createdAt },
+    { label: "Deadline pour donner son avis", date: decision?.firstDeadline },
+    { label: "Première décision prise", date: decision?.firstDecision },
+    {
+      label: "Deadline pour rentrer en conflit",
+      date: decision?.secondDeadline,
+    },
+    { label: "Décision définitive", date: decision?.finalDecision },
+  ];
+
   return (
     <div className={style.decisionPageContainer}>
       <section>
@@ -39,6 +52,7 @@ export default function DecisionPage() {
             <Tag
               content={category.category.name}
               color={category.category.color}
+              key={category.category.id}
             />
           ))}
         </div>
@@ -60,14 +74,85 @@ export default function DecisionPage() {
           </div>
         </div>
         <div className={style.decisionContainer}>
-          {summaryToDisplay.map((item) => (
-            <Summary summary={item.summary} details={item.details as string} />
+          {summaryToDisplay.map((item, index) => (
+            <Summary
+              summary={item.summary}
+              details={item.details as string}
+              key={index}
+            />
           ))}
         </div>
       </section>
       <aside className={style.decisionAside}>
         <div>
           <h3>Dates à retenir</h3>
+          <div className={style.datesContainer}>
+            <div className={style.datesContainer__dates}>
+              {dates.map((date) => {
+                if (date.date != null) {
+                  return (
+                    <div
+                      key={date.date}
+                      className={
+                        isFuture(date.date)
+                          ? style.datesContainer__future
+                          : style.datesContainer__pass
+                      }
+                    >
+                      {format(new Date(date.date), "dd MMM yy", {
+                        locale: fr,
+                      })}
+                    </div>
+                  );
+                }
+              })}
+            </div>
+            <div className={style.datesContainer__progress}>
+              <progress
+                value={
+                  dates.filter((date) => isPast(date.date as string)).length
+                }
+                max={dates.filter((date) => date.date != null).length}
+                style={{
+                  width:
+                    (dates.filter((date) => date.date != null).length - 0.5) *
+                    60,
+                }}
+              />
+            </div>
+            <div className={style.datesContainer__labels}>
+              {dates.map((date) => {
+                if (date.date != null) {
+                  return (
+                    <div
+                      key={date.date}
+                      className={
+                        isFuture(date.date)
+                          ? style.datesContainer__future
+                          : style.datesContainer__pass
+                      }
+                    >
+                      {date.label}
+                      {dates.filter((date) => isFuture(date.date as string))
+                        .length > 0 &&
+                      dates.filter((date) => isFuture(date.date as string))[0]
+                        .label === date.label ? (
+                        <p>
+                          {differenceInDays(new Date(date.date), new Date()) !==
+                          0
+                            ? `Plus que ${differenceInDays(
+                                new Date(date.date),
+                                new Date()
+                              )} jours`
+                            : "Aujourdhui"}
+                        </p>
+                      ) : null}
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          </div>
         </div>
         <div>
           <h3>Personnes impactées</h3>

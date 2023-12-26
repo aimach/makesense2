@@ -38,8 +38,12 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
         <div className={style.dateContainer}>
           <p>{decision.status.name}</p>
           <div>
-            <Calendar /> il y a {differenceInDays} jour
-            {differenceInDays > 1 && "s"}
+            <Calendar />{" "}
+            {differenceInDays === 0
+              ? "Aujourd'hui"
+              : `il y a ${differenceInDays} jour${
+                  differenceInDays > 1 ? "s" : ""
+                } `}
           </div>
         </div>
       </div>
