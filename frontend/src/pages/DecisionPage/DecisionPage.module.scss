@@ -61,7 +61,6 @@
     text-decoration: underline;
     color: v.$color-calypso;
     padding-top: v.$font-space-xs;
-    cursor: pointer;
   }
 }
 
@@ -69,7 +68,6 @@
   @include m.unbuttonize();
   @include m.buttonStyle(v.$color-calypso, v.$color-neutral-100);
   margin: auto;
-  cursor: pointer;
 }
 
 .datesContainer {

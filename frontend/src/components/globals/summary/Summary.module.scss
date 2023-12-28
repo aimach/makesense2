@@ -38,5 +38,4 @@ details[open] {
   @include m.unbuttonize();
   @include m.buttonStyle(v.$color-calypso, v.$color-neutral-100);
   margin: auto;
-  cursor: pointer;
 }

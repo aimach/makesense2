@@ -23,7 +23,6 @@
   @include m.unbuttonize();
   @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
   border-radius: v.$border-radius-circle;
-  cursor: pointer;
   position: absolute;
   top: 30%;
   height: 53px;

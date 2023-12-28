@@ -144,6 +144,7 @@ $desktop: 1280;
   border-radius: v.$border-radius-rounded;
   padding: v.$space-s;
   font-size: v.$font-size-m;
+  cursor: pointer;
   &:hover {
     opacity: v.$opacity-hover;
   }

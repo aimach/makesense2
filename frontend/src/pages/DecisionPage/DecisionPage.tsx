@@ -197,9 +197,6 @@ export default function DecisionPage() {
             Voir les avis
           </button>
         </div>
-        <button type="button" className={style.commentButton}>
-          Donner mon avis
-        </button>
       </aside>
     </div>
   );

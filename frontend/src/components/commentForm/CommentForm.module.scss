@@ -1,0 +1,19 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.commentForm {
+  @include m.flex(column, flex-start, flex-start);
+  width: 100%;
+  padding-bottom: v.$font-space-xl;
+  border-bottom: v.$border-width-m solid v.$border-color-base;
+  textarea {
+    @include m.inputStyle;
+    margin: v.$font-space-xl 0;
+    width: 95%;
+  }
+  button {
+    @include m.unbuttonize();
+    @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
+    margin: 0 v.$font-size-xs 0 0;
+  }
+}
