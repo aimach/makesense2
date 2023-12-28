@@ -43,11 +43,13 @@
   width: 150px;
   min-height: 150px;
   height: 150px;
+  padding: v.$font-space-xl;
   border-radius: v.$border-radius-rounded;
   @include m.flex(column, space-evenly, center);
   p {
     color: v.$color-neutral-100;
     font-size: v.$font-size-l;
     font-weight: v.$font-weight-black;
+    text-align: center;
   }
 }
