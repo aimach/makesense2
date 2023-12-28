@@ -1,8 +1,9 @@
 import style from "./DecisionCard.module.scss";
-import { CategoryType, DecisionType } from "../../utils/types";
+import { DecisionType } from "../../utils/types";
 import Tag from "../tag/Tag";
 import { Link } from "react-router-dom";
 import { Calendar } from "react-feather";
+
 interface DecisionCardProps {
   decision: DecisionType;
 }
@@ -26,8 +27,9 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
           <img src={decision.user.avatar as string} alt="avatar" />
         </div>
         <p>{descriptionSliced}</p>
+        <p>{decision.status.name}</p>
         <div className={style.tagContainer}>
-          {decision.categories.map((category: CategoryType) => (
+          {decision.categories.map((category) => (
             <Tag
               content={category.category.name}
               color={category.category.color}
