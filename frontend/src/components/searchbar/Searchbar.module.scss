@@ -46,6 +46,9 @@
 .buttonSearch {
   @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
   width: 60px;
+  a {
+    color: v.$color-neutral-100;
+  }
 }
 
 .statusModal {
@@ -55,6 +58,7 @@
   left: 24%;
   padding: 0 v.$font-space-xl;
   padding: 1rem;
+  z-index: 2;
   div {
     @include m.flex(row, space-evenly, flex-start);
     margin: v.$font-space-m 0;
