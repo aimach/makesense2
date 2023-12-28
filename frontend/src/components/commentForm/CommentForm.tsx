@@ -1,6 +1,7 @@
 import style from "./CommentForm.module.scss";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { errorToast, successToast } from "../toasts/toats";
 
 export default function CommentForm() {
   const location = useLocation();
@@ -14,8 +15,15 @@ export default function CommentForm() {
     const formJson = Object.fromEntries(formData.entries());
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL as string}/comments`, formJson)
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        if (res.status === 201) {
+          successToast("Commentaire soumis avec succès");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        errorToast("Une erreur est survenue");
+      });
   }
 
   return (

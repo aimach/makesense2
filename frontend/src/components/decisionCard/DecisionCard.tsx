@@ -3,6 +3,7 @@ import { DecisionType } from "../../utils/types";
 import Tag from "../tag/Tag";
 import { Link } from "react-router-dom";
 import { Calendar } from "react-feather";
+import { differenceInDays } from "date-fns";
 
 interface DecisionCardProps {
   decision: DecisionType;
@@ -15,8 +16,9 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
       .slice(0, 35 * 4)
       .join("") + "...";
 
-  const differenceInDays = Math.round(
-    (new Date().getTime() - Date.parse(decision.createdAt)) / (1000 * 3600 * 24)
+  const differenceInDaysWithToday = differenceInDays(
+    new Date(),
+    new Date(decision.createdAt)
   );
 
   return (
@@ -41,10 +43,10 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
           <p>{decision.status.name}</p>
           <div>
             <Calendar />{" "}
-            {differenceInDays === 0
+            {differenceInDaysWithToday === 0
               ? "Aujourd'hui"
-              : `il y a ${differenceInDays} jour${
-                  differenceInDays > 1 ? "s" : ""
+              : `il y a ${differenceInDaysWithToday} jour${
+                  differenceInDaysWithToday > 1 ? "s" : ""
                 } `}
           </div>
         </div>

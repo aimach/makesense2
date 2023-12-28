@@ -22,6 +22,7 @@ export default function Summary({ summary, details }: Props) {
       ) : (
         <div className={style.commentContainer}>
           <CommentForm />
+
           {details != null && details.length > 0 ? (
             <>
               {(details as CommentType[]).map((comment: CommentType) => (
