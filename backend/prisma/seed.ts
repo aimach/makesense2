@@ -356,7 +356,6 @@ async function main() {
   const createComment = async (): Promise<CommentType> => {
     // CREATE NEW COMMENT
     const newComment: CommentType = {
-      title: faker.lorem.words({ min: 3, max: 10 }),
       content: faker.lorem.paragraph({ min: 1, max: 3 }),
       userId: faker.helpers.rangeToNumber({ min: 1, max: amountOfUsers }),
       decisionId: faker.helpers.rangeToNumber({
