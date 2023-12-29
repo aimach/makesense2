@@ -20,7 +20,7 @@ export default function ConcernedPerson({
       <h3>{`Personnes ${type}es`}</h3>
       <div>
         {filteredUsers.length === 0 ? (
-          <p>{`Pas de ${type}s`}</p>
+          <p>{`Pas ${type === "expert" ? "d'" : "de "}${type}s`}</p>
         ) : (
           <>
             <div>
