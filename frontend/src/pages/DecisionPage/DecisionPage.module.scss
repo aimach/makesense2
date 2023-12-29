@@ -55,16 +55,6 @@
   }
 }
 
-.concernedContainer {
-  button {
-    @include m.unbuttonize();
-    text-decoration: underline;
-    color: v.$color-calypso;
-    padding-top: v.$font-space-xs;
-    cursor: pointer;
-  }
-}
-
 .commentButton {
   @include m.unbuttonize();
   @include m.buttonStyle(v.$color-calypso, v.$color-neutral-100);
