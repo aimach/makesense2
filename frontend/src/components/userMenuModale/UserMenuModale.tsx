@@ -4,11 +4,21 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 export default function UserMenuModale() {
-  const { profile } = useContext(UserContext);
+  const { profile, logout } = useContext(UserContext);
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <div className={style.userMenuButtonModale}>
       {profile ? (
-        <p>Mes informations</p>
+        <>
+          <p>Mes informations</p>
+          <button type="button" onClick={handleClick}>
+            Deconnexion
+          </button>
+        </>
       ) : (
         <>
           <Link to={"/login"}>Connexion</Link>

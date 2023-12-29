@@ -11,18 +11,12 @@ interface ProviderProps {
 interface ContextProps {
   isAuthenticated: () => boolean;
   profile: UserType | null;
-  // logout: () => void;
+  logout: () => void;
   // redirectToLogin: () => void;
   // loaded: boolean;
 }
 
-export const UserContext = createContext<ContextProps>({
-  profile: null,
-  isAuthenticated: () => false,
-  // logout: () => {},
-  // redirectToLogin: () => {},
-  // loaded: false,
-});
+export const UserContext = createContext<ContextProps>({} as ContextProps);
 
 export const UserProvider = ({ children }: ProviderProps) => {
   // useState
@@ -59,16 +53,21 @@ export const UserProvider = ({ children }: ProviderProps) => {
     return profile !== null;
   };
 
-  // const logout = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:5000/api/auth/logout");
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setProfile(null);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const logout = async (): Promise<void> => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL as string}/logout`,
+        {
+          withCredentials: true,
+        }
+      );
+      Cookies.remove("token");
+      if (response.status === 200) setProfile(null);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // const redirectToLogin = () => {
   //   if (loaded && profile == null) {
@@ -77,7 +76,7 @@ export const UserProvider = ({ children }: ProviderProps) => {
   // };
 
   return (
-    <UserContext.Provider value={{ profile, isAuthenticated }}>
+    <UserContext.Provider value={{ profile, isAuthenticated, logout }}>
       {children}
     </UserContext.Provider>
   );
