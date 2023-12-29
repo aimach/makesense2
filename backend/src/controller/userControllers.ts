@@ -65,17 +65,8 @@ export const userControllers = {
   // UPDATE
   updateUser: async (req: Request, res: Response): Promise<void> => {
     try {
-      const {
-        firstname,
-        lastname,
-        email,
-        password,
-        refreshToken,
-        avatar,
-        admin,
-        position,
-        serviceId,
-      } = req.body;
+      const { firstname, lastname, email, avatar, admin, position, serviceId } =
+        req.body;
       await prisma.user.update({
         where: {
           id: parseInt(req.params.id),
@@ -84,8 +75,6 @@ export const userControllers = {
           firstname,
           lastname,
           email,
-          password,
-          refreshToken,
           avatar,
           admin,
           position,

@@ -68,7 +68,6 @@ router.get("/users/:id", userControllers.getUserById);
 router.put(
   "/users/:id",
   authMiddleware.getUserByEmailAndPassword,
-  authMiddleware.hashPassword,
   userControllers.updateUser
 );
 router.delete("/users/:id", userControllers.deleteUser);
@@ -98,6 +97,12 @@ router.post(
 
 router.post("/logout", authControllers.logout);
 router.post("/refresh-token", authControllers.refreshToken);
+
+router.get(
+  "/my-profile",
+  authMiddleware.protected,
+  authControllers.getMyProfile
+);
 
 // PROTECTED ROUTES
 

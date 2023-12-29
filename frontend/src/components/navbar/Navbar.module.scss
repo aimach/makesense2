@@ -34,6 +34,7 @@
   height: 50px;
   @include m.flex(row, flex-end, center);
   flex-wrap: nowrap;
+  cursor: pointer;
   &MenuIcon {
     width: 20px;
     padding-right: 0.5rem;
@@ -43,6 +44,9 @@
     color: v.$color-neutral-60;
     border-radius: v.$border-radius-circle;
     padding: 9px;
+  }
+  img {
+    @include m.avatar();
   }
   &:hover {
     border: v.$border-width-m solid v.$color-neutral-0;

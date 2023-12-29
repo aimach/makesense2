@@ -210,4 +210,37 @@ export const authControllers = {
       });
     }
   },
+
+  getMyProfile: async (req: Request, res: Response) => {
+    try {
+      const userToRead = await prisma.user.findUnique({
+        where: {
+          id: parseInt(req.body.user.id),
+        },
+        select: {
+          id: true,
+          firstname: true,
+          lastname: true,
+          email: true,
+          avatar: true,
+          admin: true,
+          position: true,
+          serviceId: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
+      if (userToRead === null) {
+        res.status(404).send("User not found");
+        return;
+      }
+      res.status(200).send(userToRead);
+    } catch (error) {
+      res.status(500).json({
+        type: "error",
+        message: "Error getting protected route!",
+        error,
+      });
+    }
+  },
 };
