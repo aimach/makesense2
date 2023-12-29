@@ -36,6 +36,8 @@ export default function DecisionCreate() {
     <FifthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
   ];
 
+  console.log(newDecision);
+
   return (
     <div className={style.decisionCreateContainer}>
       <div className={style.imgContainer}>

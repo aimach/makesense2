@@ -3,8 +3,9 @@ import { getCategories } from "../../utils/api/categoryApi";
 import { CategoryType } from "../../utils/types";
 import Tag from "../../components/tag/Tag";
 import style from "./DecisionCreate.module.scss";
+import { stepProps } from "./DecisionCreate";
 
-export default function FifthStep() {
+export default function FifthStep({ newDecision, setNewDecision }: stepProps) {
   const [categories, setCategories] = useState<CategoryType[] | []>([]);
   useEffect(() => {
     const getAllTags = async () => {

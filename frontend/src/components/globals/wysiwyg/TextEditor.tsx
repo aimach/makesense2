@@ -1,8 +1,8 @@
-import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./TextEditor.scss";
 import { stepProps } from "../../../pages/DecisionCreate/DecisionCreate";
+import { DecisionType } from "../../../utils/types";
 
 interface IProps extends stepProps {
   placeholder: string;
@@ -50,7 +50,7 @@ function TextEditor({
   return (
     <ReactQuill
       theme="snow"
-      value={newDecision.decisionKey}
+      value={newDecision[decisionKey as keyof DecisionType] as string}
       onChange={(value) => handleChange(value)}
       formats={formats}
       modules={modules}
