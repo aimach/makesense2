@@ -3,19 +3,16 @@ import style from "../ConnexionPage/ConnexionPage.module.scss";
 import { HelpCircle } from "react-feather";
 import logo from "../../assets/img/logo.svg";
 // PACKAGE IMPORTS
-import Joi from "joi";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { loginValidation } from "../../utils/validation";
+import { errorToast } from "../../components/toasts/toats";
+import { login } from "../../utils/api/authApi";
+import { ToastContainer } from "react-toastify";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const schema = Joi.object({
-    email: Joi.string().email({ tlds: { allow: false } }),
-    // password rules : at least one uppercase letter, one lowercase letter, one digit, one special character and min 8 characters
-    password: Joi.string().pattern(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-    ),
-  });
-
+  const navigate = useNavigate();
   // FORM SUBMIT HANDLER
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     // Prevent the browser from reloading the page
@@ -24,19 +21,16 @@ export default function LoginPage() {
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
 
-    const checkFormDatas = schema.validate(formJson);
-    // const checkCheckBox = "cgu" in formJson;
-    if (checkFormDatas.error) {
-      // console.log(checkFormDatas.error.details[0].path[0]);
-      console.log(checkFormDatas);
+    if (loginValidation(formJson).error) {
+      errorToast("Une erreur est survenue");
     } else {
-      axios
-        .post(`${import.meta.env.VITE_BACKEND_URL as string}/login`, {
-          email: formJson.email,
-          password: formJson.password,
-        })
-        .then((response) => console.log(response.data))
-        .catch((err) => console.error(err));
+      login({
+        email: formJson.email,
+        password: formJson.password,
+      });
+      if (Cookies.get("token")) {
+        navigate("/");
+      }
     }
   }
   return (
@@ -74,6 +68,7 @@ export default function LoginPage() {
           Me connecter
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 }

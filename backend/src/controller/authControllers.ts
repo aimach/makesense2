@@ -20,7 +20,7 @@ export const authControllers = {
     const payload = { email, password };
     // signing the access token
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: 15 * 60,
+      expiresIn: 60 * 60,
     });
     // signing the refresh token
     const refreshTokenCookie = jwt.sign(
@@ -49,33 +49,22 @@ export const authControllers = {
 
     res
       // sending the refresh token to the client as a cookie
-      .cookie("refreshtoken", refreshTokenCookie, { httpOnly: true })
-      // sending the access token to the client
-      .send({ accessToken, payload })
-      .status(200);
+      .cookie("refreshtoken", refreshTokenCookie, { httpOnly: true });
+    // sending the access token to the client
+    return res.status(200).send({ accessToken });
   },
   register: async (req: Request, res: Response) => {
     try {
-      const {
-        firstname,
-        lastname,
-        email,
-        password,
-        avatar,
-        admin,
-        position,
-        serviceId,
-      } = req.body;
+      const { firstname, lastname, email, password, position, serviceId } =
+        req.body;
       await prisma.user.create({
         data: {
           firstname,
           lastname,
           email,
           password,
-          avatar,
-          admin,
           position,
-          serviceId,
+          serviceId: parseInt(serviceId),
         },
       });
       res.status(201).send("Created user");
