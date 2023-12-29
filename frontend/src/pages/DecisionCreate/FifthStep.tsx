@@ -1,3 +1,3 @@
 export default function FifthStep() {
-  return <div>afficher ici les tags</div>;
+  return <div>Choisir les tags</div>;
 }

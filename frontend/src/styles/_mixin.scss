@@ -46,6 +46,12 @@
   justify-content: center;
 }
 
+@mixin avatar {
+  width: 40px;
+  border: 1px solid v.$color-blue-dianne;
+  border-radius: v.$border-radius-circle;
+}
+
 // POSITION
 
 @mixin position(
@@ -138,6 +144,7 @@ $desktop: 1280;
   border-radius: v.$border-radius-rounded;
   padding: v.$space-s;
   font-size: v.$font-size-m;
+  cursor: pointer;
   &:hover {
     opacity: v.$opacity-hover;
   }
@@ -162,4 +169,30 @@ $desktop: 1280;
 
 @mixin borderRight($color) {
   border-right: v.$border-width-m solid $color;
+}
+
+@mixin unbuttonize {
+  // This removes styles added by default to button elements.
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  text-align: inherit;
+  font: inherit;
+  border-radius: 0;
+  appearance: none;
+}
+
+@mixin buttonSize($width, $height, $padding) {
+  width: $width;
+  height: $height;
+  flex-shrink: 0;
+  border-radius: 20px;
+  padding: $padding;
+  text-decoration: none;
+}
+
+@mixin buttonColor($backgroundColor, $fontColor) {
+  background-color: $backgroundColor;
+  color: $fontColor;
 }

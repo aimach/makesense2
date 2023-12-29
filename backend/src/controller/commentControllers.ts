@@ -7,7 +7,12 @@ export const commentControllers = {
   // READ
   getAllComments: async (req: Request, res: Response): Promise<void> => {
     try {
-      const allComments = await prisma.comment.findMany();
+      const allComments = await prisma.comment.findMany({
+        include: {
+          user: true,
+          decision: true,
+        },
+      });
       res.status(200).send(allComments);
     } catch (err) {
       console.log(err);
@@ -72,14 +77,12 @@ export const commentControllers = {
   // CREATE
   createComment: async (req: Request, res: Response): Promise<void> => {
     try {
-      const { title, content, decisionId, userId, date } = req.body;
+      const { content, decisionId, userId } = req.body;
       await prisma.comment.create({
         data: {
-          title,
           content,
-          decisionId,
-          userId,
-          date,
+          decisionId: parseInt(decisionId, 10),
+          userId: parseInt(userId, 10),
         },
       });
       res.status(201).send("Created comment");
@@ -92,12 +95,12 @@ export const commentControllers = {
   // UPDATE
   updateComment: async (req: Request, res: Response): Promise<void> => {
     try {
-      const { title, content, decisionId, userId, date } = req.body;
+      const { content, decisionId, userId, date } = req.body;
       await prisma.comment.update({
         where: {
           id: parseInt(req.params.id),
         },
-        data: { title, content, decisionId, userId, date },
+        data: { content, decisionId, userId, date },
       });
       res.status(201).send("Updated comment");
     } catch (err) {

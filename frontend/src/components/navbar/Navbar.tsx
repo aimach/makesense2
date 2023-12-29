@@ -10,7 +10,7 @@ export default function Navbar() {
 
   return (
     <header className={style.header}>
-      <Link to="/home">
+      <Link to="/">
         <img src={logo} alt="logo" width={"100px"} />
       </Link>
       <div className={style.headerMenu}>

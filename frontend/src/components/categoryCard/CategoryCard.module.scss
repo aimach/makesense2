@@ -1,0 +1,54 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.categoryContainer {
+  position: relative;
+}
+
+.categoryCardContainer {
+  @include m.flex(row, flex-start, center);
+  gap: v.$font-space-xl;
+  margin: v.$font-size-xl 0;
+  overflow-x: scroll;
+  a {
+    text-decoration: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.buttonLeft,
+.buttonRight {
+  @include m.unbuttonize();
+  @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
+  border-radius: v.$border-radius-circle;
+  position: absolute;
+  top: 30%;
+  height: 53px;
+}
+
+.buttonLeft {
+  left: 5px;
+  display: none;
+}
+
+.buttonRight {
+  right: 5px;
+}
+
+.categoryCard {
+  min-width: 150px;
+  width: 150px;
+  min-height: 150px;
+  height: 150px;
+  padding: v.$font-space-xl;
+  border-radius: v.$border-radius-rounded;
+  @include m.flex(column, space-evenly, center);
+  p {
+    color: v.$color-neutral-100;
+    font-size: v.$font-size-l;
+    font-weight: v.$font-weight-black;
+    text-align: center;
+  }
+}

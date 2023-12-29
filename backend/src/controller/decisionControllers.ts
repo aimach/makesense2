@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
@@ -7,14 +7,95 @@ export const decisionControllers = {
   // READ
   getAllDecisions: async (req: Request, res: Response): Promise<void> => {
     try {
+      const filters: Prisma.DecisionWhereInput[] = [];
+      const { status, text, sort, before, after, category } = req.query;
+      const beforeDate = new Date(before as string);
+      const afterDate = new Date(after as string);
+
+      // ADD STATUS FILTER
+      if (status)
+        filters.push({
+          statusId: {
+            in: (status as string)
+              .split(",")
+              .map((item: string) => parseInt(item, 10)),
+          },
+        });
+
+      // ADD TEXT FILTER
+      if (text)
+        filters.push({
+          OR: [
+            { title: { contains: text as string } },
+            { firstContent: { contains: text as string } },
+          ],
+        });
+
+      // ADD DATE FILTER
+      if (before) {
+        filters.push({
+          createdAt: {
+            lte: beforeDate,
+          },
+        });
+      }
+      if (after) {
+        filters.push({
+          createdAt: {
+            gte: afterDate,
+          },
+        });
+      }
+
+      // ADD CATEGORY FILTER
+      if (category) {
+        filters.push({
+          categories: {
+            some: {
+              categoryId: parseInt(category as string, 10),
+            },
+          },
+        });
+      }
+
+      // ADD SORTING
+      const sorting: Prisma.DecisionOrderByWithRelationInput =
+        sort === "date"
+          ? {
+              createdAt: "desc",
+            }
+          : {
+              statusId: "asc",
+            };
+
       const allDecisions = await prisma.decision.findMany({
+        where: { AND: filters },
         include: {
           status: true,
-          comments: true,
+          comments: {
+            include: {
+              user: true,
+            },
+          },
           user: true,
-          users: true,
-          groups: true,
+          users: {
+            select: {
+              user: true,
+              type: true,
+            },
+          },
+          groups: {
+            select: {
+              group: true,
+            },
+          },
+          categories: {
+            select: {
+              category: true,
+            },
+          },
         },
+        orderBy: sorting,
       });
       res.status(200).send(allDecisions);
     } catch (err) {
@@ -30,10 +111,28 @@ export const decisionControllers = {
         },
         include: {
           status: true,
-          comments: true,
+          comments: {
+            include: {
+              user: true,
+            },
+          },
           user: true,
-          users: true,
-          groups: true,
+          users: {
+            select: {
+              user: true,
+              type: true,
+            },
+          },
+          groups: {
+            select: {
+              group: true,
+            },
+          },
+          categories: {
+            select: {
+              category: true,
+            },
+          },
         },
       });
       if (decisionToRead === null) {
@@ -58,6 +157,10 @@ export const decisionControllers = {
         context,
         pros,
         cons,
+        firstDeadline,
+        firstDecision,
+        secondDeadline,
+        finalDecision,
         statusId,
         userId,
       } = req.body;
@@ -70,6 +173,10 @@ export const decisionControllers = {
           context,
           pros,
           cons,
+          firstDeadline,
+          firstDecision,
+          secondDeadline,
+          finalDecision,
           statusId,
           userId,
         },
@@ -92,6 +199,10 @@ export const decisionControllers = {
         context,
         pros,
         cons,
+        firstDeadline,
+        firstDecision,
+        secondDeadline,
+        finalDecision,
         statusId,
         userId,
       } = req.body;
@@ -107,6 +218,10 @@ export const decisionControllers = {
           context,
           pros,
           cons,
+          firstDeadline,
+          firstDecision,
+          secondDeadline,
+          finalDecision,
           statusId,
           userId,
         },

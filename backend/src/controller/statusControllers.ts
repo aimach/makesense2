@@ -7,7 +7,11 @@ export const statusControllers = {
   // READ
   getAllStatus: async (req: Request, res: Response): Promise<void> => {
     try {
-      const allStatus = await prisma.status.findMany();
+      const allStatus = await prisma.status.findMany({
+        include: {
+          decisions: true,
+        },
+      });
       res.status(200).send(allStatus);
     } catch (err) {
       console.log(err);

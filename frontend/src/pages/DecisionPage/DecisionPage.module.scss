@@ -1,0 +1,62 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.decisionPageContainer {
+  @include m.flex(row, flex-start, flex-start);
+  section {
+    padding: v.$font-size-xs 0 v.$font-size-xs v.$font-size-xs;
+    flex-basis: 75%;
+    min-height: 200px;
+    @include m.flex(column, flex-start, flex-start);
+    gap: 1rem;
+  }
+}
+
+.tagContainer {
+  @include m.flex(row, flex-start, flex-start);
+  gap: v.$font-size-xs;
+}
+
+.titleContainer {
+  > div {
+    @include m.flex(row, flex-start, center);
+    gap: v.$font-size-xs;
+    margin: v.$font-size-xs 0;
+    span {
+      font-weight: v.$font-weight-extrabold;
+    }
+  }
+
+  img {
+    @include m.avatar();
+  }
+}
+
+.decisionContainer {
+  width: 100%;
+}
+
+.decisionAside {
+  @include m.flex(column, flex-start, flex-start);
+  gap: v.$font-size-l;
+  flex-basis: 25%;
+  border-left: 1px solid v.$color-neutral-80;
+  padding: 0 v.$font-size-l;
+  > div {
+    margin: v.$font-size-s;
+    width: 100%;
+    h3 {
+      padding-bottom: v.$font-size-s;
+    }
+  }
+  img {
+    @include m.avatar();
+    margin: 0.2rem;
+  }
+}
+
+.commentButton {
+  @include m.unbuttonize();
+  @include m.buttonStyle(v.$color-calypso, v.$color-neutral-100);
+  margin: auto;
+}

@@ -20,6 +20,9 @@ export const userControllers = {
           serviceId: true,
           createdAt: true,
           updatedAt: true,
+          groups: true,
+          decisions: true,
+          comments: true,
         },
       });
       res.status(200).send(allUsers);

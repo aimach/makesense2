@@ -1,0 +1,12 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.concernedContainer {
+  button {
+    @include m.unbuttonize();
+    text-decoration: underline;
+    color: v.$color-calypso;
+    padding-top: v.$font-space-xs;
+    cursor: pointer;
+  }
+}

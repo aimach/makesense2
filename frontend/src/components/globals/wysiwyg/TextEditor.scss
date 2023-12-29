@@ -1,0 +1,23 @@
+@use "../../../styles/variable" as v;
+@use "../../../styles/mixin" as m;
+
+.quill {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.ql-toolbar.ql-snow {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: v.$border-width-m solid v.$border-color-base;
+}
+.ql-container.ql-snow {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: v.$border-width-m solid v.$border-color-base;
+}
+
+.ql-editor.ql-blank::before {
+  font-style: normal;
+}
