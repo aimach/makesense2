@@ -12,8 +12,6 @@ interface ContextProps {
   isAuthenticated: () => boolean;
   profile: UserType | null;
   logout: () => void;
-  // redirectToLogin: () => void;
-  // loaded: boolean;
 }
 
 export const UserContext = createContext<ContextProps>({} as ContextProps);
@@ -68,12 +66,6 @@ export const UserProvider = ({ children }: ProviderProps) => {
       console.log(error);
     }
   };
-
-  // const redirectToLogin = () => {
-  //   if (loaded && profile == null) {
-  //     navigate("/auth/login");
-  //   }
-  // };
 
   return (
     <UserContext.Provider value={{ profile, isAuthenticated, logout }}>
