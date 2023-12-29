@@ -9,7 +9,7 @@
 
 .imgContainer {
   img {
-    height: 70vh;
+    height: 60vh;
     border-radius: v.$border-radius-rounded;
   }
 }
@@ -81,4 +81,11 @@
       @include m.flex(row, flex-start, center);
     }
   }
+}
+
+.tagContainer {
+  @include m.flex(row, flex-start, flex-start);
+  flex-wrap: wrap;
+  gap: v.$font-size-s;
+  padding: v.$font-size-s;
 }

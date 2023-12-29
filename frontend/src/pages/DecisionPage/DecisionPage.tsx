@@ -60,6 +60,7 @@ export default function DecisionPage() {
               <Tag
                 content={category.category.name}
                 color={category.category.color}
+                canBeSelected={false}
                 key={category.category.id}
               />
             ))}
