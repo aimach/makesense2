@@ -6,14 +6,13 @@ export type CategoryType = {
 };
 
 export type CommentType = {
-  id: number;
-  title: string;
+  id?: number;
   content: string;
   userId: number;
   decisionId: number;
-  date: string;
-  user: UserType;
-  decision: DecisionType;
+  date?: string;
+  user?: UserType;
+  decision?: DecisionType;
 };
 
 export type DecisionType = {
