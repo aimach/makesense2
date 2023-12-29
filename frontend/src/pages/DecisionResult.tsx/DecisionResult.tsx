@@ -45,7 +45,8 @@ export default function DecisionResult() {
       <div className="separator" />
       <div className="decisionResultContainer">
         <p>
-          <span>{filteredDecisions.length}</span> décisions
+          <span>{filteredDecisions.length}</span> décision
+          {filteredDecisions.length < 2 ? "" : "s"}
         </p>
 
         {filteredDecisions.length > 0 && (

@@ -13,7 +13,7 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
   const descriptionSliced =
     decision.firstContent
       .split("")
-      .slice(0, 35 * 4)
+      .slice(0, 35 * 2)
       .join("") + "...";
 
   const differenceInDaysWithToday = differenceInDays(
@@ -29,7 +29,6 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
           <img src={decision.user.avatar as string} alt="avatar" />
         </div>
         <p>{descriptionSliced}</p>
-        <p>{decision.status.name}</p>
         <div className={style.tagContainer}>
           {decision.categories.map((category) => (
             <Tag
