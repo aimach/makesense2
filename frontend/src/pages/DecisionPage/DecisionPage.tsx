@@ -12,6 +12,7 @@ export default function DecisionPage() {
   const { decisionId } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [decision, setDecision] = useState<DecisionType | null>(null);
+  console.log(decision);
 
   const handleClick = () => {
     const detailsElements = document.getElementsByTagName("details");

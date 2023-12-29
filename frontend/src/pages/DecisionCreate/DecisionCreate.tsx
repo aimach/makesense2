@@ -7,15 +7,33 @@ import FourthStep from "./FourthStep";
 import FifthStep from "./FifthStep";
 import { ChevronLeft } from "react-feather";
 import formBG from "../../assets/img/form-bg.jpg";
+import { DecisionType } from "../../utils/types";
+
+export interface stepProps {
+  newDecision: DecisionType;
+  setNewDecision: (newDecision: DecisionType) => void;
+}
 
 export default function DecisionCreate() {
   const [step, setStep] = useState<number>(0);
+  const [newDecision, setNewDecision] = useState<DecisionType>({
+    title: "",
+    firstContent: "",
+    // impact: "",
+    pros: "",
+    cons: "",
+    users: [],
+    firstDeadline: "",
+    firstDecision: "",
+    secondDeadline: "",
+    finalDecision: "",
+  });
   const components: JSX.Element[] = [
-    <FirstStep />,
-    <SecondStep />,
-    <ThirdStep />,
-    <FourthStep />,
-    <FifthStep />,
+    <FirstStep newDecision={newDecision} setNewDecision={setNewDecision} />,
+    <SecondStep newDecision={newDecision} setNewDecision={setNewDecision} />,
+    <ThirdStep newDecision={newDecision} setNewDecision={setNewDecision} />,
+    <FourthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
+    <FifthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
   ];
 
   return (

@@ -1,7 +1,8 @@
 import style from "./DecisionCreate.module.scss";
 import { Plus } from "react-feather";
+import { stepProps } from "./DecisionCreate";
 
-export default function FourthStep() {
+export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
   return (
     <>
       <div className={`${style.inputContainer} ${style.normalInput}`}>

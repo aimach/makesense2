@@ -2,14 +2,19 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./TextEditor.scss";
+import { stepProps } from "../../../pages/DecisionCreate/DecisionCreate";
 
-interface IProps {
+interface IProps extends stepProps {
   placeholder: string;
+  decisionKey: string;
 }
 
-function TextEditor({ placeholder }: IProps) {
-  const [value, setValue] = useState("");
-
+function TextEditor({
+  placeholder,
+  newDecision,
+  setNewDecision,
+  decisionKey,
+}: IProps) {
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -38,13 +43,15 @@ function TextEditor({ placeholder }: IProps) {
     "link",
   ];
 
-  console.log(value);
+  const handleChange = (value: string) => {
+    setNewDecision({ ...newDecision, [decisionKey]: value });
+  };
 
   return (
     <ReactQuill
       theme="snow"
-      value={value}
-      onChange={setValue}
+      value={newDecision.decisionKey}
+      onChange={(value) => handleChange(value)}
       formats={formats}
       modules={modules}
       placeholder={placeholder}

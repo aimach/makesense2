@@ -1,7 +1,8 @@
 import TextEditor from "../../components/globals/wysiwyg/TextEditor";
 import style from "./DecisionCreate.module.scss";
+import { stepProps } from "./DecisionCreate";
 
-export default function FirstStep() {
+export default function FirstStep({ newDecision, setNewDecision }: stepProps) {
   return (
     <>
       <div className={style.inputContainer}>
@@ -10,7 +11,12 @@ export default function FirstStep() {
       </div>
       <div className={`${style.inputContainer}`}>
         <label htmlFor="description">Description *</label>
-        <TextEditor placeholder={"La décision que tu dois prendre"} />
+        <TextEditor
+          placeholder={"La décision que tu dois prendre"}
+          newDecision={newDecision}
+          setNewDecision={setNewDecision}
+          decisionKey="firstContent"
+        />
       </div>
     </>
   );

@@ -16,28 +16,28 @@ export type CommentType = {
 };
 
 export type DecisionType = {
-  id: number;
+  id?: number;
   title: string;
   firstContent: string;
-  secondContent: string;
-  utility: string;
-  context: string;
+  secondContent?: string;
+  utility?: string;
+  context?: string;
   pros: string;
   cons: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   firstDeadline: string;
   firstDecision: string;
   secondDeadline: string;
   finalDecision: string;
-  statusId: number;
-  status: StatusType;
-  userId: number;
-  user: UserType;
-  categories: { category: CategoryType }[];
-  users: { user: UserType; type: string }[];
-  groups: GroupType[];
-  comments: CommentType[];
+  statusId?: number;
+  status?: StatusType;
+  userId?: number;
+  user?: UserType;
+  categories?: { category: CategoryType }[];
+  users?: { user: UserType; type: string }[];
+  groups?: GroupType[];
+  comments?: CommentType[];
 };
 
 export type GroupType = {
