@@ -1,22 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // STYLE IMPORTS
 import style from "../ConnexionPage/ConnexionPage.module.scss";
 import { HelpCircle } from "react-feather";
 import logo from "../../assets/img/logo.svg";
 // PACKAGE IMPORTS
-import Joi from "joi";
+import { errorToast } from "../../components/toasts/toats";
+import { registerValidation } from "../../utils/validation";
+import { register } from "../../utils/api/authApi";
+import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import { getServices } from "../../utils/api/serviceApi";
+import { ServiceType } from "../../utils/types";
+import { useState } from "react";
 
 export default function RegisterPage() {
-  // VALIDATE DATA WITH JOI
-  const schema = Joi.object({
-    email: Joi.string().email({ tlds: { allow: false } }),
-    // password rules : at least one uppercase letter, one lowercase letter, one digit, one special character and min 8 characters
-    password: Joi.string().pattern(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-    ),
-    confirmedPassword: Joi.ref("password"),
-    cgu: Joi.string().pattern(/^(on)$/),
-  });
+  const navigate = useNavigate();
+
+  const [services, setServices] = useState<void | ServiceType[]>([]);
+
+  useEffect(() => {
+    getServices()
+      .then((res) => {
+        setServices(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   // FORM SUBMIT HANDLER
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -25,14 +35,20 @@ export default function RegisterPage() {
     // Read the form data
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
-
-    const checkFormDatas = schema.validate(formJson);
-    // const checkCheckBox = "cgu" in formJson;
-    if (checkFormDatas.error) {
-      // console.log(checkFormDatas.error.details[0].path[0]);
-      console.log(checkFormDatas);
+    console.log(formJson);
+    if (registerValidation(formJson).error) {
+      errorToast("Les mots de passe ne sont pas identiques");
     } else {
-      console.log("Form posted");
+      register(formJson)
+        .then((res) => {
+          if (res?.status === "created") {
+            navigate("/");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          errorToast("Une erreur est survenue");
+        });
     }
   }
   return (
@@ -46,6 +62,20 @@ export default function RegisterPage() {
         </Link>
       </p>
       <form onSubmit={handleSubmit}>
+        <label>Prénom *</label>
+        <input
+          type="text"
+          name="firstname"
+          className={style.inputStyle}
+          required
+        />
+        <label>Nom de famille *</label>
+        <input
+          type="text"
+          name="lastname"
+          className={style.inputStyle}
+          required
+        />
         <label>
           Adresse email * <HelpCircle className={style.helpIcon} />
         </label>
@@ -55,6 +85,30 @@ export default function RegisterPage() {
           className={style.inputStyle}
           required
         />
+        <label>
+          Poste occupé * <HelpCircle className={style.helpIcon} />
+        </label>
+        <input
+          type="text"
+          name="position"
+          className={style.inputStyle}
+          required
+        />
+        <label>
+          Service * <HelpCircle className={style.helpIcon} />
+        </label>
+        <select name="serviceId" className={style.inputStyle}>
+          <option key={0} value="null">
+            Choisir son service
+          </option>
+          {services?.map((service) => {
+            return (
+              <option key={service.id} value={service.id}>
+                {service.name}
+              </option>
+            );
+          })}
+        </select>
         <label>
           Mot de passe * <HelpCircle className={style.helpIcon} />
         </label>
@@ -98,6 +152,7 @@ export default function RegisterPage() {
           M'inscrire avec cet e-mail
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 }

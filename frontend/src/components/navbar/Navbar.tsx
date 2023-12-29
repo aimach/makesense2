@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.svg";
 import style from "./Navbar.module.scss";
 import { Home, Calendar, Smile, Menu, User } from "react-feather";
 import UserMenuModale from "../userMenuModale/UserMenuModale";
+import { UserContext } from "../../context/UserContext";
 
 export default function Navbar() {
+  const { profile } = useContext(UserContext);
+
   const [openModale, setOpenModale] = useState(false);
 
   return (
@@ -35,7 +38,14 @@ export default function Navbar() {
           onClick={() => setOpenModale(!openModale)}
         >
           <Menu className={style.userMenuButtonMenuIcon} />
-          <User className={style.userMenuButtonUserIcon} />
+          {profile ? (
+            <img
+              src={profile.avatar as string}
+              alt={`${profile.firstname} ${profile.lastname}`}
+            />
+          ) : (
+            <User className={style.userMenuButtonUserIcon} />
+          )}
         </button>
         {openModale && <UserMenuModale />}
       </div>

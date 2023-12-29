@@ -6,6 +6,9 @@ const prisma = new PrismaClient();
 export const serviceControllers = {
   // READ
   getAllServices: async (req: Request, res: Response): Promise<void> => {
+    const token = req.cookies;
+
+    console.log(token);
     try {
       const allServices = await prisma.service.findMany({
         include: {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Profiler, useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import title from "../../assets/img/title.svg";
 import CategorySection from "../../components/categoriesSection/CategorySection";
@@ -6,6 +6,7 @@ import LastSection from "../../components/lastSection/LastSection";
 import Searchbar from "../../components/searchbar/Searchbar";
 import style from "./Home.module.scss";
 import { DecisionType } from "../../utils/types";
+import { UserContext } from "../../context/UserContext";
 
 type LoaderData = DecisionType[];
 export interface IFilters {
