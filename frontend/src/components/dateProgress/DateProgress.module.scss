@@ -1,0 +1,57 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.datesContainer {
+  @include m.flex(row, flex-start, flex-start);
+  width: 100%;
+  gap: 2rem;
+  &__dates {
+    width: 40%;
+    div {
+      height: 60px;
+    }
+  }
+  &__labels {
+    width: 70%;
+    div {
+      height: 60px;
+      font-weight: v.$font-weight-extrabold;
+    }
+  }
+  &__progress {
+    position: relative;
+    transform: rotate(90deg);
+  }
+  &__pass {
+    color: v.$color-neutral-60;
+  }
+  &__future {
+    color: v.$color-calypso;
+    p {
+      font-size: v.$font-size-xs;
+    }
+  }
+
+  progress {
+    position: absolute;
+    margin: auto;
+  }
+
+  progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  progress[value]::-webkit-progress-bar {
+    // background-color: v.$color-atlantis;
+    background-color: v.$color-neutral-80;
+    height: 5px;
+    border-radius: v.$border-radius-rounded;
+  }
+
+  progress[value]::-webkit-progress-value {
+    background-color: v.$color-atlantis;
+    height: 5px;
+    border-radius: v.$border-radius-rounded;
+  }
+}
