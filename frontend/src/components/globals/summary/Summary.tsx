@@ -2,6 +2,9 @@ import { CommentType } from "../../../utils/types";
 import style from "./Summary.module.scss";
 import Comment from "../comment/Comment";
 import CommentForm from "../../commentForm/CommentForm";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
+import { Link } from "react-router-dom";
 
 interface Props {
   summary: string;
@@ -9,6 +12,8 @@ interface Props {
 }
 
 export default function Summary({ summary, details }: Props) {
+  const { profile } = useContext(UserContext);
+
   return (
     <details className={style.detailsContainer}>
       <summary>
@@ -21,7 +26,14 @@ export default function Summary({ summary, details }: Props) {
         <p>{details as string}</p>
       ) : (
         <div className={style.commentContainer}>
-          <CommentForm />
+          {profile ? (
+            <CommentForm />
+          ) : (
+            <p>
+              <Link to="/login">Connectez-vous</Link> pour ajouter un
+              commentaire
+            </p>
+          )}
 
           {details != null && details.length > 0 ? (
             <>
