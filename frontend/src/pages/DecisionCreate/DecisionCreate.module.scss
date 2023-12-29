@@ -63,7 +63,6 @@
       @include m.flex(row, center, center);
       gap: v.$font-size-xs;
       width: 80%;
-      cursor: pointer;
       &:hover {
         @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
         border: v.$border-width-m solid v.$color-cerise;
@@ -76,12 +75,10 @@
     .nextButton {
       @include m.unbuttonize();
       @include m.buttonStyle(v.$border-color-success, v.$color-neutral-100);
-      cursor: pointer;
     }
     .backButton {
       @include m.unbuttonize();
       @include m.flex(row, flex-start, center);
-      cursor: pointer;
     }
   }
 }

@@ -12,6 +12,11 @@ export default function DecisionPage() {
   const { decisionId } = useParams();
   const [decision, setDecision] = useState<DecisionType | null>(null);
 
+  const handleClick = () => {
+    const detailsElements = document.getElementsByTagName("details");
+    detailsElements[detailsElements.length - 1].setAttribute("open", "true");
+  };
+
   useEffect(() => {
     axios
       .get<DecisionType>(
@@ -154,33 +159,43 @@ export default function DecisionPage() {
             </div>
           </div>
         </div>
-        <div>
+        <div className={style.concernedContainer}>
           <h3>Personnes impactées</h3>
-          {decision?.users
-            .filter((user) => {
-              return user.type === "concerné";
-            })
-            .map((user) => (
-              <img
-                src={user.user.avatar as string}
-                alt={user.user.firstname}
-                key={user.user.id}
-              />
-            ))}
+          <div>
+            {decision?.users
+              .filter((user) => {
+                return user.type === "concerné";
+              })
+              .map((user) => (
+                <img
+                  src={user.user.avatar as string}
+                  alt={user.user.firstname}
+                  key={user.user.id}
+                />
+              ))}
+          </div>
+          <button type="button" onClick={handleClick}>
+            Voir les avis
+          </button>
         </div>
-        <div className={style.expertsContainer}>
+        <div className={style.concernedContainer}>
           <h3>Personnes expertes</h3>
-          {decision?.users
-            .filter((user) => {
-              return user.type === "expert";
-            })
-            .map((user) => (
-              <img
-                src={user.user.avatar as string}
-                alt={user.user.firstname}
-                key={user.user.id}
-              />
-            ))}
+          <div>
+            {decision?.users
+              .filter((user) => {
+                return user.type === "expert";
+              })
+              .map((user) => (
+                <img
+                  src={user.user.avatar as string}
+                  alt={user.user.firstname}
+                  key={user.user.id}
+                />
+              ))}
+          </div>
+          <button type="button" onClick={handleClick}>
+            Voir les avis
+          </button>
         </div>
       </aside>
     </div>

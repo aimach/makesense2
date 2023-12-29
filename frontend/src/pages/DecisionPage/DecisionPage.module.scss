@@ -54,6 +54,22 @@
     margin: 0.2rem;
   }
 }
+
+.concernedContainer {
+  button {
+    @include m.unbuttonize();
+    text-decoration: underline;
+    color: v.$color-calypso;
+    padding-top: v.$font-space-xs;
+  }
+}
+
+.commentButton {
+  @include m.unbuttonize();
+  @include m.buttonStyle(v.$color-calypso, v.$color-neutral-100);
+  margin: auto;
+}
+
 .datesContainer {
   @include m.flex(row, flex-start, flex-start);
   width: 100%;

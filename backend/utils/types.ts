@@ -6,7 +6,6 @@ export type CategoryType = {
 
 export type CommentType = {
   id?: number;
-  title: string;
   content: string;
   userId: number;
   decisionId: number;
