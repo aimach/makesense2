@@ -6,6 +6,22 @@ const prisma = new PrismaClient();
 export const userControllers = {
   // READ
   getAllUsers: async (req: Request, res: Response): Promise<void> => {
+    const filters = [];
+    if (req.query.name) {
+      filters.push(
+        {
+          firstname: {
+            contains: req.query.name as string,
+          },
+        },
+        {
+          lastname: {
+            contains: req.query.name as string,
+          },
+        }
+      );
+    }
+
     try {
       const allUsers = await prisma.user.findMany({
         select: {
@@ -13,7 +29,6 @@ export const userControllers = {
           firstname: true,
           lastname: true,
           email: true,
-          refreshToken: true,
           avatar: true,
           admin: true,
           position: true,
@@ -24,6 +39,10 @@ export const userControllers = {
           decisions: true,
           comments: true,
         },
+        where: {
+          OR: filters,
+        },
+        take: filters.length > 0 ? 3 : 10,
       });
       res.status(200).send(allUsers);
     } catch (err) {
