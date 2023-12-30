@@ -18,6 +18,7 @@ export default function UserMenuModale() {
           <button type="button" onClick={handleClick}>
             Deconnexion
           </button>
+          <Link to={"/decisions/create"}>Publier une décision</Link>
         </>
       ) : (
         <>
@@ -25,7 +26,6 @@ export default function UserMenuModale() {
           <Link to={"/register"}>Inscription</Link>
         </>
       )}
-      <Link to={"/decisions/create"}>Publier une décision</Link>
     </div>
   );
 }
