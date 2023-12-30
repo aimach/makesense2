@@ -1,0 +1,16 @@
+@use "../../../styles/variable" as v;
+@use "../../../styles/mixin" as m;
+
+.searchSelectInput {
+  @include m.inputStyle();
+  width: 100%;
+}
+
+.resultList {
+  position: absolute;
+  width: 103%;
+  border: v.$border-width-m solid v.$border-color-base;
+  button:hover {
+    background-color: v.$color-neutral-80;
+  }
+}

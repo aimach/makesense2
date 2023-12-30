@@ -9,7 +9,7 @@ import { ChevronLeft } from "react-feather";
 import formBG from "../../assets/img/form-bg.jpg";
 import { DecisionType } from "../../utils/types";
 
-export interface stepProps {
+export interface newDecisionProps {
   newDecision: DecisionType;
   setNewDecision: (newDecision: DecisionType) => void;
 }
@@ -36,7 +36,7 @@ export default function DecisionCreate() {
     <FifthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
   ];
 
-  // console.log(newDecision);
+  console.log(newDecision);
 
   return (
     <div className={style.decisionCreateContainer}>

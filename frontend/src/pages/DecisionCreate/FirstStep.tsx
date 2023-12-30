@@ -1,8 +1,11 @@
 import TextEditor from "../../components/globals/wysiwyg/TextEditor";
 import style from "./DecisionCreate.module.scss";
-import { stepProps } from "./DecisionCreate";
+import { newDecisionProps } from "./DecisionCreate";
 
-export default function FirstStep({ newDecision, setNewDecision }: stepProps) {
+export default function FirstStep({
+  newDecision,
+  setNewDecision,
+}: newDecisionProps) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewDecision({ ...newDecision, [event.target.name]: event.target.value });
   };

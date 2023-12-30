@@ -1,10 +1,10 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./TextEditor.scss";
-import { stepProps } from "../../../pages/DecisionCreate/DecisionCreate";
+import { newDecisionProps } from "../../../pages/DecisionCreate/DecisionCreate";
 import { DecisionType } from "../../../utils/types";
 
-interface IProps extends stepProps {
+interface IProps extends newDecisionProps {
   placeholder: string;
   decisionKey: string;
 }

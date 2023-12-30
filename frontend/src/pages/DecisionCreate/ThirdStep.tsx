@@ -1,8 +1,11 @@
 import style from "./DecisionCreate.module.scss";
 import TextEditor from "../../components/globals/wysiwyg/TextEditor";
-import { stepProps } from "./DecisionCreate";
+import { newDecisionProps } from "./DecisionCreate";
 
-export default function ThirdStep({ newDecision, setNewDecision }: stepProps) {
+export default function ThirdStep({
+  newDecision,
+  setNewDecision,
+}: newDecisionProps) {
   return (
     <>
       <div className={style.inputContainer}>
