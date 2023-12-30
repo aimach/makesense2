@@ -42,11 +42,13 @@ export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
     }
   };
 
+  console.log(expertsList);
+
   return (
     <>
-      <div className={`${style.inputContainer} ${style.normalInput}`}>
+      <div className={`${style.inputContainer}`}>
         <label htmlFor="expert">Ajouter des experts</label>
-        <div>
+        <div className={style.concernedContainer}>
           <input
             type="text"
             placeholder="Rechercher..."
@@ -76,7 +78,8 @@ export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
           >
             {expertsList.map((expert) => (
               <option key={expert.id} value={expert.id}>
-                {expert.firstname} {expert.lastname}
+                {expert.firstname} {expert.lastname}, {expert.position} -{" "}
+                {expert.service.name}
               </option>
             ))}
           </select>

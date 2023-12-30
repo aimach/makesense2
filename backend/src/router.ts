@@ -115,8 +115,8 @@ router.delete(
 
 // USERS
 
-router.get("/users", authMiddleware.protected, userControllers.getAllUsers);
-router.get("/users/:id", authMiddleware.protected, userControllers.getUserById);
+router.get("/users", userControllers.getAllUsers);
+router.get("/users/:id", userControllers.getUserById);
 router.put(
   "/users/:id",
   authMiddleware.getUserByEmailAndPassword,

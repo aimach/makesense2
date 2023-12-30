@@ -96,3 +96,22 @@
     display: none;
   }
 }
+
+.concernedContainer {
+  width: 100%;
+  position: relative;
+  input {
+    @include m.inputStyle();
+    width: 100%;
+  }
+  svg {
+    position: absolute;
+    right: -10px;
+    top: 5px;
+  }
+
+  select {
+    @include m.inputStyle();
+    width: 100%;
+  }
+}

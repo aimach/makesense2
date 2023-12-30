@@ -38,10 +38,14 @@ export const userControllers = {
           groups: true,
           decisions: true,
           comments: true,
+          service: true,
         },
-        where: {
-          OR: filters,
-        },
+        where:
+          filters.length > 0
+            ? {
+                OR: filters,
+              }
+            : {},
         take: filters.length > 0 ? 3 : 10,
       });
       res.status(200).send(allUsers);
