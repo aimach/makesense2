@@ -1,9 +1,9 @@
 import style from "./DecisionCard.module.scss";
-import { DecisionType } from "../../utils/types";
-import Tag from "../tag/Tag";
+import { CategoryType, DecisionType } from "../../utils/types";
 import { Link } from "react-router-dom";
 import { Calendar } from "react-feather";
 import { differenceInDays } from "date-fns";
+import TagCategory from "../tag/TagCategory";
 
 interface DecisionCardProps {
   decision: DecisionType;
@@ -30,13 +30,15 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
         </div>
         <p>{descriptionSliced}</p>
         <div className={style.tagContainer}>
-          {decision.categories.map((category) => (
-            <Tag
+          {decision.categories.map((category: { category: CategoryType }) => (
+            <TagCategory
               content={category.category.name}
               color={category.category.color}
-              canBeSelected={false}
+              id={category.category.id}
               key={category.category.id}
-              canBeRemoved={false}
+              newDecision={decision}
+              setNewDecision={() => null}
+              canBeSelected={false}
             />
           ))}
         </div>

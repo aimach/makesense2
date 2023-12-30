@@ -3,10 +3,11 @@ import style from "./DecisionPage.module.scss";
 import { useEffect, useState } from "react";
 import { DecisionType, UserType } from "../../utils/types";
 import axios from "axios";
-import Tag from "../../components/tag/Tag";
+import Tag from "../../components/tag/TagCategory";
 import Summary from "../../components/globals/summary/Summary";
 import ConcernedPerson from "../../components/concernedPerson/ConcernedPerson";
 import DateProgress from "../../components/dateProgress/DateProgress";
+import TagCategory from "../../components/tag/TagCategory";
 
 export default function DecisionPage() {
   const { decisionId } = useParams();
@@ -58,12 +59,12 @@ export default function DecisionPage() {
         <section>
           <div className={style.tagContainer}>
             {decision?.categories.map((category) => (
-              <Tag
+              <TagCategory
                 content={category.category.name}
                 color={category.category.color}
-                canBeSelected={false}
-                canBeRemoved={false}
+                id={category.category.id}
                 key={category.category.id}
+                canBeSelected={false}
               />
             ))}
           </div>

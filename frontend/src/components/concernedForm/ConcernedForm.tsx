@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import style from "./concernedForm.module.scss";
 import SearchSelect from "../globals/searchSelect/SearchSelect";
-import Tag from "../tag/Tag";
 import { UserType } from "../../utils/types";
 import { newDecisionProps } from "../../pages/DecisionCreate/DecisionCreate";
 import { getUsersByName } from "../../utils/api/userApi";
+import TagPerson from "../tag/TagPerson";
 
 interface concernedFormProps extends newDecisionProps {
   type: string;
@@ -70,13 +70,11 @@ export default function ConcernedForm({
             newDecision.users
               .filter((user) => user.type === type)
               .map((user) => (
-                <Tag
+                <TagPerson
                   key={user.user.connect.id}
-                  type="person"
                   content={user.user.connect.id}
                   color={type === "expert" ? "#196c84" : "#9b084f"}
-                  canBeSelected={false}
-                  canBeRemoved={true}
+                  type={type}
                   newDecision={newDecision}
                   setNewDecision={setNewDecision}
                 />

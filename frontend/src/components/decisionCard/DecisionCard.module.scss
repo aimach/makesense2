@@ -17,7 +17,6 @@
   padding: v.$font-space-xxxxl;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: v.$border-radius-rounded;
-  gap: v.$font-space-l;
   h4 {
     font-size: v.$font-size-xxl;
     font-weight: v.$font-weight-extrablack;
@@ -53,7 +52,6 @@
 .tagContainer {
   @include m.flex(row, flex-start, flex-start);
   flex-wrap: wrap;
-  gap: v.$font-space-l;
 }
 
 .dateContainer {

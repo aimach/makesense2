@@ -27,6 +27,7 @@ export default function DecisionCreate() {
     firstDecision: "",
     secondDeadline: "",
     finalDecision: "",
+    categories: [],
   });
   const components: JSX.Element[] = [
     <FirstStep newDecision={newDecision} setNewDecision={setNewDecision} />,
@@ -36,7 +37,7 @@ export default function DecisionCreate() {
     <FifthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
   ];
 
-  console.log(newDecision);
+  // console.log(newDecision);
 
   return (
     <div className={style.decisionCreateContainer}>

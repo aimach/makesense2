@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getCategories } from "../../utils/api/categoryApi";
 import { CategoryType } from "../../utils/types";
-import Tag from "../../components/tag/Tag";
 import style from "./DecisionCreate.module.scss";
 import { newDecisionProps } from "./DecisionCreate";
+import TagCategory from "../../components/tag/TagCategory";
 
 export default function FifthStep({
   newDecision,
@@ -26,12 +26,14 @@ export default function FifthStep({
       <h3>Choisir les tags</h3>
       <div className={style.tagContainer}>
         {categories.map((category) => (
-          <Tag
+          <TagCategory
             content={category.name}
             color={category.color}
-            canBeSelected={true}
-            canBeRemoved={true}
+            id={category.id}
             key={category.id}
+            newDecision={newDecision}
+            setNewDecision={setNewDecision}
+            canBeSelected={true}
           />
         ))}
       </div>
