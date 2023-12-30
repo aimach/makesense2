@@ -55,17 +55,6 @@ export default function ConcernedForm({
     }
   };
 
-  const handleClickRemoved = (concernedId: number) => {
-    const newDecisionUsers = newDecision.users.filter((user) => {
-      console.log(typeof user.user.connect.id);
-      user.user.connect.id !== concernedId;
-    });
-    setNewDecision({
-      ...newDecision,
-      users: newDecisionUsers,
-    });
-  };
-
   return (
     <div className={`${style.inputContainer}`}>
       <h3>Ajouter des {type}s</h3>
@@ -88,7 +77,8 @@ export default function ConcernedForm({
                   color={type === "expert" ? "#196c84" : "#9b084f"}
                   canBeSelected={false}
                   canBeRemoved={true}
-                  handleClickRemove={handleClickRemoved}
+                  newDecision={newDecision}
+                  setNewDecision={setNewDecision}
                 />
               ))}
         </div>

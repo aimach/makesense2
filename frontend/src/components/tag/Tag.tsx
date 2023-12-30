@@ -3,8 +3,9 @@ import style from "./Tag.module.scss";
 import { getUserById } from "../../utils/api/userApi";
 import { UserType } from "../../utils/types";
 import { X } from "react-feather";
+import { newDecisionProps } from "../../pages/DecisionCreate/DecisionCreate";
 
-interface TagProps {
+interface TagProps extends newDecisionProps {
   content: string;
   color: string;
   canBeSelected: boolean;
@@ -19,7 +20,8 @@ export default function Tag({
   canBeSelected,
   canBeRemoved,
   type,
-  handleClickRemove,
+  newDecision,
+  setNewDecision,
 }: TagProps) {
   const noSelectedStyle = {
     backgroundColor: "white",
@@ -38,6 +40,17 @@ export default function Tag({
   const handleClickSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setIsSelected(!isSelected);
+  };
+
+  const handleClickRemoved = (concernedId: string) => {
+    const newDecisionUsers = newDecision.users.filter(
+      (user) =>
+        user.user.connect.id !== parseInt(concernedId, 10) && user.type !== type
+    );
+    setNewDecision({
+      ...newDecision,
+      users: newDecisionUsers,
+    });
   };
 
   const [person, setPerson] = useState<UserType | void>({} as UserType);
@@ -66,7 +79,7 @@ export default function Tag({
         : content}
       {canBeRemoved ? (
         <X
-          onClick={() => handleClickRemove((person as UserType).id.toString())}
+          onClick={() => handleClickRemoved((person as UserType).id.toString())}
         />
       ) : null}
     </div>
