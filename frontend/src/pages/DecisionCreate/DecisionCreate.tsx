@@ -9,10 +9,12 @@ import SixthStep from "./SixthStep";
 import { ChevronLeft } from "react-feather";
 import formBG from "../../assets/img/form-bg.jpg";
 import { DecisionType } from "../../utils/types";
+import { decisionValidation } from "../../utils/validation";
 
 export interface newDecisionProps {
   newDecision: DecisionType;
   setNewDecision: (newDecision: DecisionType) => void;
+  error: { type: string; key: string };
 }
 
 export default function DecisionCreate() {
@@ -30,16 +32,55 @@ export default function DecisionCreate() {
     finalDecision: "",
     categories: [],
   });
+  const [error, setError] = useState<{ type: string; key: string }>({});
   const components: JSX.Element[] = [
-    <FirstStep newDecision={newDecision} setNewDecision={setNewDecision} />,
-    <SecondStep newDecision={newDecision} setNewDecision={setNewDecision} />,
-    <ThirdStep newDecision={newDecision} setNewDecision={setNewDecision} />,
-    <FourthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
-    <FifthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
-    <SixthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
+    <FirstStep
+      newDecision={newDecision}
+      setNewDecision={setNewDecision}
+      error={error}
+    />,
+    <SecondStep
+      newDecision={newDecision}
+      setNewDecision={setNewDecision}
+      error={error}
+    />,
+    <ThirdStep
+      newDecision={newDecision}
+      setNewDecision={setNewDecision}
+      error={error}
+    />,
+    <FourthStep
+      newDecision={newDecision}
+      setNewDecision={setNewDecision}
+      error={error}
+    />,
+    <FifthStep
+      newDecision={newDecision}
+      setNewDecision={setNewDecision}
+      error={error}
+    />,
+    <SixthStep
+      newDecision={newDecision}
+      setNewDecision={setNewDecision}
+      error={error}
+    />,
   ];
 
   // console.log(newDecision);
+  console.log(error);
+
+  const handleClickToPassStep = () => {
+    const validation = decisionValidation(step, newDecision);
+    console.log(validation);
+    if (validation !== undefined && validation.error) {
+      setError({
+        type: validation.error.details[0].type,
+        key: validation.error.details[0].path[0] as string,
+      });
+    } else {
+      setStep(step + 1);
+    }
+  };
 
   const handleClickOnPostButton = () => {
     console.log(newDecision);
@@ -75,7 +116,7 @@ export default function DecisionCreate() {
 
             {step < 5 ? (
               <button
-                onClick={() => setStep(step + 1)}
+                onClick={handleClickToPassStep}
                 className={style.nextButton}
               >
                 Etape suivante

@@ -44,4 +44,56 @@ const loginValidation = (body: { [k: string]: FormDataEntryValue }) => {
   return loginSchema.validate(body);
 };
 
-export { commentValidation, loginValidation, registerValidation };
+const decisionValidation = (step, body) => {
+  let schema = null;
+  if (step === 0) {
+    schema = Joi.object({
+      title: Joi.string().required(),
+      firstContent: Joi.string().required(),
+      pros: Joi.optional(),
+      cons: Joi.optional(),
+      users: Joi.optional(),
+      firstDeadline: Joi.optional(),
+      firstDecision: Joi.optional(),
+      secondDeadline: Joi.optional(),
+      finalDecision: Joi.optional(),
+      categories: Joi.optional(),
+    });
+  }
+  if (step === 1) {
+    schema = Joi.object({
+      title: Joi.string().required(),
+      firstContent: Joi.string().required(),
+      pros: Joi.string().required(),
+      cons: Joi.optional(),
+      users: Joi.optional(),
+      firstDeadline: Joi.optional(),
+      firstDecision: Joi.optional(),
+      secondDeadline: Joi.optional(),
+      finalDecision: Joi.optional(),
+      categories: Joi.optional(),
+    });
+  }
+  if (step === 2) {
+    schema = Joi.object({
+      title: Joi.string().required(),
+      firstContent: Joi.string().required(),
+      pros: Joi.string().required(),
+      cons: Joi.optional(),
+      users: Joi.optional(),
+      firstDeadline: Joi.optional(),
+      firstDecision: Joi.optional(),
+      secondDeadline: Joi.optional(),
+      finalDecision: Joi.optional(),
+      categories: Joi.optional(),
+    });
+  }
+  if (schema !== null) return schema.validate(body);
+};
+
+export {
+  commentValidation,
+  loginValidation,
+  registerValidation,
+  decisionValidation,
+};

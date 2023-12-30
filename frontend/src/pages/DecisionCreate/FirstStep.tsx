@@ -5,6 +5,7 @@ import { newDecisionProps } from "./DecisionCreate";
 export default function FirstStep({
   newDecision,
   setNewDecision,
+  error,
 }: newDecisionProps) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewDecision({ ...newDecision, [event.target.name]: event.target.value });
@@ -21,6 +22,7 @@ export default function FirstStep({
           value={newDecision.title}
           onChange={(event) => handleChange(event)}
         />
+        {error.key === "title" && <p>{error.type}</p>}
       </div>
       <div className={`${style.inputContainer}`}>
         <label htmlFor="description">Description *</label>
@@ -29,7 +31,9 @@ export default function FirstStep({
           newDecision={newDecision}
           setNewDecision={setNewDecision}
           decisionKey="firstContent"
+          error={error}
         />
+        {error.key === "firstContent" && <p>{error.type}</p>}
       </div>
     </>
   );
