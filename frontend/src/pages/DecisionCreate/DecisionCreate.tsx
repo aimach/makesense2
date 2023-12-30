@@ -5,6 +5,7 @@ import SecondStep from "./SecondStep";
 import ThirdStep from "./ThirdStep";
 import FourthStep from "./FourthStep";
 import FifthStep from "./FifthStep";
+import SixthStep from "./SixthStep";
 import { ChevronLeft } from "react-feather";
 import formBG from "../../assets/img/form-bg.jpg";
 import { DecisionType } from "../../utils/types";
@@ -35,9 +36,14 @@ export default function DecisionCreate() {
     <ThirdStep newDecision={newDecision} setNewDecision={setNewDecision} />,
     <FourthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
     <FifthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
+    <SixthStep newDecision={newDecision} setNewDecision={setNewDecision} />,
   ];
 
   // console.log(newDecision);
+
+  const handleClickOnPostButton = () => {
+    console.log(newDecision);
+  };
 
   return (
     <div className={style.decisionCreateContainer}>
@@ -67,7 +73,7 @@ export default function DecisionCreate() {
               </button>
             )}
 
-            {step < 4 ? (
+            {step < 5 ? (
               <button
                 onClick={() => setStep(step + 1)}
                 className={style.nextButton}
@@ -75,7 +81,12 @@ export default function DecisionCreate() {
                 Etape suivante
               </button>
             ) : (
-              <button className={style.nextButton}>Publier la décision</button>
+              <button
+                className={style.nextButton}
+                onClick={() => handleClickOnPostButton()}
+              >
+                Publier la décision
+              </button>
             )}
           </div>
         </div>

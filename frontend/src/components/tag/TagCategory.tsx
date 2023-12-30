@@ -22,13 +22,13 @@ export default function TagCategory({
 }: TagProps) {
   const noSelectedStyle = {
     backgroundColor: "white",
-    border: `2px solid ${color}`,
+    border: `1px solid ${color}`,
     color: color,
   };
 
   const selectedStyle = {
     backgroundColor: color,
-    border: `2px solid ${color}`,
+    border: `1px solid ${color}`,
     color: "white",
   };
 

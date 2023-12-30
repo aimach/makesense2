@@ -88,3 +88,12 @@
   flex-wrap: wrap;
   padding: v.$font-size-s;
 }
+
+.dateContainer {
+  @include m.flex(column, flex-start, flex-start);
+  gap: v.$font-size-s;
+  margin-top: v.$font-size-s;
+  input {
+    @include m.inputStyle();
+  }
+}
