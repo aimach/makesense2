@@ -145,9 +145,6 @@ $desktop: 1280;
   padding: v.$space-s;
   font-size: v.$font-size-m;
   cursor: pointer;
-  &:hover {
-    opacity: v.$opacity-hover;
-  }
 }
 
 @mixin textSizeS($color) {

@@ -69,6 +69,7 @@ export type UserType = {
   admin: boolean;
   position: string;
   serviceId: number;
+  service: ServiceType;
   createdAt: Date;
   updatedAt: Date;
 };

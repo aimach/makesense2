@@ -20,10 +20,11 @@ export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
         console.error(error);
       }
     };
-    if (displayExpertsList) getUsersList();
-  }, [displayExpertsList]);
+    getUsersList();
+  }, [searchValue]);
 
-  const handleSelectExpert = (expertId: string) => {
+  const handleSelectExpert = (event, expertId: number) => {
+    event.preventDefault();
     const newExpert = {
       user: { connect: { id: expertId } },
       type: "expert",
@@ -36,9 +37,9 @@ export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
           ...newDecision,
           users: [...newDecision.users, newExpert],
         });
-        setDisplayExpertsList(false);
-        setSearchValue("");
       }
+      setDisplayExpertsList(false);
+      setSearchValue("");
     }
   };
 
@@ -56,34 +57,22 @@ export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          {displayExpertsList ? (
-            <X
-              onClick={() => {
-                setDisplayExpertsList(false);
-                setSearchValue("");
-              }}
-            />
-          ) : (
-            <Search
-              onClick={() => setDisplayExpertsList(!displayExpertsList)}
-            />
+          <Search />
+          {searchValue !== "" && (
+            <div className={style.resultList}>
+              {expertsList.map((expert) => (
+                <button
+                  type="button"
+                  key={expert.id}
+                  onClick={(event) => handleSelectExpert(event, expert.id)}
+                >
+                  {expert.firstname} {expert.lastname}, {expert.position} -{" "}
+                  {expert.service.name}
+                </button>
+              ))}{" "}
+            </div>
           )}
-          <select
-            name="expert"
-            id="expert"
-            className={
-              displayExpertsList ? style.expertsList : style.expertsListNone
-            }
-            onChange={(event) => handleSelectExpert(event.target.value)}
-          >
-            {expertsList.map((expert) => (
-              <option key={expert.id} value={expert.id}>
-                {expert.firstname} {expert.lastname}, {expert.position} -{" "}
-                {expert.service.name}
-              </option>
-            ))}
-          </select>
-          <div>
+          <div className={style.concernedTagContainer}>
             {newDecision.users !== undefined &&
               newDecision.users.map((expert) => (
                 <Tag

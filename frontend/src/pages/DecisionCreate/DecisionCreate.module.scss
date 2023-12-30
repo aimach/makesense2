@@ -86,7 +86,6 @@
 .tagContainer {
   @include m.flex(row, flex-start, flex-start);
   flex-wrap: wrap;
-  gap: v.$font-size-s;
   padding: v.$font-size-s;
 }
 
@@ -108,10 +107,25 @@
     position: absolute;
     right: -10px;
     top: 5px;
+    color: v.$color-neutral-60;
   }
 
-  select {
-    @include m.inputStyle();
+  button {
+    @include m.unbuttonize();
+    @include m.buttonStyle(v.$color-neutral-100, v.$color-blue-dianne);
     width: 100%;
   }
+
+  .resultList {
+    @include m.inputStyle();
+    position: absolute;
+    width: 103%;
+    border: v.$border-width-m solid v.$border-color-base;
+  }
+}
+
+.concernedTagContainer {
+  @include m.flex(row, flex-start, flex-start);
+  flex-wrap: wrap;
+  width: 100%;
 }
