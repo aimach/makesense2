@@ -89,3 +89,10 @@
   gap: v.$font-size-s;
   padding: v.$font-size-s;
 }
+
+.expertsList {
+  display: block;
+  &None {
+    display: none;
+  }
+}

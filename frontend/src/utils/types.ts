@@ -35,7 +35,10 @@ export type DecisionType = {
   userId?: number;
   user?: UserType;
   categories?: { category: CategoryType }[];
-  users?: { user: UserType; type: string }[];
+  users?: {
+    user: UserType | { connect: { id: number | string } };
+    type: string;
+  }[];
   groups?: GroupType[];
   comments?: CommentType[];
 };

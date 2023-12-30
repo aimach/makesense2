@@ -1,15 +1,15 @@
 import style from "./DecisionCreate.module.scss";
-import { Plus } from "react-feather";
+import { Search, X } from "react-feather";
 import { stepProps } from "./DecisionCreate";
 import { useEffect, useState } from "react";
 import { UserType } from "../../utils/types";
 import { getUsersByName } from "../../utils/api/userApi";
+import Tag from "../../components/tag/Tag";
 
 export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
   const [searchValue, setSearchValue] = useState<string>("");
   const [expertsList, setExpertsList] = useState<UserType[]>([]);
-
-  console.log(expertsList);
+  const [displayExpertsList, setDisplayExpertsList] = useState<boolean>(false);
 
   useEffect(() => {
     const getUsersList = async () => {
@@ -20,19 +20,33 @@ export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
         console.error(error);
       }
     };
-    getUsersList();
-  }, [searchValue]);
+    if (displayExpertsList) getUsersList();
+  }, [displayExpertsList]);
+
+  const handleSelectExpert = (expertId: string) => {
+    const newExpert = {
+      user: { connect: { id: expertId } },
+      type: "expert",
+    };
+    if (newDecision.users !== undefined) {
+      if (
+        !newDecision.users.some((user) => user.user.connect.id === expertId)
+      ) {
+        setNewDecision({
+          ...newDecision,
+          users: [...newDecision.users, newExpert],
+        });
+        setDisplayExpertsList(false);
+        setSearchValue("");
+      }
+    }
+  };
 
   return (
     <>
       <div className={`${style.inputContainer} ${style.normalInput}`}>
-        <label htmlFor="expert">Les experts</label>
-
-        <button>
-          <Plus />
-          Ajouter un expert
-        </button>
-        <div id="myDropdown" className="dropdown-content">
+        <label htmlFor="expert">Ajouter des experts</label>
+        <div>
           <input
             type="text"
             placeholder="Rechercher..."
@@ -40,29 +54,49 @@ export default function FourthStep({ newDecision, setNewDecision }: stepProps) {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <select name="expert" id="expert">
+          {displayExpertsList ? (
+            <X
+              onClick={() => {
+                setDisplayExpertsList(false);
+                setSearchValue("");
+              }}
+            />
+          ) : (
+            <Search
+              onClick={() => setDisplayExpertsList(!displayExpertsList)}
+            />
+          )}
+          <select
+            name="expert"
+            id="expert"
+            className={
+              displayExpertsList ? style.expertsList : style.expertsListNone
+            }
+            onChange={(event) => handleSelectExpert(event.target.value)}
+          >
             {expertsList.map((expert) => (
-              <option
-                key={expert.id}
-                // onClick={() =>
-                //   setNewDecision({
-                //     ...newDecision,
-                //     users: [...newDecision.users, expert],
-                //   })
-                // }
-              >
+              <option key={expert.id} value={expert.id}>
                 {expert.firstname} {expert.lastname}
               </option>
             ))}
           </select>
+          <div>
+            {newDecision.users !== undefined &&
+              newDecision.users.map((expert) => (
+                <Tag
+                  key={expert.user.connect.id}
+                  type="person"
+                  content={expert.user.connect.id}
+                  color="#196c84"
+                  canBeSelected={false}
+                />
+              ))}
+          </div>
         </div>
       </div>
       <div className={`${style.inputContainer} ${style.normalInput}`}>
         <label>Les impactés</label>
-        <button>
-          <Plus />
-          Ajouter un impacté
-        </button>
+        <button>Ajouter un impacté</button>
       </div>
     </>
   );

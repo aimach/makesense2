@@ -19,4 +19,18 @@ const getUsersByName = (searchValue: string): Promise<void | UserType[]> => {
     });
 };
 
-export { getUsersByName };
+const getUserById = (id: string): Promise<void | UserType> => {
+  return axios
+    .get(`${import.meta.env.VITE_BACKEND_URL as string}/users/${id}`, {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token") as string}`,
+      },
+    })
+    .then((res) => res.data as UserType)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export { getUsersByName, getUserById };
