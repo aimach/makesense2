@@ -30,6 +30,7 @@ export default function FifthStep({
             content={category.name}
             color={category.color}
             canBeSelected={true}
+            canBeRemoved={true}
             key={category.id}
           />
         ))}

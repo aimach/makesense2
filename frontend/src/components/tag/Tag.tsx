@@ -2,15 +2,25 @@ import { useEffect, useState } from "react";
 import style from "./Tag.module.scss";
 import { getUserById } from "../../utils/api/userApi";
 import { UserType } from "../../utils/types";
+import { X } from "react-feather";
 
 interface TagProps {
   content: string;
   color: string;
   canBeSelected: boolean;
+  canBeRemoved: boolean;
   type: string;
+  handleClickRemove: (id: string) => void;
 }
 
-export default function Tag({ content, color, canBeSelected, type }: TagProps) {
+export default function Tag({
+  content,
+  color,
+  canBeSelected,
+  canBeRemoved,
+  type,
+  handleClickRemove,
+}: TagProps) {
   const noSelectedStyle = {
     backgroundColor: "white",
     border: `2px solid ${color}`,
@@ -25,7 +35,7 @@ export default function Tag({ content, color, canBeSelected, type }: TagProps) {
 
   const [isSelected, setIsSelected] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setIsSelected(!isSelected);
   };
@@ -41,12 +51,11 @@ export default function Tag({ content, color, canBeSelected, type }: TagProps) {
       getUserName(content);
     }
   }, [type, content]);
-
   return canBeSelected ? (
     <button
       style={isSelected ? selectedStyle : noSelectedStyle}
       className={style.tag}
-      onClick={handleClick}
+      onClick={handleClickSelect}
     >
       {content}
     </button>
@@ -55,6 +64,11 @@ export default function Tag({ content, color, canBeSelected, type }: TagProps) {
       {type === "person"
         ? `${(person as UserType).firstname} ${(person as UserType).lastname}`
         : content}
+      {canBeRemoved ? (
+        <X
+          onClick={() => handleClickRemove((person as UserType).id.toString())}
+        />
+      ) : null}
     </div>
   );
 }

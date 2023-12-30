@@ -62,6 +62,7 @@ export default function DecisionPage() {
                 content={category.category.name}
                 color={category.category.color}
                 canBeSelected={false}
+                canBeRemoved={false}
                 key={category.category.id}
               />
             ))}

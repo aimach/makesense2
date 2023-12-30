@@ -36,6 +36,7 @@ export default function DecisionCard({ decision }: DecisionCardProps) {
               color={category.category.color}
               canBeSelected={false}
               key={category.category.id}
+              canBeRemoved={false}
             />
           ))}
         </div>
