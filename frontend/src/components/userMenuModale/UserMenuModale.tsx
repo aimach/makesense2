@@ -14,7 +14,7 @@ export default function UserMenuModale() {
     <div className={style.userMenuButtonModale}>
       {profile ? (
         <>
-          <p>Mes informations</p>
+          <Link to="/profil">Mes informations</Link>
           <button type="button" onClick={handleClick}>
             Deconnexion
           </button>

@@ -23,6 +23,7 @@ export const userControllers = {
           groups: true,
           decisions: true,
           comments: true,
+          service: true,
         },
       });
       res.status(200).send(allUsers);
@@ -47,6 +48,7 @@ export const userControllers = {
           admin: true,
           position: true,
           serviceId: true,
+          service: true,
           createdAt: true,
           updatedAt: true,
         },

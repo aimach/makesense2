@@ -68,4 +68,5 @@ export type UserType = {
   serviceId: number;
   createdAt: Date;
   updatedAt: Date;
+  service: ServiceType;
 };

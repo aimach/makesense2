@@ -228,6 +228,7 @@ export const authControllers = {
           serviceId: true,
           createdAt: true,
           updatedAt: true,
+          service: true,
         },
       });
       if (userToRead === null) {

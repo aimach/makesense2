@@ -12,6 +12,7 @@ import { DecisionType } from "./utils/types.ts";
 import axios from "axios";
 import DecisionPage from "./pages/DecisionPage/DecisionPage.tsx";
 import DecisionResult from "./pages/DecisionResult.tsx/DecisionResult.tsx";
+import ProfilPage from "./pages/ProfilPage/ProfilPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             .then((res) => res.data)
             .catch((err) => console.error(err));
         },
+      },
+      {
+        path: "profil",
+        element: <ProfilPage />,
       },
       {
         path: "decisions/",
