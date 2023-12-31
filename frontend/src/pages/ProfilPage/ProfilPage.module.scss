@@ -1,0 +1,38 @@
+@use "../../styles/variable" as v;
+@use "../../styles/mixin" as m;
+
+.headSection {
+  @include m.flex(column, flex-start, flex-start);
+  gap: v.$font-space-xxxl;
+  margin: v.$font-space-xxxl 0;
+  padding-bottom: v.$font-space-xl;
+  border-bottom: v.$border-width-m solid v.$border-color-base;
+}
+
+.avatarSection {
+  @include m.flex(row, flex-start, center);
+  gap: v.$font-space-xxxl;
+  img {
+    @include m.avatar();
+    width: 100px;
+  }
+}
+
+.menuSection {
+  @include m.flex(row, flex-start, center);
+  gap: v.$font-space-xxxl;
+  button {
+    @include m.flex(row, flex-start, center);
+    gap: v.$font-space-xl;
+    @include m.unbuttonize();
+  }
+  .buttonStyle {
+    @include m.buttonStyle(v.$color-neutral-80, v.$color-blue-dianne);
+    &:hover {
+      @include m.buttonStyle(v.$color-cerise, v.$color-neutral-100);
+    }
+    &Active {
+      @include m.buttonStyle(v.$color-neutral-80, v.$color-cerise);
+    }
+  }
+}
