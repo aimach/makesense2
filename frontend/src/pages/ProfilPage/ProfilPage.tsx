@@ -3,6 +3,9 @@ import { UserContext } from "../../context/UserContext";
 import { useState } from "react";
 import style from "./ProfilPage.module.scss";
 import { Layers, Users, User } from "react-feather";
+import DecisionSection from "./DecisionSection";
+import GroupSection from "./GroupSection";
+import ProfilSection from "./ProfilSection";
 
 export default function ProfilPage() {
   const { profile } = useContext(UserContext);
@@ -62,9 +65,9 @@ export default function ProfilPage() {
           </nav>
         </section>
         <section>
-          {section === "decisions" && <div>Mes décisions</div>}
-          {section === "groups" && <div>Mes groupes</div>}
-          {section === "profil" && <div>Mon profil</div>}
+          {section === "decisions" && <DecisionSection />}
+          {section === "groups" && <GroupSection />}
+          {section === "profil" && <ProfilSection />}
         </section>
       </div>
     )

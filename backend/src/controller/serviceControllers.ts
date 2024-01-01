@@ -6,9 +6,9 @@ const prisma = new PrismaClient();
 export const serviceControllers = {
   // READ
   getAllServices: async (req: Request, res: Response): Promise<void> => {
-    const token = req.cookies;
-
-    console.log(token);
+    // const token = req.cookies;
+    // console.log(token);
+    // ça fonctionne !!! on récupère le token ! mais pourquoi ???
     try {
       const allServices = await prisma.service.findMany({
         include: {
